@@ -19,7 +19,6 @@ export const Register = (props) => {
                 "username": email.current.value,
                 "first_name": firstName.current.value,
                 "last_name": lastName.current.value,
-
                 "email": email.current.value,
                 "password": password.current.value
             }
@@ -43,10 +42,8 @@ export const Register = (props) => {
             passwordDialog.current.showModal()
         }
     }
-
     return (
         <main style={{ textAlign: "center" }}>
-
             <dialog className="dialog dialog--password" ref={passwordDialog}>
                 <div>Passwords do not match</div>
                 <button className="button--close" onClick={e => passwordDialog.current.close()}>Close</button>
