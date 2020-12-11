@@ -1,36 +1,29 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useContext, useEffect, useState } from 'react'
-import { ScoreBoardContext } from './ScoreBoardProvider.js'
+import { useState } from 'react'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
 
-export const ScoreBoardList = (props) => {
+export const ScoreBoardList = () => {
 
+  const dayCounter = (counter) => { 
+   
+  const DateNow = Date.now() 
+  const newDate = Date.now() + 1 
+  
+    if(newDate > DateNow) {
+     return counter++
+    }
+  }
 
-  const { scoreBoardData, getScoreBoardData } = useContext(ScoreBoardContext)
+  const [score, setScore] = useState(dayCounter(1))
+  const [spacing] = React.useState(2);
  
-  
+const useStyles = makeStyles((theme) => ({
 
-  const [spacing, setSpacing] = React.useState(2);
-  console.log(scoreBoardData)
-
-  useEffect(() => {
-   getScoreBoardData()
-  }, [])
-  
-const now = Date.now()
-console.log(now)
-const newer = new Date
-console.log(newer)
-
-
-
-  const useStyles = makeStyles((theme) => ({
-
-    root: {
+  root: {
       flexGrow: 1,
     },
     paper: {
@@ -44,24 +37,22 @@ console.log(newer)
     },
     Button: {
       marginTop: 25
-    }}));
-  
-    const classes = useStyles();
+    }
+  }));
+
+  const classes = useStyles();
   return <>
     <Grid container className={classes.root} spacing={2}>
       <Grid item xs={12}>
         <Grid container justify="center" spacing={spacing}>
           <Grid>
             <Paper className={classes.paper} style={{ backgroundColor: "#9dabb1" }}>
-              {scoreBoardData.map((value) => {
-                return (
-                  <div key={value}>
-                    <h1>Days Since</h1>
-                    <h1>{value.daysSinceBoard}</h1>
-                    <Button className={classes.Button}  variant="contained" color="primary">Reset counter</Button>
-                  </div>)
-              })}
-             </Paper>
+              <div>
+                <h1>Days Since</h1>
+                <h1 className="score">{score}</h1>
+                <Button onClick={() => setScore(0)} className={classes.Button} variant="contained" color="primary">Reset counter</Button>
+              </div>
+            </Paper>
           </Grid>
         </Grid>
       </Grid>
