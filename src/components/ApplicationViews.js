@@ -10,9 +10,10 @@ import { WellBeingForm } from './wellbeing/WellBeingForm'
 export const ApplicationViews = () => {
     return <>
     <Route exact path ="/login">
-        <Login />
+    
     </Route>
     <Route exact path ="/wellbeingform">
+        <NavBar/>
         <WellBeingForm />
     </Route>
         <ScoreBoardProvider>
