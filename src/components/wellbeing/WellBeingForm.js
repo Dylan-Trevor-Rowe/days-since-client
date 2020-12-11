@@ -1,28 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-import { withStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
-import Radio from '@material-ui/core/Radio';
+import Checkbox from '@material-ui/core/Checkbox'
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-const GreenRadio = withStyles({
-    root: {
-        color: green[400],
-        '&$checked': {
-            color: green[600],
-        },
-    },
-    checked: {},
-})((props) => <Radio color="default" {...props} />);
+import './WellBeing.css'
+
 
 const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'start',
-        marginLeft: 25
+        marginLeft: 30,
+        marginTop: 50
     },
     textField: {
         marginLeft: theme.spacing(1),
@@ -31,12 +24,11 @@ const useStyles = makeStyles((theme) => ({
     },
     root: {
         width: 300,
-        marginTop: 20,
-        marginLeft: 25
+        marginTop: 35,
+        marginLeft: 30
 
     },
 }));
-
 
 export function WellBeingForm() {
     const classes = useStyles();
@@ -44,17 +36,17 @@ export function WellBeingForm() {
     function valuetext(value) {
         return `${value}`;
     }
-    const [value, setValue] = React.useState('female');
-    const [selectedValue, setSelectedValue] = React.useState('a');
-    const [SelectedValueTwo, setSelectedValueTwo] = React.useState('b');
 
-    const handleChangeTwo = (event) => {
-        setSelectedValue(event.target.value);
-    };
+    const [name, setName] = useState([])
+    const getValue = (e) => {
+        let data = name;
+        data.push(e.target.value)
+        setName(data)
+    }
 
-   return <>
+    return <>
         <form className={classes.container} noValidate>
-            <TextField
+           <TextField
                 id="date"
                 label="date"
                 type="date"
@@ -67,7 +59,7 @@ export function WellBeingForm() {
         </form>
         <div className={classes.root}>
             <Typography id="discrete-slider" gutterBottom>
-                fatigue-scale
+                <h2>fatigue-scale: 1-5</h2>
       </Typography>
             <Slider
                 defaultValue={0}
@@ -80,7 +72,7 @@ export function WellBeingForm() {
                 max={5}
             />
             <Typography id="discrete-slider" gutterBottom>
-                pain-scale
+                <h2>pain-scale: 1-5</h2>
       </Typography>
             <Slider
                 defaultValue={0}
@@ -92,8 +84,85 @@ export function WellBeingForm() {
                 min={1}
                 max={5}
             />
-          
-
+      
+        <br />
+            <br />
+            <h2>Symptoms</h2>
+        </div>
+        <div className="checkbox_container">
+            <FormControlLabel
+                onChange={(e) => getValue(e)}
+                value=""
+                control={<Checkbox color="primary" />}
+                label="none"
+                labelPlacement="top"
+            />
+            <FormControlLabel
+                onChange={(e) => getValue(e)}
+                value=""
+                control={<Checkbox color="primary" />}
+                label="numbness"
+                labelPlacement="top"
+            />
+            <FormControlLabel
+                onChange={(e) => getValue(e)}
+                value=""
+                control={<Checkbox color="primary" />}
+                label="tingling"
+                labelPlacement="top"
+            />
+            <FormControlLabel
+                onChange={(e) => getValue(e)}
+                value=""
+                control={<Checkbox color="primary" />}
+                label="weakness"
+                labelPlacement="top"
+            />
+        </div>
+        <div className="checkbox_container">
+            <FormControlLabel
+                onChange={(e) => getValue(e)}
+                value=""
+                control={<Checkbox color="primary" />}
+                label="stiffness"
+                labelPlacement="top"
+            />
+            <FormControlLabel
+                onChange={(e) => getValue(e)}
+                value=""
+                control={<Checkbox color="primary" />}
+                label="bad-coordination"
+                labelPlacement="top"
+            />
+            <FormControlLabel
+                onChange={(e) => getValue(e)}
+                value=""
+                control={<Checkbox color="primary" />}
+                label="heat-sensitivity"
+                labelPlacement="top"
+            /></div>
+        <div>
+            <FormControlLabel
+                onChange={(e) => getValue(e)}
+                value=""
+                control={<Checkbox color="primary" />}
+                label="incontenance"
+                labelPlacement="top"
+            />
+            <FormControlLabel
+                onChange={(e) => getValue(e)}
+                value=""
+                control={<Checkbox color="primary" />}
+                label="brain-fog"
+                labelPlacement="top"
+            />
+                  <FormControlLabel
+                onChange={(e) => getValue(e)}
+                value=""
+                control={<Checkbox color="primary" />}
+                label="naseau"
+                labelPlacement="top"
+            />
         </div>
     </>
 }
