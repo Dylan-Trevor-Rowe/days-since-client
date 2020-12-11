@@ -5,8 +5,7 @@ export const WellBeingContext = React.createContext()
 export const WellBeingProvider = (props) => {
     const [wellBeingData, setWellBeingData] = useState([])
 
-
-    const getWellBeingData = async () => {
+     const getWellBeingData = async () => {
         try {
             const response = await fetch("http://localhost:8000/wellbeing", {
                 headers: {
