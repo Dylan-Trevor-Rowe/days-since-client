@@ -39,9 +39,12 @@ export function WellBeingForm() {
 
     const [name, setName] = useState([])
     const getValue = (e) => {
-        let data = name;
+        let data = name; 
+        // setting state variable name to the variable data
         data.push(e.target.value)
+        // data sends the on change value from the event object
         setName(data)
+        // then names value is updated
     }
 
     return <>
