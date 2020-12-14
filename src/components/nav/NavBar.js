@@ -34,6 +34,7 @@ export const NavBar = () => {
         <Link to="/wellbeing" style={{ textDecoration: 'none', color: 'black' }} ><Tab label="well-being"></Tab></Link>
         <Link to="/journal" style={{ textDecoration: 'none', color: 'black' }}><Tab label="journal"></Tab></Link>
         <Link to="/goals" style={{ textDecoration: 'none', color: 'black' }}><Tab label="goals"></Tab></Link>
+        <Link to="/articles" style={{ textDecoration: 'none', color: 'black' }}><Tab label="articles"></Tab></Link>
         <Link to="/login" style={{ textDecoration: 'none', color: 'black' }}><Tab label="log-out"></Tab></Link>
       </Tabs>
     </Paper>

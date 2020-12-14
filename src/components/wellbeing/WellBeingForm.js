@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Button from '@material-ui/core/Button';
 
 import './WellBeing.css'
 
@@ -13,22 +14,18 @@ const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'start',
+        justifyContent: 'center',
+        alignContent: 'center',
         marginLeft: 30,
-        marginTop: 50
+        marginTop: 50,
+        width: 500
     },
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
         width: 200,
     },
-    root: {
-        width: 300,
-        marginTop: 35,
-        marginLeft: 30
-
-    },
-}));
+  }));
 
 export function WellBeingForm() {
     const classes = useStyles();
@@ -45,7 +42,8 @@ export function WellBeingForm() {
     }
 
     return <>
-        <form className={classes.container} noValidate>
+
+        <form className="checkbox_container" noValidate>
            <TextField
                 id="date"
                 label="date"
@@ -57,7 +55,7 @@ export function WellBeingForm() {
                 }}
             />
         </form>
-        <div className={classes.root}>
+        <div  className="slider_container">
             <Typography id="discrete-slider" gutterBottom>
                 <h2>fatigue-scale: 1-5</h2>
       </Typography>
@@ -141,7 +139,7 @@ export function WellBeingForm() {
                 label="heat-sensitivity"
                 labelPlacement="top"
             /></div>
-        <div>
+        <div className="checkbox_container">
             <FormControlLabel
                 onChange={(e) => getValue(e)}
                 value=""
@@ -163,6 +161,10 @@ export function WellBeingForm() {
                 label="naseau"
                 labelPlacement="top"
             />
-        </div>
+            <br></br>
+            </div>
+        <div className="button_container">
+        <Button style={{ backgroundColor: "#1B4353", margin:10 }}  className={classes.Button} variant="contained" color="primary">submit</Button>
+        </div>  
     </>
 }
