@@ -19,6 +19,7 @@ export const ApplicationViews = () => {
             <GoalsForm />
         </Route>
         <Route exact path="/journalform">
+            <NavBar />
            <JournalEntryForm />
         </Route>
         <Route exact path="/wellbeingform">

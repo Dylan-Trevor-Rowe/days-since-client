@@ -41,6 +41,31 @@ export function WellBeingForm() {
         setName(data)
     }
 
+    // function Usage() {
+    //     const [checkedOne, setCheckedOne] = useState(false);
+    //     const updateOne = () => setCheckedOne(!checkedOne);
+    //     const [checkedTwo, setCheckedTwo] = useState(true);
+    //     const updateTwo = () => setCheckedTwo(!checkedTwo);
+      
+    //     return (
+    //       <>
+    //         <Checkbox
+    //           name="a"
+    //           label="Checkbox"
+    //           checked={checkedOne}
+    //           onChange={updateOne}
+    //         />
+    //         <Checkbox
+    //           name="b"
+    //           label="Checkbox"
+    //           checked={checkedTwo}
+    //           onChange={updateTwo}
+    //           // disabled={true}
+    //         />
+    //       </>
+    //     );
+    //   }
+
     return <>
 
         <form className="checkbox_container" noValidate>
