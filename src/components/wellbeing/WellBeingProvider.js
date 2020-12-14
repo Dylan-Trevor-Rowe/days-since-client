@@ -20,7 +20,7 @@ export const WellBeingProvider = (props) => {
     }
 
     const createWellBeingData = async data => {
-        const response = await fetch("http://localhost:8000/wellbeing", {
+        const response = await fetch(`http://localhost:8000/wellbeing`,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
