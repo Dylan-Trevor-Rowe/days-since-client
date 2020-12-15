@@ -4,6 +4,7 @@ import { ScoreBoardProvider } from "./scoreboard/ScoreBoardProvider"
 import { ScoreBoardList } from './scoreboard/ScoreBoardList'
 import { NavBar } from './nav/NavBar.js'
 import { WellBeingForm } from './wellbeing/WellBeingForm'
+import { WellBeingProvider } from './wellbeing/WellBeingProvider'
 import { GoalsForm } from './goals/GoalsForm'
 import { JournalEntryForm } from "./journalentry/journalEntryForm"
 
@@ -11,6 +12,8 @@ import { JournalEntryForm } from "./journalentry/journalEntryForm"
 export const ApplicationViews = () => {
 
     return <>
+        
+        <WellBeingProvider>
         <Route exact path="/login">
 
         </Route>
@@ -32,5 +35,6 @@ export const ApplicationViews = () => {
                 <ScoreBoardList />
             </Route>
         </ScoreBoardProvider>
+        </WellBeingProvider>
     </>
 }
