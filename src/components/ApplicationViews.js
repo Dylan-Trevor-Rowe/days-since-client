@@ -7,11 +7,12 @@ import { WellBeingForm } from './wellbeing/WellBeingForm'
 import { WellBeingProvider } from './wellbeing/WellBeingProvider'
 import { GoalsForm } from './goals/GoalsForm'
 import { JournalEntryForm } from "./journalentry/journalEntryForm"
-
+import { JournalEntryProvider } from './journalentry/JournalEntryProvider'
 
 export const ApplicationViews = () => {
 
     return <>
+    <JournalEntryProvider>
         
         <WellBeingProvider>
         <Route exact path="/login">
@@ -36,5 +37,6 @@ export const ApplicationViews = () => {
             </Route>
         </ScoreBoardProvider>
         </WellBeingProvider>
+        </JournalEntryProvider>
     </>
 }
