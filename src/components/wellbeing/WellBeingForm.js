@@ -28,45 +28,74 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function WellBeingForm() {
-
     const { createWellBeingData, getWellBeingData } = useContext(WellBeingContext)
+
+    const [sliderValue, setSliderValue] = useState(0)
+    const updateRange = (e, data) => {
+        setSliderValue(data)
+    }
+    const [sliderValueTwo, setSliderValueTwo] = useState(0)
+    const updateRangeTwo = (e, data) => {
+        setSliderValueTwo(data)
+    }
+    const [sliderValueThree, setSliderValueThree] = useState(0)
+    const updateRangeThree = (e, data) => {
+        setSliderValueThree(data)
+    }
+    const [sliderValueFour, setSliderValueFour] = useState(0)
+    const updateRangeFour = (e, data) => {
+        setSliderValueFour(data)
+    }
+
+    const [tinglingChecked, setTinglingChecked] = useState(0)
+    const [noSymptomsChecked, setNoSymptomsChecked] = useState(0)
+    const [numbnessChecked, setNumbnessChecked] = useState(0)
+    const [weaknessChecked, setWeaknessChecked] = useState(0)
+    const [stiffnessChecked, setStiffnessChecked] = useState(0)
+    const [coordinationChecked, setCoordinationOrBalanceProblemsChecked] = useState(0)
+    const [heatSensitivityChecked, setHeatSensitivityChecked] = useState(0)
+    const [incontenanceChecked, setIncontenanceChecked] = useState(0)
+    const [brainFogChecked, setBrainFogChecked] = useState(0)
+
 
     const classes = useStyles();
 
     function valuetext(value) {
         return `${value}`;
     }
-// initialize an empty state array
+    // initialize an empty state array
     const [checkedValues, setCheckedValues] = useState([
 
     ]);
     // console.log(checkedValues)
-
     useEffect(() => {
         getWellBeingData()
 
     }, [])
 
-    
+
     const toggle = (e) => {
         const name = e.target.name;
-        switch(name) {
-            case 'noSymptoms': {
-                setNoSymptomsChecked(true);
-                break;
-            }
-            case 'numbness': {
-                setNumbnessChecked(true);
-                break;
-            }
-            case 'tingling': {
-                setTinglingChecked(true);
-                break;
-            }
-            default: break;
-
+        if (name.includes('noSymptoms')) {
+           setNoSymptomsChecked(true)
+        } if (name.includes('numbess')) {
+            setNumbnessChecked(true)
+        } if (name.includes('tingling')) {
+            setTinglingChecked(true)
+        } if (name.includes('weakness')) {
+            setWeaknessChecked(true)
+        } if (name.includes('stiffness')) {
+            setStiffnessChecked(true)
+        } if (name.includes('coordinationOrBalanceProblems')) {
+            setCoordinationOrBalanceProblemsChecked(true)
+        } if (name.includes('heatSensitivity')) {
+            setHeatSensitivityChecked(true)
+        } if (name.includes('incontenance')) {
+            setIncontenanceChecked(true)
+        } if (name.includes('brainFog')) {
+            setBrainFogChecked(true)
         }
-        console.log('toggle name', e.target.name);
+    console.log('toggle name', e.target.name);
         // set a variable that equals the name that is checked
         if (checkedValues.includes(name)) {
             // if that name exists in the state array
@@ -84,44 +113,15 @@ export function WellBeingForm() {
             // push the checked names into the state array
             setCheckedValues(updatedCheckedValues)
         }
-        // // define 3 variables and when you get checked value from checkbox you can update state value
-        // // using switch state if = 'stiffness' stiffness = true...
-
     }
-    const [ tinglingChecked, setTinglingChecked ] = useState(0)
-    const [ noSymptomsChecked, setNoSymptomsChecked ] = useState(0)
-    const [ numbnessChecked, setNumbnessChecked ] = useState(0)
+    
 
-    const [sliderValue, setSliderValue] = useState(0)
-    const updateRange = (e, data) => {
-        setSliderValue(data)
+const constructANewDay = () => {
 
-    }
-
-    const [sliderValueTwo, setSliderValueTwo] = useState(0)
-    const updateRangeTwo = (e, data) => {
-        setSliderValueTwo(data)
-
-    }
-
-    const [sliderValueThree, setSliderValueThree] = useState(0)
-    const updateRangeThree = (e, data) => {
-        setSliderValueThree(data)
-
-    }
-
-    const [sliderValueFour, setSliderValueFour] = useState(0)
-    const updateRangeFour = (e, data) => {
-        setSliderValueFour(data)
-
-    }
-
-    const constructANewDay = () => {
-
-        const dateData = new Date().toISOString().slice(0,10);
+        const dateData = new Date().toISOString().slice(0, 10);
 
         const newEntry = {
-            id: 12,
+            
             date: dateData,
             fatigueScale: sliderValue,
             painScale: sliderValueTwo,
@@ -129,8 +129,14 @@ export function WellBeingForm() {
             hoursOfSleep: sliderValueFour,
             noSymptoms: noSymptomsChecked,
             numbness: numbnessChecked,
-            tingling: tinglingChecked
-        }
+            tingling: tinglingChecked,
+            weakness: weaknessChecked,
+            stiffness: stiffnessChecked,
+            coordinationOrBalanceProblems: coordinationChecked,
+            heatSensitivity: heatSensitivityChecked,
+            incontenance: incontenanceChecked,
+            brainFog: brainFogChecked,
+    }
         createWellBeingData(newEntry)
     }
     return <>
@@ -222,51 +228,51 @@ export function WellBeingForm() {
                 label='tingling'
                 labelPlacement="top"
             />
-            {/* <FormControlLabel
-               
-               value="noSymptoms"
-               control={<Checkbox  onChange={toggle} checked={checked} color="primary" />}
-               label="none"
-               labelPlacement="top"
-           />
-        </div>
-        <div className="checkbox_container">
-        <FormControlLabel
-               
-                value="noSymptoms"
-                control={<Checkbox  onChange={toggle} checked={checked} color="primary" />}
-                label="none"
+            <FormControlLabel
+
+                value="weakness"
+                control={<Checkbox name='weakness' onChange={toggle} checked={checkedValues.includes('weakness')} color="primary" />}
+                label="weakness"
                 labelPlacement="top"
             />
-            <FormControlLabel
-               
-               value="noSymptoms"
-               control={<Checkbox  onChange={toggle} checked={checked} color="primary" />}
-               label="none"
-               labelPlacement="top"
-           />
-             <FormControlLabel
-               
-               value="noSymptoms"
-               control={<Checkbox  onChange={toggle} checked={checked} color="primary" />}
-               label="none"
-               labelPlacement="top" />*/}
         </div>
         <div className="checkbox_container">
-            {/* <FormControlLabel
+            <FormControlLabel
 
-                value="noSymptoms"
-                control={<Checkbox onChange={toggle} checked={checked} color="primary" />}
-                label="none"
+                value="stiffness"
+                control={<Checkbox name='stiffness' onChange={toggle} checked={checkedValues.includes('stiffness')} color="primary" />}
+                label="stiffness"
                 labelPlacement="top"
             />
             <FormControlLabel
 
-                value="noSymptoms"
-                control={<Checkbox onChange={toggle} checked={checked} color="primary" />}
-                label="none"
+                value="coordinationOrBalanceProblems"
+                control={<Checkbox name='coordinationOrBalanceProblems' onChange={toggle} checked={checkedValues.includes('coordinationOrBalanceProblems')} color="primary" />}
+                label="coordination-problems"
                 labelPlacement="top"
-            /> */}
+            />
+            <FormControlLabel
+
+                value="heatSensitivity"
+                control={<Checkbox name="heatSensitivity" onChange={toggle} checked={checkedValues.includes('heatSensitivity')} color="primary" />}
+                label="heat-sensitivity"
+                labelPlacement="top" />
+        </div>
+        <div className="checkbox_container">
+            <FormControlLabel
+
+                value="incontenance"
+                control={<Checkbox name="incontenance" onChange={toggle} checked={checkedValues.includes('incontenance')} color="primary" />}
+                label="incontenance"
+                labelPlacement="top"
+            />
+            <FormControlLabel
+
+                value="brainFog"
+                control={<Checkbox name="brainFog" onChange={toggle} checked={checkedValues.includes('brainFog')} color="primary" />}
+                label="brain-fog"
+                labelPlacement="top"
+            />
 
             <br></br>
         </div>
@@ -275,4 +281,3 @@ export function WellBeingForm() {
         </div>
     </>
 }
-
