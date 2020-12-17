@@ -35,7 +35,6 @@ export const Register = (props) => {
                 .then(res => {
                     if ("token" in res) {
                         localStorage.setItem("days_since_token", res.token)
-
                         props.history.push("/")
                     }
                 })

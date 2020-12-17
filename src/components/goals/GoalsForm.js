@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { GoalContext } from './GoalProvider'
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -32,20 +33,49 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const GoalsForm = () => {
+
+    const { getGoalData, goalData, createGoalData } = useContext(GoalContext)
+   const [ name, setName ] = useState([false])
+   const [ checked , setChecked ] = useState([])
+
+     useEffect(() => {
+        getGoalData()
+
+    }, [])
+    
+
+
     const classes = useStyles();
 
-    const [name, setName] = useState([])
+//     const toggle = (id) => {
+//     let data = []
+//    const dataofgoals = goalData.map((id)=> {
+//     const array = data.push({id:id, checked: false}) 
+//     return array
+//     })
+//     console.log(dataofgoals)
+//     }
+
     const getValue = (e) => {
-        let data = name;
-        data.push(e.target.value)
-        setName(data)
+    const value = e.target.value
+    setName(value)
+}
+
+    const constructAnewGoal = () => {
+        const dateData = new Date().toISOString().slice(0, 10);
+        const newGoal = {
+            date: dateData,
+            goal_name: name
+        }
+         createGoalData(newGoal) 
     }
 
     return <>
 
         <div className="goals_container">
-            <form className={classes.container} noValidate>
+        <div className={classes.container}>
                 <TextField
+                    // checked={}
                     id="date"
                     label="date"
                     type="date"
@@ -55,57 +85,31 @@ export const GoalsForm = () => {
                         shrink: true,
                     }}
                 />
-            </form>
+          </div>
             <br />
             <br />
         </div>
         <div className="checkbox_container">
             <br></br>
-            <FormControlLabel
-                onChange={(e) => getValue(e)}
-                value=""
-                control={<Checkbox color="primary" />}
-                label="none"
-                labelPlacement="top" />
-            <FormControlLabel
-                onChange={(e) => getValue(e)}
-                value=""
-                control={<Checkbox color="primary" />}
-                label="sudoku: 10 mins"
-                labelPlacement="top" />
+            {goalData.map((val) => {
+                return (
+                    <div key={val}>
+                        <Checkbox color="primary"
+                            // checked={toggle}
+                            onChange={(e) => getValue(e)}
+                            value={name}
+                            id={val.id}
+                            label={val.goal_name}
+                            labelPlacement="top">
+                        </Checkbox>
+                    </div>)
+})}
         </div>
-        <div className="checkbox_container">
-            <FormControlLabel
-                onChange={(e) => getValue(e)}
-                value=""
-                control={<Checkbox color="primary" />}
-                label="sudoku: 10 mins"
-                labelPlacement="top" />
-            <FormControlLabel
-                onChange={(e) => getValue(e)}
-                value=""
-                control={<Checkbox color="primary" />}
-                label="sudoku: 10 mins"
-                labelPlacement="top"
-            />  </div>
-        <div className="checkbox_container">
-            <FormControlLabel
-                onChange={(e) => getValue(e)}
-                value=""
-                control={<Checkbox color="primary" />}
-                label="sudoku: 10 mins"
-                labelPlacement="top" />
-            <FormControlLabel
-                onChange={(e) => getValue(e)}
-                value=""
-                control={<Checkbox color="primary" />}
-                label="sudoku: 10 mins"
-                labelPlacement="top" />
-        </div>
+         
         <br></br>
         <div className="goal_input">
-            <TextField id="standard-basic" label="goal" />
-            <Button style={{ backgroundColor: "#1B4353", marginLeft: 10 }} className={classes.Button} variant="contained" color="primary">add a goal</Button>
+            <TextField type="input" id="standard-basic" label="goal" onChange={(e) => getValue(e)} />
+            <Button style={{ backgroundColor: "#1B4353", marginLeft: 10 }} onClick={constructAnewGoal} className={classes.Button} variant="contained" color="primary">add a goal</Button>
         </div>
         <div className="button_container">
             <Button style={{ backgroundColor: "#1B4353", marginLeft: 10 }} className={classes.Button} variant="contained" color="primary">submit</Button>

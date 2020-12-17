@@ -31,7 +31,7 @@ export const JournalEntryForm = () => {
         const newEntry = {
             date: dateData,
             entry: currentJournalEntry,
-            user: localStorage.getItem('days_since_token')
+
         }
         createJournalEntryData(newEntry)
     }
@@ -52,7 +52,6 @@ export const JournalEntryForm = () => {
             marginLeft: theme.spacing(1),
             marginRight: theme.spacing(1),
             marginTop: 30,
-
         },
     }));
 
@@ -83,7 +82,10 @@ export const JournalEntryForm = () => {
                         value={currentJournalEntry}
                         onChange={handleChange} />
                 </div>
-                <Button onClick={constructANewDay} style={{ backgroundColor: "#1B4353", margin: 10 }} className={classes.Button} variant="contained" color="primary">submit</Button>
+                <Button onClick={constructANewDay}
+                    style={{ backgroundColor: "#1B4353", margin: 10 }}
+                    className={classes.Button} variant="contained"
+                    color="primary">submit</Button>
             </div>
             <br />
         </>
