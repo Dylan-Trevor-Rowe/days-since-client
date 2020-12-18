@@ -9,6 +9,7 @@ import { GoalsForm } from './goals/GoalsForm'
 import { GoalProvider } from './goals/GoalProvider'
 import { JournalEntryForm } from "./journalentry/journalEntryForm"
 import { JournalEntryProvider } from './journalentry/JournalEntryProvider'
+import { GoalsList } from './goals/Goals'
 
 export const ApplicationViews = () => {
 
@@ -23,6 +24,10 @@ export const ApplicationViews = () => {
                     <Route exact path="/goalsform">
                         <NavBar />
                         <GoalsForm />
+                    </Route>
+                    <Route exact path="/goals">
+
+                    <GoalsList />
                     </Route>
                     <Route exact path="/journalform">
                         <NavBar />

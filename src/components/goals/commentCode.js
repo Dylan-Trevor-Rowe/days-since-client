@@ -23,16 +23,6 @@
 //     }
 // }));
 
-// export const GoalsForm = () => {
-
-//     const { getGoalData, goalData, createGoalData, createGoalDataTwo } = useContext(GoalContext)
-
-
-//     useEffect(() => {
-//         getGoalData()
-
-//     }, [])
-
 
 //     const classes = useStyles();
 

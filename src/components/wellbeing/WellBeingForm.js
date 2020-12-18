@@ -121,7 +121,7 @@ const constructANewDay = () => {
         const dateData = new Date().toISOString().slice(0, 10);
 
         const newEntry = {
-            
+            user_id: localStorage.getItem("user_id"),
             date: dateData,
             fatigueScale: sliderValue,
             painScale: sliderValueTwo,
