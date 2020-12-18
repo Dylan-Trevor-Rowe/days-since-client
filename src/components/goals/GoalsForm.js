@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { GoalContext } from './GoalProvider'
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button'
 import './goals.css'
+
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -32,13 +32,47 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const GoalsForm = () => {
+
+    const { getGoalData, goalData, createGoalData } = useContext(GoalContext)
+
+
+    useEffect(() => {
+        getGoalData()
+
+    }, [])
+
+
     const classes = useStyles();
 
     const [name, setName] = useState([])
+    const [goalLength, setGoalLength] = useState([])
+    const [goalReason, setGoalReason] = useState([])
+
     const getValue = (e) => {
-        let data = name;
-        data.push(e.target.value)
+        const data = e.target.value;
         setName(data)
+    }
+
+    const getValueTwo = (e) => {
+        const data = e.target.value;
+        setGoalLength(data)
+    }
+
+    const getValueThree = (e) => {
+        const data = e.target.value;
+        setGoalReason(data)
+    }
+
+    const constructANewGoal = () => {
+        const dateData = new Date().toISOString().slice(0, 10);
+        const newGoal = {
+            user_id: localStorage.getItem("user_id"),
+            date: dateData,
+            goal_name: name,
+            goal_length: goalLength,
+            goal_reason:goalReason
+        }
+        createGoalData(newGoal)
     }
 
     return <>
@@ -61,54 +95,34 @@ export const GoalsForm = () => {
         </div>
         <div className="checkbox_container">
             <br></br>
-            <FormControlLabel
-                onChange={(e) => getValue(e)}
-                value=""
-                control={<Checkbox color="primary" />}
-                label="none"
-                labelPlacement="top" />
-            <FormControlLabel
-                onChange={(e) => getValue(e)}
-                value=""
-                control={<Checkbox color="primary" />}
-                label="sudoku: 10 mins"
-                labelPlacement="top" />
-        </div>
-        <div className="checkbox_container">
-            <FormControlLabel
-                onChange={(e) => getValue(e)}
-                value=""
-                control={<Checkbox color="primary" />}
-                label="sudoku: 10 mins"
-                labelPlacement="top" />
-            <FormControlLabel
-                onChange={(e) => getValue(e)}
-                value=""
-                control={<Checkbox color="primary" />}
-                label="sudoku: 10 mins"
-                labelPlacement="top"
-            />  </div>
-        <div className="checkbox_container">
-            <FormControlLabel
-                onChange={(e) => getValue(e)}
-                value=""
-                control={<Checkbox color="primary" />}
-                label="sudoku: 10 mins"
-                labelPlacement="top" />
-            <FormControlLabel
-                onChange={(e) => getValue(e)}
-                value=""
-                control={<Checkbox color="primary" />}
-                label="sudoku: 10 mins"
-                labelPlacement="top" />
+            {goalData.map((val) => {
+                return (
+                    <div key={val}>
+                        <ol>
+                            <h3 style={{ margin: 15 }}>{val.goal_name}</h3>
+                        </ol>
+                    </div>)
+            })}
         </div>
         <br></br>
         <div className="goal_input">
-            <TextField id="standard-basic" label="goal" />
-            <Button style={{ backgroundColor: "#1B4353", marginLeft: 10 }} className={classes.Button} variant="contained" color="primary">add a goal</Button>
+            <TextField type="input" id="standard-basic" label="goal-title" onChange={getValue} />
+        </div>
+        <div className="goal_input">
+            <TextField type="input" id="standard-basic" label="length of goal" onChange={getValueTwo} />
+        </div>
+        <div className="goal_input">
+        <TextField
+                        variant="outlined"
+                        placeholder="reason for goal"
+                        multiline
+                        rows={8}
+                        rowsMax={10}
+                        onChange={getValueThree}
+                         />
         </div>
         <div className="button_container">
-            <Button style={{ backgroundColor: "#1B4353", marginLeft: 10 }} className={classes.Button} variant="contained" color="primary">submit</Button>
+            <Button onClick={constructANewGoal} style={{ backgroundColor: "#1B4353", marginLeft: 10 }} className={classes.Button} variant="contained" color="primary">length of goal</Button>
         </div>
     </>
 }
