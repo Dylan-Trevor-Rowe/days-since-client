@@ -31,7 +31,6 @@ export const JournalEntryForm = () => {
         const newEntry = {
             date: dateData,
             entry: currentJournalEntry,
-
         }
         createJournalEntryData(newEntry)
     }

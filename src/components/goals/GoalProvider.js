@@ -11,10 +11,10 @@ export const GoalProvider = (props) => {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("days_since_token")}`
             }
-        })
+        }) 
         const value = await response.json()
         return setGoalData(value)
-            
+
     }
     const createGoalData = async data => {
         const response = await fetch(`http://localhost:8000/goals`, {
@@ -29,33 +29,22 @@ export const GoalProvider = (props) => {
         return getGoalData(getData)
     }
 
-
-
-    // const editWellBeingData = async data => {
-    //     const getEditData = await fetch(`http://localhost:8000/games/${game.id}`, {
-    //         method: "PUT",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "Authorization": `Token ${localStorage.getItem("days_since_token")}`
-    //         },
-    //         body: JSON.stringify(data)
-    //     })
-    //     return getWellBeingData(getEditData)
-    // }
-
-    // const getSingleWellBeing = async (id) => {
-    //     const response = await fetch(`http://localhost:8000/games/${id}`, {
-    //         headers: {
-    //             "Authorization": `Token ${localStorage.getItem("days_since_token")}`
-    //         }
-    //     })
-    //     return await response.json()
-    // }
-
+    const createGoalDataTwo = async data => {
+        const response = await fetch(`http://localhost:8000/goals`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("days_since_token")}`
+            },
+            body: JSON.stringify(data)
+        })
+        const getDataTwo = await response.json()
+        return getGoalData(getDataTwo)
+    }
     return (
         <GoalContext.Provider value={{
-            goalData, createGoalData, getGoalData
-           
+            goalData, createGoalData, getGoalData, createGoalDataTwo
+
         }} >
             { props.children}
         </GoalContext.Provider>

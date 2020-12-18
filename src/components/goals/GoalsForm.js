@@ -35,47 +35,37 @@ const useStyles = makeStyles((theme) => ({
 export const GoalsForm = () => {
 
     const { getGoalData, goalData, createGoalData } = useContext(GoalContext)
-   const [ name, setName ] = useState([false])
-   const [ checked , setChecked ] = useState([])
+   
 
-     useEffect(() => {
+    useEffect(() => {
         getGoalData()
 
     }, [])
-    
 
 
     const classes = useStyles();
 
-//     const toggle = (id) => {
-//     let data = []
-//    const dataofgoals = goalData.map((id)=> {
-//     const array = data.push({id:id, checked: false}) 
-//     return array
-//     })
-//     console.log(dataofgoals)
-//     }
+    const [name, setName] = useState([])
 
     const getValue = (e) => {
-    const value = e.target.value
-    setName(value)
-}
+    const data = e.target.checked;
+    setName(data)
+    }
 
-    const constructAnewGoal = () => {
-        const dateData = new Date().toISOString().slice(0, 10);
+    const constructANewGoal = () => {
+           const dateData = new Date().toISOString().slice(0, 10);
         const newGoal = {
             date: dateData,
             goal_name: name
         }
-         createGoalData(newGoal) 
+        createGoalData(newGoal)
     }
 
     return <>
 
         <div className="goals_container">
-        <div className={classes.container}>
+            <form className={classes.container} noValidate>
                 <TextField
-                    // checked={}
                     id="date"
                     label="date"
                     type="date"
@@ -85,7 +75,7 @@ export const GoalsForm = () => {
                         shrink: true,
                     }}
                 />
-          </div>
+            </form>
             <br />
             <br />
         </div>
@@ -94,25 +84,22 @@ export const GoalsForm = () => {
             {goalData.map((val) => {
                 return (
                     <div key={val}>
-                        <Checkbox color="primary"
-                            // checked={toggle}
+                        <FormControlLabel
                             onChange={(e) => getValue(e)}
                             value={name}
-                            id={val.id}
+                            control={<Checkbox color="primary" />}
                             label={val.goal_name}
-                            labelPlacement="top">
-                        </Checkbox>
+                            labelPlacement="top"></FormControlLabel>
                     </div>)
-})}
+            })}
         </div>
-         
         <br></br>
         <div className="goal_input">
-            <TextField type="input" id="standard-basic" label="goal" onChange={(e) => getValue(e)} />
-            <Button style={{ backgroundColor: "#1B4353", marginLeft: 10 }} onClick={constructAnewGoal} className={classes.Button} variant="contained" color="primary">add a goal</Button>
+            <TextField type="input" id="standard-basic" label="goal"  />
+            <Button onClick={constructANewGoal} style={{ backgroundColor: "#1B4353", marginLeft: 10 }} className={classes.Button} variant="contained" color="primary">add a goal</Button>
         </div>
         <div className="button_container">
-            <Button style={{ backgroundColor: "#1B4353", marginLeft: 10 }} className={classes.Button} variant="contained" color="primary">submit</Button>
+            {/* <Button style={{ backgroundColor: "#1B4353", marginLeft: 10 }} className={classes.Button} variant="contained" color="primary">submit</Button> */}
         </div>
     </>
 }
