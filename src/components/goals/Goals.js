@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { GoalContext } from './GoalProvider'
+import { CheckedGoalsContext } from './CheckedGoalProvider'
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -9,7 +10,6 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -40,24 +40,31 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 14,
     },
     pos: {
-        marginBottom: 12,   
+        marginBottom: 12,
     },
 
 }));
 
 export function GoalsList() {
+
+    
+    const { getGoalData, goalData } = useContext(GoalContext)
+    const { getCheckedGoalsData, createCheckedGoalsData } = useContext(CheckedGoalsContext)
+
     const classes = useStyles();
     const [goal_name, setGoalName] = React.useState('');
     const [open, setOpen] = React.useState(false);
     const [selectedValue, setSelectValue] = React.useState([]);
-    const { getGoalData, goalData } = useContext(GoalContext)
+    const [ isClicked, setIsClicked ] = React.useState(false);
 
     useEffect(() => {
         getGoalData()
+        getCheckedGoalsData()
 
     }, [])
+    
 
-    const handleChange = (event) => {
+     const handleChange = (event) => {
         setGoalName(event.target.value);
         setSelectValue(event.target.value)
     };
@@ -74,6 +81,22 @@ export function GoalsList() {
     const handleOpen = () => {
         setOpen(true);
     };
+
+    const toggleButtonCreate = (event) => {
+        setIsClicked(event.target.value)
+    }
+
+    const constructACheckedGoal = () => { 
+    const dateData = new Date().toISOString().slice(0, 10);
+    const newCheckedGoal = {
+        date: dateData,
+        goal: selectedValue,
+        checked: isClicked,
+        user: parseInt(localStorage.getItem("user_id"))
+    }
+        createCheckedGoalsData(newCheckedGoal)
+    }
+
     return <>
 
         <div className={classes.select_container}>
@@ -111,22 +134,16 @@ export function GoalsList() {
                             </div>
                         })}
                     </Typography>
-                    <Typography variant="h5" component="h2">
 
-                    </Typography>
-                    <Typography className={classes.pos} color="textSecondary">
-
-                    </Typography>
-                    <Typography variant="body2" component="p">
-
-                    </Typography>
                 </CardContent>
             </Card>
         </div>
         <div className='button_container'>
             <Button>
-                Add a goal!
+                Remove Goal
         </Button>
+            <Button onChange={(e) => toggleButtonCreate(e)} onClick={constructACheckedGoal} checked={isClicked} >log-goal</Button>
+            <Button >create a new goal</Button>
         </div>
     </>
 }
