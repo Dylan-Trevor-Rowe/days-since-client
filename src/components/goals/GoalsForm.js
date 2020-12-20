@@ -64,9 +64,10 @@ export const GoalsForm = () => {
     }
 
     const constructANewGoal = () => {
+        
         const dateData = new Date().toISOString().slice(0, 10);
         const newGoal = {
-            user_id: localStorage.getItem("user_id"),
+            user_id: parseInt(localStorage.getItem("user_id")),
             date: dateData,
             goal_name: name,
             goal_length: goalLength,

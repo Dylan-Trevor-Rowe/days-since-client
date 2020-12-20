@@ -10,13 +10,15 @@ import { GoalProvider } from './goals/GoalProvider'
 import { JournalEntryForm } from "./journalentry/journalEntryForm"
 import { JournalEntryProvider } from './journalentry/JournalEntryProvider'
 import { GoalsList } from './goals/Goals'
+import { CheckedGoalsProvider } from "./goals/CheckedGoalProvider"
 
 export const ApplicationViews = () => {
 
     return <>
-
+    <CheckedGoalsProvider>
         <JournalEntryProvider>
             <GoalProvider>
+           
                 <WellBeingProvider>
                     <Route exact path="/login">
 
@@ -26,8 +28,8 @@ export const ApplicationViews = () => {
                         <GoalsForm />
                     </Route>
                     <Route exact path="/goals">
-
-                    <GoalsList />
+                        <NavBar />
+                        <GoalsList />
                     </Route>
                     <Route exact path="/journalform">
                         <NavBar />
@@ -46,6 +48,7 @@ export const ApplicationViews = () => {
                 </WellBeingProvider>
             </GoalProvider>
         </JournalEntryProvider>
-       
+    </CheckedGoalsProvider>
+
     </>
 }

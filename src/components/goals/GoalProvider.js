@@ -41,9 +41,16 @@ export const GoalProvider = (props) => {
         const getDataTwo = await response.json()
         return getGoalData(getDataTwo)
     }
+
+    const releaseGoalData = (goalId) => {
+        return fetch(`http://localhost:8088/goals/${goalId}`, {
+            method: 'DELETE',
+        }).then(getGoalData)
+    }
+
     return (
         <GoalContext.Provider value={{
-            goalData, createGoalData, getGoalData, createGoalDataTwo
+            goalData, createGoalData, getGoalData, createGoalDataTwo, releaseGoalData
 
         }} >
             { props.children}

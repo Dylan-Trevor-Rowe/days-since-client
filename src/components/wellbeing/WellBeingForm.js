@@ -76,26 +76,25 @@ export function WellBeingForm() {
 
     const toggle = (e) => {
         const name = e.target.name;
-        if (name.includes('noSymptoms')) {
-           setNoSymptomsChecked(true)
-        } if (name.includes('numbess')) {
-            setNumbnessChecked(true)
-        } if (name.includes('tingling')) {
-            setTinglingChecked(true)
-        } if (name.includes('weakness')) {
-            setWeaknessChecked(true)
-        } if (name.includes('stiffness')) {
-            setStiffnessChecked(true)
-        } if (name.includes('coordinationOrBalanceProblems')) {
-            setCoordinationOrBalanceProblemsChecked(true)
-        } if (name.includes('heatSensitivity')) {
-            setHeatSensitivityChecked(true)
-        } if (name.includes('incontenance')) {
-            setIncontenanceChecked(true)
-        } if (name.includes('brainFog')) {
-            setBrainFogChecked(true)
-        }
-    console.log('toggle name', e.target.name);
+        if (name.includes('noSymptoms')) setNoSymptomsChecked(true)
+
+        if (name.includes('numbess')) setNumbnessChecked(true)
+
+        if (name.includes('tingling')) setTinglingChecked(true)
+
+        if (name.includes('weakness')) setWeaknessChecked(true)
+
+        if (name.includes('stiffness')) setStiffnessChecked(true)
+
+        if (name.includes('coordinationOrBalanceProblems')) setCoordinationOrBalanceProblemsChecked(true)
+
+        if (name.includes('heatSensitivity')) setHeatSensitivityChecked(true)
+
+        if (name.includes('incontenance')) setIncontenanceChecked(true)
+
+        if (name.includes('brainFog')) setBrainFogChecked(true)
+
+        console.log('toggle name', e.target.name);
         // set a variable that equals the name that is checked
         if (checkedValues.includes(name)) {
             // if that name exists in the state array
@@ -114,9 +113,8 @@ export function WellBeingForm() {
             setCheckedValues(updatedCheckedValues)
         }
     }
-    
 
-const constructANewDay = () => {
+    const constructANewDay = () => {
 
         const dateData = new Date().toISOString().slice(0, 10);
 
@@ -136,7 +134,7 @@ const constructANewDay = () => {
             heatSensitivity: heatSensitivityChecked,
             incontenance: incontenanceChecked,
             brainFog: brainFogChecked,
-    }
+        }
         createWellBeingData(newEntry)
     }
     return <>
