@@ -64,7 +64,6 @@ export const GoalsForm = () => {
     }
 
     const constructANewGoal = () => {
-        
         const dateData = new Date().toISOString().slice(0, 10);
         const newGoal = {
             user_id: parseInt(localStorage.getItem("user_id")),
@@ -123,7 +122,7 @@ export const GoalsForm = () => {
                          />
         </div>
         <div className="button_container">
-            <Button onClick={constructANewGoal} style={{ backgroundColor: "#1B4353", marginLeft: 10 }} className={classes.Button} variant="contained" color="primary">length of goal</Button>
+            <Button onClick={constructANewGoal} style={{ backgroundColor: "#1B4353", marginLeft: 10 }} className={classes.Button} variant="contained" color="primary">submit</Button>
         </div>
     </>
 }
