@@ -3,7 +3,7 @@ import React, { useState } from "react"
 export const JournalEntryContext = React.createContext()
 
 export const JournalEntryProvider = (props) => {
-    const [JournalEntryData, setJournalEntryData] = useState([])
+    const [journalEntryData, setJournalEntryData] = useState([])
 
     const createJournalEntryData = async data => {
         const response = await fetch(`http://localhost:8000/journal`, {
@@ -28,9 +28,20 @@ export const JournalEntryProvider = (props) => {
         return setJournalEntryData(value)
             
     }
+
+    const deleteJournalEntry = async (entryId) => {
+        const result = await fetch(`http://localhost:8000/journal/${entryId}`, {
+            method: 'DELETE',
+            headers: {
+               "Authorization": `Token ${localStorage.getItem("days_since_token")}`
+            },
+        })
+        return getJournalEntryData(result)
+    }
+
     return (
         <JournalEntryContext.Provider value={{
-            getJournalEntryData, JournalEntryData, setJournalEntryData, createJournalEntryData
+            getJournalEntryData, journalEntryData, setJournalEntryData, createJournalEntryData, deleteJournalEntry
         }} >
             { props.children}
         </JournalEntryContext.Provider>

@@ -11,7 +11,7 @@ export const GoalProvider = (props) => {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("days_since_token")}`
             }
-        }) 
+        })
         const value = await response.json()
         return setGoalData(value)
 
@@ -42,15 +42,19 @@ export const GoalProvider = (props) => {
         return getGoalData(getDataTwo)
     }
 
-    const releaseGoalData = (goalId) => {
-        return fetch(`http://localhost:8088/goals/${goalId}`, {
+    const deleteGoalData = async (goalId) => {
+        const result = await fetch(`http://localhost:8000/goals/${goalId}`, {
             method: 'DELETE',
-        }).then(getGoalData)
+            headers: {
+               "Authorization": `Token ${localStorage.getItem("days_since_token")}`
+            },
+        })
+        return getGoalData(result)
     }
 
     return (
         <GoalContext.Provider value={{
-            goalData, createGoalData, getGoalData, createGoalDataTwo, releaseGoalData
+            goalData, createGoalData, getGoalData, createGoalDataTwo, deleteGoalData 
 
         }} >
             { props.children}

@@ -29,6 +29,17 @@ export const WellBeingProvider = (props) => {
         return getWellBeingData(getData)
     }
 
+    const deleteWellBeingData = async (wellBeingId) => {
+        const getData = await fetch(`http://localhost:8000/wellbeing/${wellBeingId}`, {
+            method: 'DELETE',
+            headers: {
+              
+                "Authorization": `Token ${localStorage.getItem("days_since_token")}`
+            },
+        })
+        return getWellBeingData(getData)
+    }
+
 
 
     // const editWellBeingData = async data => {
@@ -54,7 +65,10 @@ export const WellBeingProvider = (props) => {
 
     return (
         <WellBeingContext.Provider value={{
-            createWellBeingData, wellBeingData, setWellBeingData, getWellBeingData
+            createWellBeingData, wellBeingData, 
+            setWellBeingData, 
+            getWellBeingData, 
+            deleteWellBeingData
            
         }} >
             { props.children}
