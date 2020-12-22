@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
-import { GoalContext } from './GoalProvider'
-import { CheckedGoalsContext } from './CheckedGoalProvider'
+import { JournalEntryContext } from './JournalEntryProvider'
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -11,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { CompletedGoals } from './CompletedGoalsList'
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -50,37 +49,36 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export function GoalsList() {
+export function Journal() {
 
-    const { getGoalData, goalData, deleteGoalData } = useContext(GoalContext)
-    const { getCheckedGoalsData, createCheckedGoalsData  } = useContext(CheckedGoalsContext)
-    const [goal_name, setGoalName] = React.useState('');
+    const { journalEntryData, getJournalEntryData, deleteJournalEntry } = useContext(JournalEntryContext)
+    const [journalentry, setJournalEntry] = React.useState([]);
     const [open, setOpen] = React.useState(false);
     const [selectedValue, setSelectValue] = React.useState([]);
-    const [isClicked, setIsClicked] = React.useState(false);
+
 
     const classes = useStyles();
 
     let history = useHistory();
 
     function handleClick() {
-        history.push("/goalsform");
+        history.push("/journalform");
     }
 
     useEffect(() => {
-        getGoalData()
-        getCheckedGoalsData()
+        getJournalEntryData()
+ 
 
     }, [])
 
 
     const handleChange = (event) => {
-        setGoalName(event.target.value);
+       setJournalEntry(event.target.value);
         setSelectValue(event.target.value)
     };
 
-    const goalFilter = goalData.filter((goal) => {
-        return goal.id === selectedValue
+    const journalFilter = journalEntryData.filter((entry) => {
+        return entry.id === selectedValue
     })
 
 
@@ -92,45 +90,30 @@ export function GoalsList() {
         setOpen(true);
     };
 
-    const toggleButtonCreate = (event) => {
-        setIsClicked(event.target.value)
-    }
 
-    const constructACheckedGoal = () => {
-        const dateData = new Date().toISOString().slice(0, 10);
-        const newCheckedGoal = {
-            date: dateData,
-            goal: selectedValue,
-            checked: isClicked,
-            user: parseInt(localStorage.getItem("user_id"))
-        }
-        createCheckedGoalsData(newCheckedGoal)
-    }
 
-    return <>
-        <div className="goals_button">
-            <CompletedGoals />
-        </div>
+ return <>
+
         <div className={classes.select_container}>
 
             <Button className={classes.button} onClick={handleOpen}>
                 Open the select
       </Button>
             <FormControl className={classes.formControl}>
-                <InputLabel id="demo-controlled-open-select-label">Goals</InputLabel>
+                <InputLabel id="demo-controlled-open-select-label">journal-entry</InputLabel>
                 <Select
                     labelId="demo-controlled-open-select-label"
                     id="demo-controlled-open-select"
                     open={open}
                     onClose={handleClose}
                     onOpen={handleOpen}
-                    value={goal_name}
+                    value={journalentry}
                     onChange={handleChange}>
                     <MenuItem value="">
                         <em>None</em>
                     </MenuItem>
-                    {goalData.map(item => {
-                        return <MenuItem value={item.id}>{item.goal_name}</MenuItem>;
+                    {journalEntryData.map(item => {
+                        return <MenuItem value={item.id}>{item.date}</MenuItem>;
                     })}
                 </Select>
             </FormControl>
@@ -139,13 +122,12 @@ export function GoalsList() {
             <Card className={classes.root}>
                 <CardContent>
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
-                        {goalFilter.map(val => {
-                            return <div key={val.id}>
-                                <h2 style={{ fontSize: 'Bolder' }}>Goal title: {val.goal_name}</h2>
-                                <h3 style={{ fontSize: 'Bolder' }}>Goal length: {val.goal_length}</h3>
-                                <h4 style={{ fontSize: 'Bolder' }}>Reason: {val.goal_reason}</h4>
-                                <Button onClick={() => deleteGoalData(val.id)}>
-                                    Remove Goal
+                        {journalFilter.map(entry => {
+                            return <div key={entry.id}>
+                                <h2 style={{ fontSize: 'Bolder' }}>Goal title: {entry.date}</h2>
+                                <h3 style={{ fontSize: 'Bolder' }}>Goal length: {entry.entry}</h3>
+                                <Button onClick={() => deleteJournalEntry(entry.id)}>
+                                    Remove-Entry
                            </Button>
                             </div>
                         })}
@@ -155,8 +137,8 @@ export function GoalsList() {
             </Card>
         </div>
         <div className='button_container'>
-            <Button onChange={(e) => toggleButtonCreate(e)} onClick={constructACheckedGoal} checked={isClicked} >log-goal</Button>
-            <Button onClick={handleClick} >create a new goal</Button>
+      
+            <Button onClick={handleClick} >create a new entry</Button>
         </div>
     </>
 }

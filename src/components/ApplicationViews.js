@@ -12,6 +12,7 @@ import { JournalEntryProvider } from './journalentry/JournalEntryProvider'
 import { GoalsList } from './goals/Goals'
 import { CheckedGoalsProvider } from "./goals/CheckedGoalProvider"
 import { WellBeingList } from './wellbeing/WellBeingList'
+import { Journal } from './journalentry/Journal'
 
 
 export const ApplicationViews = () => {
@@ -31,6 +32,10 @@ export const ApplicationViews = () => {
                         <Route path="/goalsform" exact component={GoalsForm}>
                             <NavBar />
                             <GoalsForm />
+                        </Route>
+                        <Route exact path="/journal">
+                            <NavBar />
+                            <Journal />
                         </Route>
                         <Route path="/goals" exact component={GoalsList}>
                             <NavBar />

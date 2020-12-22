@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
     root: {
         width: 250,
-        height: 600,
+        height: 535,
         display: 'flex',
     },
     bullet: {
@@ -48,8 +48,8 @@ export function WellBeingList() {
 
     const [open, setOpen] = React.useState(false);
     const [selectedWellBeingValue, setWellBeingValue] = React.useState([]);
-    const [selectedValue, setSelectedValue] = React.useState([]);
-    const { getWellBeingData, wellBeingData } = useContext(WellBeingContext)
+    // const [selectedValue, setSelectedValue] = React.useState([]);
+    const { getWellBeingData, wellBeingData, deleteWellBeingData } = useContext(WellBeingContext)
 
     const classes = useStyles();
 
@@ -65,11 +65,11 @@ export function WellBeingList() {
 
     const handleChange = (event) => {
         setWellBeingValue(event.target.value);
-        setSelectedValue(event.target.value)
+        // setSelectedValue(event.target.value)
     };
 
     const filteredWellBeingData = wellBeingData.filter((val) => {
-        return val.id === selectedValue
+        return val.id === selectedWellBeingValue
     })
 
 
@@ -116,21 +116,23 @@ export function WellBeingList() {
                 <CardContent>
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         {sortedData.map(value => {
-                            return <div key={value}>
-                                <h3 style={{ fontSize: 'Bolder' }}>date: {value.date}</h3>
-                                <h3 style={{ fontSize: 'Bolder' }}>Fatigue-Scale {value.fatigueScale}</h3>
-                                <h3 style={{ fontSize: 'Bolder' }}>painScale: {value.painScale}</h3>
-                                <h3 style={{ fontSize: 'Bolder' }}>emotionalWellBeing: {value.emotionalWellBeing}</h3>
-                                <h3 style={{ fontSize: 'Bolder' }}>hoursOfSleep: {value.hoursOfSleep}</h3>
-                                <h3 style={{ fontSize: 'Bolder' }}>noSymptoms {value.noSymptoms}</h3>
-                                <h3 style={{ fontSize: 'Bolder' }}>numbness {value.numbness}</h3>
-                                <h3 style={{ fontSize: 'Bolder' }}>tingling {value.tingling}</h3>
-                                <h3 style={{ fontSize: 'Bolder' }}>weakness {value.weakness}</h3>
-                                <h3 style={{ fontSize: 'Bolder' }}>stiffness {value.stiffness}</h3>
-                                <h3 style={{ fontSize: 'Bolder' }}>coordinationOrBalanceProblems {value.coordinationOrBalanceProblems}</h3>
-                                <h3 style={{ fontSize: 'Bolder' }}>heatSensitivity {value.heatSensitivity}</h3>
-                                <h3 style={{ fontSize: 'Bolder' }}>incontenance {value.incontenance}</h3>
-                                <h3 style={{ fontSize: 'Bolder' }}>incontenance {value.brainFog}</h3>
+                            return <div key={value.id}>
+                                <h3 style={{ fontSize: 'small' }}>date: {value.date}</h3>
+                                <h3 style={{ fontSize: 'small' }}>Fatigue-Scale {value.fatigueScale}</h3>
+                                <h3 style={{ fontSize: 'small' }}>painScale: {value.painScale}</h3>
+                                <h3 style={{ fontSize: 'small' }}>emotionalWellBeing: {value.emotionalWellBeing}</h3>
+                                <h3 style={{ fontSize: 'small' }}>hoursOfSleep: {value.hoursOfSleep}</h3>
+                                <h3 style={{ fontSize: 'small' }}>noSymptoms {value.noSymptoms}</h3>
+                                <h3 style={{ fontSize: 'small' }}>numbness {value.numbness}</h3>
+                                <h3 style={{ fontSize: 'small' }}>tingling {value.tingling}</h3>
+                                <h3 style={{ fontSize: 'small' }}>weakness {value.weakness}</h3>
+                                <h3 style={{ fontSize: 'small' }}>stiffness {value.stiffness}</h3>
+                                <h3 style={{ fontSize: 'small' }}>coordinationOrBalanceProblems {value.coordinationOrBalanceProblems}</h3>
+                                <h3 style={{ fontSize: 'small' }}>heatSensitivity {value.heatSensitivity}</h3>
+                                <h3 style={{ fontSize: 'small' }}>incontenance {value.incontenance}</h3>
+                                <h3 style={{ fontSize: 'small' }}>incontenance {value.brainFog}</h3>
+                                <br></br>
+                                <Button onClick={() => deleteWellBeingData(value.id)} >delete entry</Button>
                             </div>
                         })}
                     </Typography>
