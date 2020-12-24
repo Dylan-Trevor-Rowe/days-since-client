@@ -40,35 +40,41 @@ export const WellBeingProvider = (props) => {
         return getWellBeingData(getData)
     }
 
+    const updateWellBeingData = async wellBeingId => {
+        const result = await fetch(`http://localhost:8000/wellbeing/${wellBeingId.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("days_since_token")}`
+            },
+            body: JSON.stringify(wellBeingId)
+        })
+        return getWellBeingData(result)
+    
+    }
 
-
-    // const editWellBeingData = async data => {
-    //     const getEditData = await fetch(`http://localhost:8000/games/${game.id}`, {
-    //         method: "PUT",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "Authorization": `Token ${localStorage.getItem("days_since_token")}`
-    //         },
-    //         body: JSON.stringify(data)
-    //     })
-    //     return getWellBeingData(getEditData)
-    // }
-
-    // const getSingleWellBeing = async (id) => {
-    //     const response = await fetch(`http://localhost:8000/games/${id}`, {
-    //         headers: {
-    //             "Authorization": `Token ${localStorage.getItem("days_since_token")}`
-    //         }
-    //     })
-    //     return await response.json()
-    // }
+    const getWellBeingDataById = (wellBeingId) => {
+        return fetch(`http://localhost:8000/wellbeing/${wellBeingId}`, {
+          headers: {
+            Authorization: `Token ${localStorage.getItem("days_since_token")}`,
+            "Content-Type": "application/json",
+          }
+        })
+          .then((res) =>
+            res.json()
+          )
+          .then(res => res)
+      };
 
     return (
         <WellBeingContext.Provider value={{
-            createWellBeingData, wellBeingData, 
+            createWellBeingData, 
+            wellBeingData, 
             setWellBeingData, 
             getWellBeingData, 
-            deleteWellBeingData
+            deleteWellBeingData,
+            updateWellBeingData,
+            getWellBeingDataById
            
         }} >
             { props.children}

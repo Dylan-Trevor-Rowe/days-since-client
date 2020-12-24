@@ -1,11 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { WellBeingContext } from './WellBeingProvider'
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-import Checkbox from '@material-ui/core/Checkbox'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import './WellBeing.css'
 
@@ -27,9 +24,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function WellBeingForm() {
-    const { createWellBeingData, getWellBeingData } = useContext(WellBeingContext)
-
+export function WellBeingForm(props) {
+    const { createWellBeingData, getWellBeingData, updateWellBeingData, getWellBeingDataById } = useContext(WellBeingContext)
     const [sliderValue, setSliderValue] = useState(0)
     const updateRange = (e, data) => {
         setSliderValue(data)
@@ -67,47 +63,37 @@ export function WellBeingForm() {
     const [checkedValues, setCheckedValues] = useState([
 
     ]);
+
+    const [defaultvalues, setDefaultvalues] = useState({})
     // console.log(checkedValues)
     useEffect(() => {
         getWellBeingData()
-
+        getWellBeingDataById(props.match.params.wellBeingId)
+            .then(res => setDefaultvalues(res))
     }, [])
 
+    console.log(defaultvalues)
 
     const toggle = (e) => {
         const name = e.target.name;
-        if (name.includes('noSymptoms')) {
-            setNoSymptomsChecked(true)
-        }
+        if (name.includes('noSymptoms')) setNoSymptomsChecked(true)
 
-        if (name.includes('numbess')) {
-            setNumbnessChecked(true)
-        }
+        if (name.includes('numbess')) setNumbnessChecked(true)
 
-        if (name.includes('tingling')) {
-            setTinglingChecked(true)
-        }
+        if (name.includes('tingling')) setTinglingChecked(true)
 
-        if (name.includes('weakness')) {
-            setWeaknessChecked(true)
-        }
-        if (name.includes('stiffness')) {
-            setStiffnessChecked(true)
-        }
+        if (name.includes('weakness')) setWeaknessChecked(true)
 
+        if (name.includes('stiffness')) setStiffnessChecked(true)
 
-        if (name.includes('coordinationOrBalanceProblems')) {
-            setCoordinationOrBalanceProblemsChecked(true)
-        }
-        if (name.includes('heatSensitivity')) {
-            setHeatSensitivityChecked(true)
-        }
-        if (name.includes('incontenance')) {
-            setIncontenanceChecked(true)
-        }
-        if (name.includes('brainFog')) {
-            setBrainFogChecked(true)
-        }
+        if (name.includes('coordinationOrBalanceProblems')) setCoordinationOrBalanceProblemsChecked(true)
+
+        if (name.includes('heatSensitivity')) setHeatSensitivityChecked(true)
+
+        if (name.includes('incontenance')) setIncontenanceChecked(true)
+
+        if (name.includes('brainFog')) setBrainFogChecked(true)
+
         console.log('toggle name', e.target.name);
         // set a variable that equals the name that is checked
         if (checkedValues.includes(name)) {
@@ -128,168 +114,284 @@ export function WellBeingForm() {
         }
     }
 
+    const dateData = new Date().toISOString().slice(0, 10);
+
     const constructANewDay = () => {
+        console.log("====> params", props)
+        if (props.match.params.wellBeingId) {
 
-        const dateData = new Date().toISOString().slice(0, 10);
+            updateWellBeingData({
+                id: props.match.params.wellBeingId,
+                user_id: localStorage.getItem("user_id"),
+                date: dateData,
+                fatigueScale: sliderValue,
+                painScale: sliderValueTwo,
+                emotionalWellBeing: sliderValueThree,
+                hoursOfSleep: sliderValueFour,
+                noSymptoms: noSymptomsChecked,
+                numbness: numbnessChecked,
+                tingling: tinglingChecked,
+                weakness: weaknessChecked,
+                stiffness: stiffnessChecked,
+                coordinationOrBalanceProblems: coordinationChecked,
+                heatSensitivity: heatSensitivityChecked,
+                incontenance: incontenanceChecked,
+                brainFog: brainFogChecked,
+            }).then(() =>
+                props.history.push('/wellbeing'))
+        } else {
 
-        const newEntry = {
-            user_id: localStorage.getItem("user_id"),
-            date: dateData,
-            fatigueScale: sliderValue,
-            painScale: sliderValueTwo,
-            emotionalWellBeing: sliderValueThree,
-            hoursOfSleep: sliderValueFour,
-            noSymptoms: noSymptomsChecked,
-            numbness: numbnessChecked,
-            tingling: tinglingChecked,
-            weakness: weaknessChecked,
-            stiffness: stiffnessChecked,
-            coordinationOrBalanceProblems: coordinationChecked,
-            heatSensitivity: heatSensitivityChecked,
-            incontenance: incontenanceChecked,
-            brainFog: brainFogChecked,
+            const newEntry = {
+
+                user_id: localStorage.getItem("user_id"),
+                date: dateData,
+                fatigueScale: sliderValue,
+                painScale: sliderValueTwo,
+                emotionalWellBeing: sliderValueThree,
+                hoursOfSleep: sliderValueFour,
+                noSymptoms: noSymptomsChecked,
+                numbness: numbnessChecked,
+                tingling: tinglingChecked,
+                weakness: weaknessChecked,
+                stiffness: stiffnessChecked,
+                coordinationOrBalanceProblems: coordinationChecked,
+                heatSensitivity: heatSensitivityChecked,
+                incontenance: incontenanceChecked,
+                brainFog: brainFogChecked,
+            }
+            createWellBeingData(newEntry)
         }
-        createWellBeingData(newEntry)
     }
-    return <>
 
-        <div className="slider_container">
-            <Typography id="discrete-slider" gutterBottom>
-                <h2>fatigue-scale: 1-5</h2>
-            </Typography>
-            <Slider
+    if (props.match.params.wellBeingId) {
+        return (
+            <>
+                <h1>edit form</h1>
+                <div className="slider_container">
+                    <Typography id="discrete-slider" gutterBottom>
+                        <h2>fatigue-scale: 1-5</h2>
+                    </Typography>
+                    {defaultvalues.fatigueScale >= 0 &&
+                        <Slider
 
-                value={sliderValue}
-                onChange={updateRange}
-                getAriaValueText={valuetext}
-                aria-labelledby="discrete-slider"
-                valueLabelDisplay="auto"
-                step={1}
-                marks
-                min={1}
-                max={5}
-            />
-            <Typography id="discrete-slider" gutterBottom>
-                <h2>pain-scale: 1-5</h2>
-            </Typography>
-            <Slider
+                            defaultValue={defaultvalues.fatigueScale}
+                            onChange={updateRange}
+                            getAriaValueText={valuetext}
+                            aria-labelledby="discrete-slider"
+                            valueLabelDisplay="auto"
+                            step={1}
+                            marks
+                            min={1}
+                            max={5}
+                        />
+                    }
 
-                value={sliderValueTwo}
-                onChange={updateRangeTwo}
-                getAriaValueText={valuetext}
-                aria-labelledby="discrete-slider"
-                valueLabelDisplay="auto"
-                step={1}
-                marks
-                min={1}
-                max={5}
-            />
-            <Typography id="discrete-slider" gutterBottom>
-                <h2>emotional-well-being: 1-5</h2>
-            </Typography>
-            <Slider
-                onChange={updateRangeThree}
-                value={sliderValueThree}
-                getAriaValueText={valuetext}
-                aria-labelledby="discrete-slider"
-                valueLabelDisplay="auto"
-                step={1}
-                marks
-                min={1}
-                max={5}
-            />
-            <Typography id="discrete-slider" gutterBottom>
-                <h2>hours of sleep</h2>
-            </Typography>
-            <Slider
-                onChange={updateRangeFour}
-                value={sliderValueFour}
-                getAriaValueText={valuetext}
-                aria-labelledby="discrete-slider"
-                valueLabelDisplay="auto"
-                step={1}
-                marks
-                min={1}
-                max={10}
-            />
+                    <Typography id="discrete-slider" gutterBottom>
+                        <h2>pain-scale: 1-5</h2>
+                    </Typography>
+                    {defaultvalues.fatigueScale >= 0 &&
+                        <Slider
 
-            <br />
-            <br />
-            <h2>Symptoms</h2>
-        </div>
-        <div className="checkbox_container">
-            <FormControlLabel
+                            defaultValue={defaultvalues.painScale}
+                            onChange={updateRangeTwo}
+                            getAriaValueText={valuetext}
+                            aria-labelledby="discrete-slider"
+                            valueLabelDisplay="auto"
+                            step={1}
+                            marks
+                            min={1}
+                            max={5}
+                        />
+                    }
+                    <Typography id="discrete-slider" gutterBottom>
+                        <h2>emotional-well-being: 1-5</h2>
+                    </Typography>
+                    {defaultvalues.emotionalWellBeing >= 0 &&
+                        <Slider
+                            onChange={updateRangeThree}
+                            defaultValue={defaultvalues.emotionalWellBeing}
+                            getAriaValueText={valuetext}
+                            aria-labelledby="discrete-slider"
+                            valueLabelDisplay="auto"
+                            step={1}
+                            marks
+                            min={1}
+                            max={5}
+                        />
+                    }
+                    <Typography id="discrete-slider" gutterBottom>
+                        <h2>hours of sleep</h2>
+                    </Typography>
+                    {defaultvalues.hoursOfSleep >= 0 &&
+                        <Slider
+                            onChange={updateRangeFour}
+                            defaultValue={defaultvalues.hoursOfSleep}
+                            getAriaValueText={valuetext}
+                            aria-labelledby="discrete-slider"
+                            valueLabelDisplay="auto"
+                            step={1}
+                            marks
+                            min={1}
+                            max={10}
+                        />
+                    }
+                    <br />
+                    <br />
+                    </div>
+                    <h2>Symptoms</h2>
+            
+                <div className="checkbox_containertwo">
+                    <div>
+                        <label>None</label>
+                        {<input type="checkbox" name="noSymptoms" onChange={toggle} defaultChecked={defaultvalues.noSymptoms && defaultvalues.noSymptoms} />}
+                    </div>
 
-                value="noSymptoms"
-                control={<Checkbox name="noSymptoms" onChange={toggle} checked={checkedValues.includes('noSymptoms')} e color="primary" />}
-                label="none"
-                labelPlacement="top"
-            />
+                    <div>
+                        <label>numbness</label>
+                        {<input type="checkbox" name="numbness" onChange={toggle} defaultChecked={defaultvalues.numbness && defaultvalues.numbness} />}
+                    </div>
 
-            <FormControlLabel
+                    <div>
+                        <label>tingling</label>
+                        {<input type="checkbox" name="tingling" onChange={toggle} defaultChecked={defaultvalues.tingling && defaultvalues.tingling} />}
+                    </div>
 
-                value="numbness"
-                control={<Checkbox name='numbness' onChange={toggle} checked={checkedValues.includes('numbness')} color="primary" />}
-                label="numbness"
-                labelPlacement="top"
-            />
-            <FormControlLabel
+                    <div>
+                        <label>weakness</label>
+                        {<input type="checkbox" name="weakness" onChange={toggle} defaultChecked={defaultvalues.weakness && defaultvalues.weakness} />}
+                    </div>
 
-                value="tingling"
-                control={<Checkbox name='tingling' onChange={toggle} checked={checkedValues.includes('tingling')} color="primary" />}
-                label='tingling'
-                labelPlacement="top"
-            />
-            <FormControlLabel
+                    <div>
+                        <label>coordination-problems</label>
+                        {<input type="checkbox" name="coordinationOrBalanceProblems" onChange={toggle} defaultChecked={defaultvalues.coordinationOrBalanceProblems && defaultvalues.coordinationOrBalanceProblems} />}
+                    </div>
 
-                value="weakness"
-                control={<Checkbox name='weakness' onChange={toggle} checked={checkedValues.includes('weakness')} color="primary" />}
-                label="weakness"
-                labelPlacement="top"
-            />
-        </div>
-        <div className="checkbox_container">
-            <FormControlLabel
+                    <div>
+                        <label>heat-sensitivity</label>
+                        {<input type="checkbox" name="heatSensitivity" onChange={toggle} defaultChecked={defaultvalues.heatSensitivity && defaultvalues.heatSensitivity} />}
+                    </div>
 
-                value="stiffness"
-                control={<Checkbox name='stiffness' onChange={toggle} checked={checkedValues.includes('stiffness')} color="primary" />}
-                label="stiffness"
-                labelPlacement="top"
-            />
-            <FormControlLabel
+                    <div>
+                        <label>incontenance</label>
+                        {<input type="checkbox" name="incontenance" onChange={toggle} defaultChecked={defaultvalues.incontenance && defaultvalues.incontenance} />}
+                    </div>
 
-                value="coordinationOrBalanceProblems"
-                control={<Checkbox name='coordinationOrBalanceProblems' onChange={toggle} checked={checkedValues.includes('coordinationOrBalanceProblems')} color="primary" />}
-                label="coordination-problems"
-                labelPlacement="top"
-            />
-            <FormControlLabel
+                    <br></br>
 
-                value="heatSensitivity"
-                control={<Checkbox name="heatSensitivity" onChange={toggle} checked={checkedValues.includes('heatSensitivity')} color="primary" />}
-                label="heat-sensitivity"
-                labelPlacement="top" />
-        </div>
-        <div className="checkbox_container">
-            <FormControlLabel
+                    <div className="button_container">
+                        <Button onClick={constructANewDay} style={{ backgroundColor: "#1B4353", margin: 10 }} className={classes.Button} variant="contained" color="primary" >submit</Button>
+                    </div>
+                </div>
+            </>
+        )
+    } else {
 
-                value="incontenance"
-                control={<Checkbox name="incontenance" onChange={toggle} checked={checkedValues.includes('incontenance')} color="primary" />}
-                label="incontenance"
-                labelPlacement="top"
-            />
-            <FormControlLabel
+        return <>
 
-                value="brainFog"
-                control={<Checkbox name="brainFog" onChange={toggle} checked={checkedValues.includes('brainFog')} color="primary" />}
-                label="brain-fog"
-                labelPlacement="top"
-            />
+            <div className="slider_container">
+                <Typography id="discrete-slider" gutterBottom>
+                    <h2>fatigue-scale: 1-5</h2>
+                </Typography>
+                <Slider
 
-            <br></br>
-        </div>
-        <div className="button_container">
-            <Button onClick={constructANewDay} style={{ backgroundColor: "#1B4353", margin: 10 }} className={classes.Button} variant="contained" color="primary" >submit</Button>
-        </div>
-    </>
-}
+                    value={sliderValue}
+                    onChange={updateRange}
+                    getAriaValueText={valuetext}
+                    aria-labelledby="discrete-slider"
+                    valueLabelDisplay="auto"
+                    step={1}
+                    marks
+                    min={1}
+                    max={5}
+                />
+                <Typography id="discrete-slider" gutterBottom>
+                    <h2>pain-scale: 1-5</h2>
+                </Typography>
+                <Slider
+
+                    value={sliderValueTwo}
+                    onChange={updateRangeTwo}
+                    getAriaValueText={valuetext}
+                    aria-labelledby="discrete-slider"
+                    valueLabelDisplay="auto"
+                    step={1}
+                    marks
+                    min={1}
+                    max={5}
+                />
+                <Typography id="discrete-slider" gutterBottom>
+                    <h2>emotional-well-being: 1-5</h2>
+                </Typography>
+                <Slider
+                    onChange={updateRangeThree}
+                    value={sliderValueThree}
+                    getAriaValueText={valuetext}
+                    aria-labelledby="discrete-slider"
+                    valueLabelDisplay="auto"
+                    step={1}
+                    marks
+                    min={1}
+                    max={5}
+                />
+                <Typography id="discrete-slider" gutterBottom>
+                    <h2>hours of sleep</h2>
+                </Typography>
+                <Slider
+                    onChange={updateRangeFour}
+                    value={sliderValueFour}
+                    getAriaValueText={valuetext}
+                    aria-labelledby="discrete-slider"
+                    valueLabelDisplay="auto"
+                    step={1}
+                    marks
+                    min={1}
+                    max={10}
+                />
+                <br />
+                <br />
+                <h2>Symptoms</h2>
+            </div>
+            <div className="checkbox_container">
+                <div>
+                    <label>none</label>
+                    <input type="checkbox" name='noSymptoms' onChange={toggle} checked={checkedValues.includes('noSymptoms')} />
+                    <div>
+                        <label>numbness</label>
+                        <input type="checkbox" name='numbness' onChange={toggle} checked={checkedValues.includes('numbness')} />
+                    </div>
+                    <div>
+                        <label>tingling</label>
+                        <input type="checkbox" name='tingling' onChange={toggle} checked={checkedValues.includes('tingling')} />
+                    </div>
+                    <div>
+                        <label>weakness</label>
+                        <input type="checkbox" name='weakness' onChange={toggle} checked={checkedValues.includes('weakness')} />
+                    </div>
+                    <div>
+                        <label>stiffness</label>
+                        <input type="checkbox" name='stiffness' onChange={toggle} checked={checkedValues.includes('stiffness')} />
+                    </div>
+                    <div>
+                        <label>coordiantion-problems</label>
+                        <input type="checkbox" name='coordinationOrBalanceProblems' onChange={toggle} checked={checkedValues.includes('coordinationOrBalanceProblems')} />
+                    </div>
+                    <div>
+                        <label>heat-sensitivity</label>
+                        < input type="checkbox" type="checkbox" name="heatSensitivity" onChange={toggle} checked={checkedValues.includes('heatSensitivity')} />
+                    </div>
+                    <div>
+                        <label>incontenance</label>
+                        <input type="checkbox" name="incontenance" onChange={toggle} checked={checkedValues.includes('incontenance')} />
+                    </div>
+                    <div>
+                        <label>brain-fog</label>
+                        < input type="checkbox" name="brainFog" onChange={toggle} checked={checkedValues.includes('brainFog')} />
+                    </div>
+                    <div className="button_container">
+                        <Button onClick={constructANewDay} style={{ backgroundColor: "#1B4353", margin: 10 }} className={classes.Button} variant="contained" color="primary" >submit</Button>
+                    </div>
+                </div>
+            </div>
+        </>
+    }
+}    

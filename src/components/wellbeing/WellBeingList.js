@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export function WellBeingList() {
+export function WellBeingList(props) {
 
     const [open, setOpen] = React.useState(false);
     const [selectedWellBeingValue, setWellBeingValue] = React.useState([]);
@@ -123,16 +123,19 @@ export function WellBeingList() {
                                 <h3 style={{ fontSize: 'small' }}>emotionalWellBeing: {value.emotionalWellBeing}</h3>
                                 <h3 style={{ fontSize: 'small' }}>hoursOfSleep: {value.hoursOfSleep}</h3>
                                 <h3 style={{ fontSize: 'small' }}>noSymptoms {value.noSymptoms}</h3>
-                                <h3 style={{ fontSize: 'small' }}>numbness {value.numbness}</h3>
-                                <h3 style={{ fontSize: 'small' }}>tingling {value.tingling}</h3>
-                                <h3 style={{ fontSize: 'small' }}>weakness {value.weakness}</h3>
-                                <h3 style={{ fontSize: 'small' }}>stiffness {value.stiffness}</h3>
-                                <h3 style={{ fontSize: 'small' }}>coordinationOrBalanceProblems {value.coordinationOrBalanceProblems}</h3>
-                                <h3 style={{ fontSize: 'small' }}>heatSensitivity {value.heatSensitivity}</h3>
-                                <h3 style={{ fontSize: 'small' }}>incontenance {value.incontenance}</h3>
-                                <h3 style={{ fontSize: 'small' }}>incontenance {value.brainFog}</h3>
+                                {value.numbness ? <h3 style={{ fontSize: 'small' }}>numbness {value.numbness}</h3> : ""}
+                                {value.tingling ? <h3 style={{ fontSize: 'small' }}>tingling {value.tingling}</h3> : ""}
+                                {value.weakness ? <h3 style={{ fontSize: 'small' }}>weakness {value.weakness}</h3> : ""}
+                                {value.stiffness ? <h3 style={{ fontSize: 'small' }}>stiffness {value.stiffness}</h3> : ""}
+                                {value.coordinationOrBalanceProblems ? <h3 style={{ fontSize: 'small' }}>coordinationOrBalanceProblems {value.coordinationOrBalanceProblems}</h3> : ""}
+                                {value.heatSensitivity ? <h3 style={{ fontSize: 'small' }}>heatSensitivity {value.heatSensitivity}</h3> : ""}
+                                {value.incontenance ? <h3 style={{ fontSize: 'small' }}>incontenance {value.incontenance}</h3> : ""}
+                                {value.brainFog ? <h3 style={{ fontSize: 'small' }}>incontenance {value.brainFog}</h3> : ""}
                                 <br></br>
                                 <Button onClick={() => deleteWellBeingData(value.id)} >delete entry</Button>
+                                <Button onClick={() => {
+                                    history.push(`/wellbeingform/edit/${value.id}`)
+                                }}>Edit</Button>
                             </div>
                         })}
                     </Typography>

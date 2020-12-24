@@ -9,3 +9,20 @@
     justify-content: center;
     margin-top: 20px;
 }
+.checkbox_container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 20px;
+    justify-content: center;
+    font-size: larger;
+}
+.checkbox_containertwo {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 20px;
+    justify-content: center;
+    font-size: larger;
+
+}

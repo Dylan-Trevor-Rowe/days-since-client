@@ -14,44 +14,54 @@ import { CheckedGoalsProvider } from "./goals/CheckedGoalProvider"
 import { WellBeingList } from './wellbeing/WellBeingList'
 import { Journal } from './journalentry/Journal'
 
-
-export const ApplicationViews = () => {
+export const ApplicationViews = (props) => {
 
     return <>
+    <BrowserRouter>
         <CheckedGoalsProvider>
             <JournalEntryProvider>
                 <GoalProvider>
                     <WellBeingProvider>
-                        <Route exact path="/login">
-
-                        </Route>
-                        <Route exact path="/wellbeing">
-                            <NavBar></NavBar>
-                            <WellBeingList />
-                        </Route>
+                        <NavBar/> 
+                        <Route exact path="/login"></Route>
+                        <Route exact path="/wellbeing"  render={(matchProps) => {
+                              return   <WellBeingList {...props} {...matchProps} />
+                        }} />
+                          
+                            
+                          
                         <Route path="/goalsform" exact component={GoalsForm}>
-                            <NavBar />
+                            
                             <GoalsForm />
                         </Route>
                         <Route exact path="/journal">
-                            <NavBar />
+                            
                             <Journal />
                         </Route>
                         <Route path="/goals" exact component={GoalsList}>
-                            <NavBar />
+                          
                             <GoalsList />
                         </Route>
                         <Route exact path="/journalform">
-                            <NavBar />
+                           
                             <JournalEntryForm />
                         </Route>
-                        <Route exact path="/wellbeingform">
-                            <NavBar />
-                            <WellBeingForm />
-                        </Route>
+                        <Route exact path="/wellbeingform" render={(matchProps) => {
+                              return   <WellBeingForm {...props} {...matchProps}  />
+                        }} />
+                         
+                  
+                        <Route exact path='/wellbeingform/edit/:wellBeingId(\d+)' render={(matchProps) => {
+                              return   <WellBeingForm {...props}    
+                               {...matchProps}
+                              />
+                        }} />
+                          
+                         
+        
                         <ScoreBoardProvider>
                             <Route exact path="/">
-                                <NavBar />
+                               
                                 <ScoreBoardList />
                             </Route>
                         </ScoreBoardProvider>
@@ -59,5 +69,6 @@ export const ApplicationViews = () => {
                 </GoalProvider>
             </JournalEntryProvider>
         </CheckedGoalsProvider>
+        </BrowserRouter>
     </>
 }
