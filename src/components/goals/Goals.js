@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export function GoalsList() {
+export function GoalsList(props) {
 
     const { getGoalData, goalData, deleteGoalData } = useContext(GoalContext)
     const { getCheckedGoalsData, createCheckedGoalsData  } = useContext(CheckedGoalsContext)
@@ -147,7 +147,11 @@ export function GoalsList() {
                                 <Button onClick={() => deleteGoalData(val.id)}>
                                     Remove Goal
                            </Button>
+                           <Button onClick={() => {
+                                    history.push(`/goalsform/edit/${val.id}`)
+                                }}>Edit</Button>
                             </div>
+                            
                         })}
                     </Typography>
 

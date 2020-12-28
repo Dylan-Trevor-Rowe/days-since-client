@@ -89,7 +89,7 @@ export const JournalEntryForm = (props) => {
                     name="date"
                     value={currentDate}
                     onChange={handleChangeTwo}
-                    defaultValue={defaultvalues.dateData}
+                    defaultValue={defaultvalues.date}
                     className={classes.textField}
                     InputLabelProps={{
                         shrink: true,
