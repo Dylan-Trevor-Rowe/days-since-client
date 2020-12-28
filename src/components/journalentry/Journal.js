@@ -71,8 +71,7 @@ export function Journal() {
 
     }, [])
 
-
-    const handleChange = (event) => {
+     const handleChange = (event) => {
        setJournalEntry(event.target.value);
         setSelectValue(event.target.value)
     };
@@ -90,9 +89,7 @@ export function Journal() {
         setOpen(true);
     };
 
-
-
- return <>
+    return <>
 
         <div className={classes.select_container}>
 
@@ -124,16 +121,21 @@ export function Journal() {
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         {journalFilter.map(entry => {
                             return <div key={entry.id}>
-                                <h2 style={{ fontSize: 'Bolder' }}>Goal title: {entry.date}</h2>
-                                <h3 style={{ fontSize: 'Bolder' }}>Goal length: {entry.entry}</h3>
+                                <h2 style={{ fontSize: 'Bolder' }}>date: {entry.date}</h2>
+                                <h3 style={{ fontSize: 'Bolder' }}>entry: {entry.entry}</h3>
                                 <Button onClick={() => deleteJournalEntry(entry.id)}>
                                     Remove-Entry
                            </Button>
+                           <Button onClick={() => {
+                                    history.push(`/journalform/edit/${entry.id}`)
+                                }}>Edit</Button>
                             </div>
+                            
                         })}
                     </Typography>
 
                 </CardContent>
+                
             </Card>
         </div>
         <div className='button_container'>
