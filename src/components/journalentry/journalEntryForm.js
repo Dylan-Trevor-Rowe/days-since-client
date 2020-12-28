@@ -3,17 +3,23 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { JournalEntryContext } from './JournalEntryProvider'
+import { useHistory } from 'react-router-dom';
 
-export const JournalEntryForm = () => {
+export const JournalEntryForm = (props) => {
+
+    
+    const { getJournalEntryData, createJournalEntryData, getJournalEntryDataById, updateJournalData } = useContext(JournalEntryContext)
+    const [currentJournalEntry, setJournalEntry] = useState('')
+    const [currentDate, setCurrentDate] = useState('')
+    const [defaultvalues, setDefaultvalues] = useState({})
 
     useEffect(() => {
         getJournalEntryData()
-
+        getJournalEntryDataById(props.match.params.journalId)
+        .then(res => setDefaultvalues(res))
     }, [])
 
-    const { getJournalEntryData, createJournalEntryData } = useContext(JournalEntryContext)
-    const [currentJournalEntry, setJournalEntry] = useState('')
-    const [currentDate, setCurrentDate] = useState('')
+    const editMode = props.match.params.journalId
 
     const handleChange = (e) => {
         const name = e.target.value
@@ -25,15 +31,34 @@ export const JournalEntryForm = () => {
         setCurrentDate(name)
     }
 
-    const dateData = new Date().toISOString().slice(0, 10);
+    const dateData = new Date(Date.now()).toJSON().slice(0, 10);
 
-    const constructANewDay = (event) => {
+
+    const history = useHistory()
+
+    const constructANewDay = (props) => {
+        if (editMode) {
+
+            updateJournalData({
+                id: editMode,
+                date: dateData,
+                entry: currentJournalEntry,
+            }).then(() => {
+                history.push('/journal')
+            })
+        } else {
+
         const newEntry = {
             date: dateData,
             entry: currentJournalEntry,
         }
-        createJournalEntryData(newEntry)
+        createJournalEntryData(newEntry).then(() => {
+            getJournalEntryData().then(() => {
+                history.push('/journal')
+            })
+        })
     }
+}
     const useStyles = makeStyles((theme) => ({
         container: {
             display: 'flex',
@@ -64,7 +89,7 @@ export const JournalEntryForm = () => {
                     name="date"
                     value={currentDate}
                     onChange={handleChangeTwo}
-                    defaultValue="none"
+                    defaultValue={defaultvalues.dateData}
                     className={classes.textField}
                     InputLabelProps={{
                         shrink: true,
@@ -79,6 +104,7 @@ export const JournalEntryForm = () => {
                         rows={8}
                         rowsMax={10}
                         value={currentJournalEntry}
+                        defaultValue={defaultvalues.entry}
                         onChange={handleChange} />
                 </div>
                 <Button onClick={constructANewDay}
