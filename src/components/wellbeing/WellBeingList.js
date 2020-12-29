@@ -26,9 +26,10 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
     },
     root: {
-        width: 250,
-        height: 535,
+
         display: 'flex',
+        minHeight: 300,
+        minWidth: 200
     },
     bullet: {
         display: 'inline-block',
@@ -102,8 +103,9 @@ export function WellBeingList(props) {
                     onOpen={handleOpen}
                     value={selectedWellBeingValue}
                     onChange={handleChange}>
-                    <MenuItem value="">
-                        <em>None</em>
+
+                    <MenuItem>
+                        none
                     </MenuItem>
                     {wellBeingData.map(item => {
                         return <MenuItem value={item.id}>{item.date}</MenuItem>;
@@ -122,7 +124,7 @@ export function WellBeingList(props) {
                                 <h3 style={{ fontSize: 'small' }}>painScale: {value.painScale}</h3>
                                 <h3 style={{ fontSize: 'small' }}>emotionalWellBeing: {value.emotionalWellBeing}</h3>
                                 <h3 style={{ fontSize: 'small' }}>hoursOfSleep: {value.hoursOfSleep}</h3>
-                                <h3 style={{ fontSize: 'small' }}>noSymptoms {value.noSymptoms}</h3>
+                                {value.noSymptoms ? <h3 style={{ fontSize: 'small' }}>noSymptoms {value.noSymptoms}</h3> : ""}
                                 {value.numbness ? <h3 style={{ fontSize: 'small' }}>numbness {value.numbness}</h3> : ""}
                                 {value.tingling ? <h3 style={{ fontSize: 'small' }}>tingling {value.tingling}</h3> : ""}
                                 {value.weakness ? <h3 style={{ fontSize: 'small' }}>weakness {value.weakness}</h3> : ""}
