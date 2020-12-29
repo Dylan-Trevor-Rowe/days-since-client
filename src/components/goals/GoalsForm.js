@@ -31,22 +31,26 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export const GoalsForm = () => {
+export const GoalsForm = (props) => {
 
-    const { getGoalData, goalData, createGoalData } = useContext(GoalContext)
+    const { getGoalData, goalData, createGoalData, getGoalDataById, updateGoalData } = useContext(GoalContext)
+    const [defaultvalues, setDefaultvalues] = useState({})
+    const [name, setName] = useState([])
+    const [goalLength, setGoalLength] = useState([])
+    const [goalReason, setGoalReason] = useState([])
+
 
 
     useEffect(() => {
         getGoalData()
+        getGoalDataById(props.match.params.goalId)
+            .then(res => setDefaultvalues(res))
 
     }, [])
 
+    const editMode = props.match.params.goalId
 
     const classes = useStyles();
-
-    const [name, setName] = useState([])
-    const [goalLength, setGoalLength] = useState([])
-    const [goalReason, setGoalReason] = useState([])
 
     const getValue = (e) => {
         const data = e.target.value;
@@ -65,14 +69,26 @@ export const GoalsForm = () => {
 
     const constructANewGoal = () => {
         const dateData = new Date().toISOString().slice(0, 10);
-        const newGoal = {
-            user_id: parseInt(localStorage.getItem("user_id")),
-            date: dateData,
-            goal_name: name,
-            goal_length: goalLength,
-            goal_reason:goalReason
+        if (editMode) {
+            updateGoalData({
+                id: editMode,
+                user_id: parseInt(localStorage.getItem("user_id")),
+                date: dateData,
+                goal_name: name,
+                goal_length: goalLength,
+                goal_reason: goalReason
+            })
+        } else {
+
+            const newGoal = {
+                user_id: parseInt(localStorage.getItem("user_id")),
+                date: dateData,
+                goal_name: name,
+                goal_length: goalLength,
+                goal_reason: goalReason
+            }
+            createGoalData(newGoal)
         }
-        createGoalData(newGoal)
     }
 
     return <>
@@ -83,7 +99,7 @@ export const GoalsForm = () => {
                     id="date"
                     label="date"
                     type="date"
-                    defaultValue="none"
+                    defaultValue={defaultvalues.date}
                     className={classes.textField}
                     InputLabelProps={{
                         shrink: true,
@@ -106,20 +122,21 @@ export const GoalsForm = () => {
         </div>
         <br></br>
         <div className="goal_input">
-            <TextField type="input" id="standard-basic" label="goal-title" onChange={getValue} />
+            <TextField   defaultValue={defaultvalues.goal_name} type="input" id="standard-basic" label="goal-title" onChange={getValue} />
         </div>
         <div className="goal_input">
-            <TextField type="input" id="standard-basic" label="length of goal" onChange={getValueTwo} />
+            <TextField type="input" id="standard-basic" defaultValue={defaultvalues.goal_length} label="length of goal" onChange={getValueTwo} />
         </div>
         <div className="goal_input">
-        <TextField
-                        variant="outlined"
-                        placeholder="reason for goal"
-                        multiline
-                        rows={8}
-                        rowsMax={10}
-                        onChange={getValueThree}
-                         />
+            <TextField
+                variant="outlined"
+                placeholder="reason for goal"
+                multiline
+                defaultValue={defaultvalues.goal_reason}
+                rows={8}
+                rowsMax={10}
+                onChange={getValueThree}
+            />
         </div>
         <div className="button_container">
             <Button onClick={constructANewGoal} style={{ backgroundColor: "#1B4353", marginLeft: 10 }} className={classes.Button} variant="contained" color="primary">submit</Button>
