@@ -11,10 +11,19 @@ export function Comment(props) {
         getCommentData()
     }, [])
 
+    const handleDelete = (commentId, articleId) => {
+        deleteAComment(commentId, articleId)
+       .then(() => { 
+           getCommentsByArticleId(articleId)
+       })
+    } 
+    // just seeing if this guy works
+
     useEffect(() => {
         const articleId = parseInt(props.match.params.articleId);
         getCommentByArticleId(articleId)
     }, [])
+
 
 
     return <>
