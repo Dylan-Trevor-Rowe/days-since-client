@@ -7,35 +7,4 @@
     max-width: 200px;
     max-height: 400px;
     min-height: 300px;
-   
-}
-
-.card_div {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.comment_form_container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-top: 20px;
-}
-.comment_paper {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  border: solid black 1px;
-
-}
-
-.card {
-  border: solid black 1px;
-  width: 500px;
-
 }

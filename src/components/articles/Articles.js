@@ -4,12 +4,9 @@ import { Link, useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { ArticleContext } from './ArticleProvider';
-import Button from '@material-ui/core/Button';
-import './Articles.css'
-import CommentIcon from '@material-ui/icons/Comment';
-
-
-
+import AddCommentIcon from '@material-ui/icons/AddComment';
+import  Button  from '@material-ui/core/Button';
+import  './Articles.css'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        margin: 10,
+        margin:10,
         '& > ': {
             margin: theme.spacing(2),
             width: theme.spacing(50),
@@ -26,46 +23,37 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function Articles(props) {
+export function Articles() {
     const classes = useStyles();
 
-    const { getArticleData, articleData, deleteArticleData } = useContext(ArticleContext)
-  
-     const history = useHistory()
+    const { getArticleData, articleData } = useContext(ArticleContext)
 
-    function handleClick() {
-        history.push("/articleform");
-    }
+   const history = useHistory()
+
+   function handleClick() {
+    history.push("/articleform");
+}
 
     useEffect(() => {
-    getArticleData()
+        getArticleData()
     }, [])
-
-    const handleDelete = (articleId) => { 
-        deleteArticleData(articleId)
-       .then(getArticleData)
-    } 
 
     return <>
         <div className="article_button">
-            <Button onClick={handleClick}>post new article</Button>
+        <Button onClick={handleClick}>post new article</Button>
         </div>
         <div className={classes.root}>
             {articleData.map((row) => (
-             
-                <div key={row}>
-                 <Paper>
+                <div key={row.id}>
+                    <Paper>
                         <a href={row.link}> article: {row.link}</a>
                         <p> date: {row.date}</p>
                         <p> title: {row.title}</p>
                         <p> user: {row.user.id}</p>
-                        <Link to={`/articles/${row.id}/comments`}><CommentIcon></CommentIcon></Link>
-                        <Button onClick={() => handleDelete(row.id)}>delete</Button>
-                </Paper>
-               </div>
-                ))}
+                        <Link><AddCommentIcon color='primary'>comment</AddCommentIcon></Link>
+                    </Paper>
+                </div>
+            ))}
         </div>
-    
-   
-    </>
-     }
+   </>
+}
