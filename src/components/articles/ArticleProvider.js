@@ -39,7 +39,7 @@ const getArticleData = async () => {
         })
         return getArticleData(result)
     }
-
+// hopefully this works
     return (
         <ArticleContext.Provider value={{
             articleData, createArticleData, getArticleData, deleteArticleData

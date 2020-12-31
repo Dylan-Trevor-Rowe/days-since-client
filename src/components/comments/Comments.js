@@ -15,6 +15,12 @@ export function Comment(props) {
         const articleId = parseInt(props.match.params.articleId);
         getCommentByArticleId(articleId)
     }, [])
+    const handleDelete = (commentId, articleId) => {
+        deleteAComment(commentId, articleId)
+       .then(() => { 
+           getCommentsByArticleId(articleId)
+       })
+    } 
 
 
     return <>
