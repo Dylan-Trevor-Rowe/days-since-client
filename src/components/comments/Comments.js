@@ -1,39 +1,32 @@
-import { Paper, Button } from '@material-ui/core'
-import React, { useContext, useEffect } from 'react'
-import { CommentContext } from './CommentProvider'
+
+import { Paper } from '@material-ui/core';
+import React, { useContext, useEffect } from "react"
+import { CommentContext } from './CommentProvider';
 import './Comment.css'
-import { Link } from 'react-router-dom'
 
+export function Comment(props) {
 
-
-export function CommentDetails(props) {
-    const { commentData, getCommentsByArticleId, deleteAComment } = useContext(CommentContext)
-
+    const { getCommentData, commentData, getCommentByArticleId } = useContext(CommentContext)
     useEffect(() => {
-        const articleId = parseInt(props.match.params.articleId)
-        getCommentsByArticleId(articleId)
+        getCommentData()
     }, [])
 
-    const handleDelete = (commentId, articleId) => {
-        deleteAComment(commentId, articleId)
-       .then(() => { 
-           getCommentsByArticleId(articleId)
-       })
-    } 
+    useEffect(() => {
+        const articleId = parseInt(props.match.params.articleId);
+        getCommentByArticleId(articleId)
+    }, [])
 
 
- return <>
-    
-        <Paper className="comment_paper">
+    return <>
+        <Paper className="comment_container">
             {commentData.map(val => {
-                return <div className="card" key={val.id}>
-                    <p>user: {val.user}</p>
+                return <div key={val.id}>
+                    <p>{val.user}</p>
                     <p>{val.comment}</p>
-                    <Button onClick={() => handleDelete(val.id, val.article)}>delete</Button>
                 </div>
-                
+
             })}
         </Paper>
     </>
-}
 
+}
