@@ -17,7 +17,17 @@ export const CommentProvider = (props) => {
             .then(res => res.json())
     }
 
-    // }
+    const deleteAComment = async (id) => {
+        const result = await fetch(`http://localhost:8000/comments/${id}`, {
+            method: 'DELETE',
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("days_since_token")}`
+            },
+        })
+        
+    }
+
+    
 
     const getCommentsByArticleId = (articleId) => {
         return fetch(`http://localhost:8000/comments?article=${articleId}`, {
@@ -26,6 +36,7 @@ export const CommentProvider = (props) => {
             }
         })
             .then(res => res.json())
+            .then(setCommentData)
     }
 
     const createCommentData = (newComment) => {
@@ -45,7 +56,7 @@ export const CommentProvider = (props) => {
 
     return (
         <CommentContext.Provider value={{
-            getCommentById, createCommentData, commentData, getCommentsByArticleId, setCommentData
+            deleteAComment, createCommentData, commentData, getCommentsByArticleId, setCommentData, 
 
         }} >
             { props.children}

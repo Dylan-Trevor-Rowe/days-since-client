@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { CommentContext } from './CommentProvider'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
-import { ArticleContext } from '../articles/ArticleProvider'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,19 +15,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export  function CommentForm(props) {
 
-    const {  createCommentData } = useContext(CommentContext)
+    const {  createCommentData, getCommentsByArticleId } = useContext(CommentContext)
     const [localState, setLocalState] = useState({})
     // const [newLocal, setNewLocal] = useState([])
 
     const classes = useStyles();
 
+    
+    console.log(props.match.params.articleId)
 
-    // const articleId = props.match.params.articleId
 
 
-    const handleControlledInputChange = (e) => {
+
+  const handleControlledInputChange = (e) => {
         const newCommentObject = Object.assign({}, localState)
         newCommentObject[e.target.name] = e.target.value
         setLocalState(newCommentObject)
@@ -38,9 +41,11 @@ export  function CommentForm(props) {
     const newComment = {
             user: parseInt(localStorage.getItem("user_id")),
             comment: localState.comment,
-            article: 1
+            article: parseInt(props.match.params.articleId)
       }
-        createCommentData(newComment)
+        createCommentData(newComment).then(() => {
+          getCommentsByArticleId(props.match.params.articleId)
+        })
     }
 
   return (

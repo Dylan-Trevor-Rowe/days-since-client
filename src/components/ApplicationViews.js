@@ -16,7 +16,7 @@ import { Journal } from './journalentry/Journal'
 import { Articles } from './articles/Articles'
 import { ArticleProvider } from "./articles/ArticleProvider"
 import { ArticleForm } from "./articles/ArticleForm"
-import { Comment } from "./comments/Comments"
+import { CommentDetails } from "./comments/Comments"
 import { CommentProvider } from "./comments/CommentProvider"
 import { CommentForm } from "./comments/CommentForm"
 
@@ -37,9 +37,13 @@ export const ApplicationViews = (props) => {
                                     <Route exact path="/wellbeing" render={(matchProps) => {
                                         return <WellBeingList {...props} {...matchProps} />
                                     }} />
-                                    {/* <Route exact path="/comments" render={(matchProps) => {
-                                        return <Comment {...props} {...matchProps} />
-                                    }} /> */}
+                                    <Route exact path="/comments" render={(matchProps) => {
+                                        return <CommentDetails {...props} {...matchProps} />
+                                    }} />
+                                          <Route exact path="/commentform" render={(matchProps) => {
+                                        return <CommentForm {...props} {...matchProps} />
+                                    }} />
+
 
 
                                     <Route path="/goalsform" exact component={GoalsForm} render={(matchProps) => {
@@ -66,6 +70,7 @@ export const ApplicationViews = (props) => {
                                     <Route exact path="/wellbeingform" render={(matchProps) => {
                                         return <WellBeingForm {...props} {...matchProps} />
                                     }} />
+
                                     <Route exact path='/wellbeingform/edit/:wellBeingId(\d+)' render={(matchProps) => {
                                         return <WellBeingForm {...props}
                                             {...matchProps}
@@ -80,11 +85,29 @@ export const ApplicationViews = (props) => {
                                     <Route exact path="/goalsform/edit/:goalId(\d+)" render={(matchProps) => {
                                         return <GoalsForm {...props} {...matchProps} />
                                     }} />
-                                    {/* <Route exact path="/comments/:articleId(\d+)" render={(matchProps) => {
-                                        return <Comment  {...props} {...matchProps} />
+                                    <Route
+                                        exact
+                                        path="/articles/:articleId(\d+)/comments"
+                                        render={(props, matchProps) => (
+                                            <>
+                                    
+                                                <CommentDetails {...props} {...matchProps} />
+                                                <CommentForm {...props} {...matchProps} />
+                   
 
-                                    }} /> */}
-                                    <Route exact path="/commentform" render={props => <CommentForm {...props} />} />
+                                            </>
+                                        )}
+                                    />
+                                    {/* <Route
+                                        exact
+                                        path="comments/:commentId(\d+)/commentform/"
+                                        render={(props, matchProps) => (
+                                            <>
+                                                <CommentForm {...props} {...matchProps} />
+                                            </>
+                                        )}
+                                    /> */}
+
 
                                     <ScoreBoardProvider>
                                         <Route exact path="/">
