@@ -4,9 +4,10 @@ import { Link, useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { ArticleContext } from './ArticleProvider';
-import AddCommentIcon from '@material-ui/icons/AddComment';
-import  Button  from '@material-ui/core/Button';
-import  './Articles.css'
+import { CommentDetails } from '../comments/Comments'
+import Button from '@material-ui/core/Button';
+import './Articles.css'
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        margin:10,
+        margin: 10,
         '& > ': {
             margin: theme.spacing(2),
             width: theme.spacing(50),
@@ -23,24 +24,25 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function Articles() {
+export function Articles(props) {
     const classes = useStyles();
 
     const { getArticleData, articleData } = useContext(ArticleContext)
 
-   const history = useHistory()
+    const history = useHistory()
 
-   function handleClick() {
-    history.push("/articleform");
-}
+    function handleClick() {
+        history.push("/articleform");
+    }
 
+  
     useEffect(() => {
         getArticleData()
     }, [])
 
     return <>
         <div className="article_button">
-        <Button onClick={handleClick}>post new article</Button>
+            <Button onClick={handleClick}>post new article</Button>
         </div>
         <div className={classes.root}>
             {articleData.map((row) => (
@@ -50,10 +52,11 @@ export function Articles() {
                         <p> date: {row.date}</p>
                         <p> title: {row.title}</p>
                         <p> user: {row.user.id}</p>
-                        <Link><AddCommentIcon color='primary'>comment</AddCommentIcon></Link>
+                       
                     </Paper>
+
                 </div>
-            ))}
+                ))}
         </div>
-   </>
+    </>
 }

@@ -16,6 +16,18 @@ const getArticleData = async () => {
         return setArticleData(value)
 
     }
+   
+const getArticleDataById = async (articleId) => {
+        const response = await fetch(`http://localhost:8000/articles/${articleId}`, {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("days_since_token")}`,
+                "Content-Type": "application/json",
+            }
+        })
+        const value = await response.json()
+        return setArticleData(value)
+
+    }
     const createArticleData = async data => {
         const response = await fetch(`http://localhost:8000/articles`, {
             method: "POST",
@@ -42,7 +54,7 @@ const getArticleData = async () => {
 
     return (
         <ArticleContext.Provider value={{
-            articleData, createArticleData, getArticleData, deleteArticleData
+            articleData,getArticleDataById, createArticleData, getArticleData, deleteArticleData
         }} >
             { props.children}
         </ArticleContext.Provider>

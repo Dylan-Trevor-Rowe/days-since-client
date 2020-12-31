@@ -18,6 +18,7 @@ import { ArticleProvider } from "./articles/ArticleProvider"
 import { ArticleForm } from "./articles/ArticleForm"
 import { Comment } from "./comments/Comments"
 import { CommentProvider } from "./comments/CommentProvider"
+import { CommentForm } from "./comments/CommentForm"
 
 export const ApplicationViews = (props) => {
 
@@ -36,14 +37,16 @@ export const ApplicationViews = (props) => {
                                     <Route exact path="/wellbeing" render={(matchProps) => {
                                         return <WellBeingList {...props} {...matchProps} />
                                     }} />
-                                    <Route exact path="/comments" render={(matchProps) => {
+                                    {/* <Route exact path="/comments" render={(matchProps) => {
                                         return <Comment {...props} {...matchProps} />
-                                    }} />
+                                    }} /> */}
+
+
                                     <Route path="/goalsform" exact component={GoalsForm} render={(matchProps) => {
                                         return <GoalsForm {...props} {...matchProps} />
                                     }} />
 
-                                    <Route exact path="/articles" render={(matchProps) => {
+                                    <Route exact path="/articles" exact component={Articles} render={(matchProps) => {
                                         return <Articles {...props} {...matchProps} />
                                     }} />
                                     <Route exact path="/journal" render={(matchProps) => {
@@ -52,7 +55,6 @@ export const ApplicationViews = (props) => {
                                     <Route path="/goals" exact component={GoalsList} render={(matchProps) => {
                                         return <GoalsList {...props} {...matchProps} />
                                     }} />
-
 
                                     <Route exact path="/journalform" render={(matchProps) => {
                                         return <JournalEntryForm {...props} {...matchProps} />
@@ -78,9 +80,11 @@ export const ApplicationViews = (props) => {
                                     <Route exact path="/goalsform/edit/:goalId(\d+)" render={(matchProps) => {
                                         return <GoalsForm {...props} {...matchProps} />
                                     }} />
-                                    <Route exact path="/articles/:articleId(\d+)/comments" render={(matchProps) => {
-                                        return <Comment {...props} {...matchProps} />
-                                    }} />
+                                    {/* <Route exact path="/comments/:articleId(\d+)" render={(matchProps) => {
+                                        return <Comment  {...props} {...matchProps} />
+
+                                    }} /> */}
+                                    <Route exact path="/commentform" render={props => <CommentForm {...props} />} />
 
                                     <ScoreBoardProvider>
                                         <Route exact path="/">
