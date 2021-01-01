@@ -24,7 +24,13 @@ export  function CommentForm(props) {
 
     const classes = useStyles();
 
-     const handleControlledInputChange = (e) => {
+    
+    console.log(props.match.params.articleId)
+
+
+
+
+  const handleControlledInputChange = (e) => {
         const newCommentObject = Object.assign({}, localState)
         newCommentObject[e.target.name] = e.target.value
         setLocalState(newCommentObject)
