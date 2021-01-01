@@ -33,61 +33,50 @@ const useStyles = makeStyles((theme) => ({
 
 export const GoalsForm = (props) => {
 
-    const { getGoalData, goalData, createGoalData, getGoalDataById, updateGoalData } = useContext(GoalContext)
-    const [defaultvalues, setDefaultvalues] = useState({})
-    const [name, setName] = useState([])
-    const [goalLength, setGoalLength] = useState([])
-    const [goalReason, setGoalReason] = useState([])
-
-
+    const { getGoalData, createGoalData, getGoalDataById, updateGoalData } = useContext(GoalContext)
+    const [localState, setLocalState] = useState({})
 
     useEffect(() => {
         getGoalData()
         getGoalDataById(props.match.params.goalId)
-            .then(res => setDefaultvalues(res))
-
+            .then(res => setLocalState(res))
     }, [])
 
     const editMode = props.match.params.goalId
 
     const classes = useStyles();
 
-    const getValue = (e) => {
-        const data = e.target.value;
-        setName(data)
-    }
-
-    const getValueTwo = (e) => {
-        const data = e.target.value;
-        setGoalLength(data)
-    }
-
-    const getValueThree = (e) => {
-        const data = e.target.value;
-        setGoalReason(data)
+    const handleControlledInputChange = (e) => {
+        const newGoalObject = Object.assign({}, localState)
+        newGoalObject[e.target.name] = e.target.value
+        setLocalState(newGoalObject)
     }
 
     const constructANewGoal = () => {
-        const dateData = new Date().toISOString().slice(0, 10);
+
         if (editMode) {
             updateGoalData({
                 id: editMode,
                 user_id: parseInt(localStorage.getItem("user_id")),
-                date: dateData,
-                goal_name: name,
-                goal_length: goalLength,
-                goal_reason: goalReason
+                date: localState.date,
+                goal_name: localState.goal_name,
+                goal_length: localState.goal_length,
+                goal_reason: localState.goal_reason
+            }).then(() => {
+                props.history.push('/goals')
             })
         } else {
 
             const newGoal = {
                 user_id: parseInt(localStorage.getItem("user_id")),
-                date: dateData,
-                goal_name: name,
-                goal_length: goalLength,
-                goal_reason: goalReason
+                date: localState.date,
+                goal_name: localState.goal_name,
+                goal_length: localState.goal_length,
+                goal_reason: localState.goal_reason
             }
-            createGoalData(newGoal)
+            createGoalData(newGoal).then(() => {
+                props.history.push('/goals')
+            })
         }
     }
 
@@ -95,47 +84,44 @@ export const GoalsForm = (props) => {
 
         <div className="goals_container">
             <form className={classes.container} noValidate>
+
                 <TextField
                     id="date"
-                    label="date"
+                    name="date"
                     type="date"
-                    defaultValue={defaultvalues.date}
+                    value={localState.date}
+                    defaultValue={localState.date}
+                    onChange={handleControlledInputChange}
                     className={classes.textField}
                     InputLabelProps={{
                         shrink: true,
-                    }}
-                />
+                    }} />
             </form>
             <br />
             <br />
         </div>
-        <div className="checkbox_container">
-            <br></br>
-            {goalData.map((val) => {
-                return (
-                    <div key={val}>
-                        <ol>
-                            <h3 style={{ margin: 15 }}>{val.goal_name}</h3>
-                        </ol>
-                    </div>)
-            })}
-        </div>
-        <br></br>
-        <div className="goal_input">
-            <TextField   defaultValue={defaultvalues.goal_name} type="input" id="standard-basic" label="goal-title" onChange={getValue} />
+        <div className="goal_labels">
+            <h4>goal name</h4>
         </div>
         <div className="goal_input">
-            <TextField type="input" id="standard-basic" defaultValue={defaultvalues.goal_length} label="length of goal" onChange={getValueTwo} />
+            <TextField name="goal_name" defaultValue={localState.goal_name} value={localState.goal_name} type="input" id="standard-basic" onChange={handleControlledInputChange} />
+        </div>
+        <div className="goal_labels">
+            <h4>goal length</h4>
+        </div>
+        <div className="goal_input">
+            <TextField type="input" id="standard-basic" name="goal_length" defaultValue={localState.goal_length} value={localState.goal_length} onChange={handleControlledInputChange} />
+        </div>
+        <div className="goal_labels">
+            <h4>goal reason</h4>
         </div>
         <div className="goal_input">
             <TextField
                 variant="outlined"
                 placeholder="reason for goal"
                 multiline
-                defaultValue={defaultvalues.goal_reason}
-                rows={8}
+                name="goal_reason" defaultValue={localState.goal_reason} value={localState.goal_reason} onChange={handleControlledInputChange} rows={8}
                 rowsMax={10}
-                onChange={getValueThree}
             />
         </div>
         <div className="button_container">

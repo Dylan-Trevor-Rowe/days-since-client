@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 export function GoalsList(props) {
 
     const { getGoalData, goalData, deleteGoalData } = useContext(GoalContext)
-    const { getCheckedGoalsData, createCheckedGoalsData  } = useContext(CheckedGoalsContext)
+    const { getCheckedGoalsData, createCheckedGoalsData, checkedGoals } = useContext(CheckedGoalsContext)
     const [goal_name, setGoalName] = React.useState('');
     const [open, setOpen] = React.useState(false);
     const [selectedValue, setSelectValue] = React.useState([]);
@@ -92,9 +92,13 @@ export function GoalsList(props) {
         setOpen(true);
     };
 
-    const toggleButtonCreate = (event) => {
-        setIsClicked(event.target.value)
+
+    const handleControlledInputChange = (e) => {
+        const newCheckedGoal = Object.assign({}, isClicked)
+        newCheckedGoal[e.target.name] = e.target.value
+        setIsClicked(newCheckedGoal)
     }
+
 
     const constructACheckedGoal = () => {
         const dateData = new Date().toISOString().slice(0, 10);
@@ -141,17 +145,18 @@ export function GoalsList(props) {
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         {goalFilter.map(val => {
                             return <div key={val.id}>
+                                <h2 style={{ fontSize: 'Bolder' }}>date: {val.date}</h2>
                                 <h2 style={{ fontSize: 'Bolder' }}>Goal title: {val.goal_name}</h2>
                                 <h3 style={{ fontSize: 'Bolder' }}>Goal length: {val.goal_length}</h3>
                                 <h4 style={{ fontSize: 'Bolder' }}>Reason: {val.goal_reason}</h4>
                                 <Button onClick={() => deleteGoalData(val.id)}>
                                     Remove Goal
                            </Button>
-                           <Button onClick={() => {
+                                <Button onClick={() => {
                                     history.push(`/goalsform/edit/${val.id}`)
                                 }}>Edit</Button>
                             </div>
-                            
+
                         })}
                     </Typography>
 
@@ -159,7 +164,7 @@ export function GoalsList(props) {
             </Card>
         </div>
         <div className='button_container'>
-            <Button onChange={(e) => toggleButtonCreate(e)} onClick={constructACheckedGoal} checked={isClicked} >log-goal</Button>
+            <Button onChange={(e) => handleControlledInputChange(e)} onClick={constructACheckedGoal} checked={isClicked} >log-goal</Button>
             <Button onClick={handleClick} >create a new goal</Button>
         </div>
     </>

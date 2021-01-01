@@ -9,29 +9,33 @@ export const JournalEntryForm = (props) => {
 
     
     const { getJournalEntryData, createJournalEntryData, getJournalEntryDataById, updateJournalData } = useContext(JournalEntryContext)
-    const [currentJournalEntry, setJournalEntry] = useState('')
-    const [currentDate, setCurrentDate] = useState('')
-    const [defaultvalues, setDefaultvalues] = useState({})
+    const [localState, setLocalState] = useState({})
 
     useEffect(() => {
         getJournalEntryData()
         getJournalEntryDataById(props.match.params.journalId)
-        .then(res => setDefaultvalues(res))
+        .then(res => setLocalState(res))
     }, [])
 
     const editMode = props.match.params.journalId
 
-    const handleChange = (e) => {
-        const name = e.target.value
-        setJournalEntry(name)
+    // const handleChange = (e) => {
+    //     const name = e.target.value
+    //     setJournalEntry(name)
+    // }
+
+    // const handleChangeTwo = (e) => {
+    //     const name = e.target.value
+    //     setCurrentDate(name)
+    // }
+
+    const handleControlledInputChange = (e) => {
+        const newJournalObject = Object.assign({}, localState)
+        newJournalObject[e.target.name] = e.target.value
+        setLocalState(newJournalObject)
     }
 
-    const handleChangeTwo = (e) => {
-        const name = e.target.value
-        setCurrentDate(name)
-    }
-
-    const dateData = new Date(Date.now()).toJSON().slice(0, 10);
+    // const dateData = new Date(Date.now()).toJSON().slice(0, 10);
 
 
     const history = useHistory()
@@ -41,16 +45,16 @@ export const JournalEntryForm = (props) => {
 
             updateJournalData({
                 id: editMode,
-                date: dateData,
-                entry: currentJournalEntry,
+                date: localState.date,
+                entry: localState.journal,
             }).then(() => {
                 history.push('/journal')
             })
         } else {
 
         const newEntry = {
-            date: dateData,
-            entry: currentJournalEntry,
+            date: localState.date,
+            entry: localState.journal,
         }
         createJournalEntryData(newEntry).then(() => {
             getJournalEntryData().then(() => {
@@ -87,9 +91,9 @@ export const JournalEntryForm = (props) => {
                 <TextField
                     type="date"
                     name="date"
-                    value={currentDate}
-                    onChange={handleChangeTwo}
-                    defaultValue={defaultvalues.date}
+                    value={localState.date}
+                    onChange={handleControlledInputChange}
+                    defaultValue={localState.date}
                     className={classes.textField}
                     InputLabelProps={{
                         shrink: true,
@@ -100,12 +104,13 @@ export const JournalEntryForm = (props) => {
                     <TextField
                         variant="outlined"
                         placeholder="diary"
+                        name="journal"
                         multiline
                         rows={8}
                         rowsMax={10}
-                        value={currentJournalEntry}
-                        defaultValue={defaultvalues.entry}
-                        onChange={handleChange} />
+                        value={localState.journal}
+                        defaultValue={localState.entry}
+                        onChange={handleControlledInputChange} />
                 </div>
                 <Button onClick={constructANewDay}
                     style={{ backgroundColor: "#1B4353", margin: 10 }}

@@ -52,11 +52,11 @@ export function ArticleForm() {
 
     const constructANewArticle = () => {
 
-        const dateData = new Date().toISOString().slice(0, 10);
+       
 
         const newArticle = {
             user: parseInt(localStorage.getItem("user_id")),
-            date: dateData,
+            date:localState.date,
             title: localState.title,
             link: localState.link
 
@@ -68,10 +68,12 @@ export function ArticleForm() {
         <form className={classes.container} noValidate>
             <TextField
                 id="date"
-                label="Birthday"
+                label="date"
                 type="date"
-                defaultValue="2017-05-24"
+                name="date" 
+                value={localState.date}
                 className={classes.textField}
+                onChange={handleControlledInputChange}
                 InputLabelProps={{
                     shrink: true,
                 }}

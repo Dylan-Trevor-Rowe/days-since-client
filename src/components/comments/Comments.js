@@ -29,7 +29,7 @@ export function CommentDetails(props) {
                 return <div className="card" key={val.id}>
                     <p>user: {val.user}</p>
                     <p>{val.comment}</p>
-                    <Button onClick={() => handleDelete(val.id, val.article)}>delete</Button>
+                   {val.user === localStorage.getItem('days_since_user') ? <Button onClick={() => handleDelete(val.id, val.article)}>delete</Button> : ''}
                 </div>
                 
             })}
