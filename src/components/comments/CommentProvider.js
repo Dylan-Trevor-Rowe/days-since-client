@@ -17,12 +17,14 @@ export const CommentProvider = (props) => {
             .then(res => res.json())
     }
 
-    const deleteAComment = async (id) => {
+    const deleteAComment = async (id,articleId) => {
         const result = await fetch(`http://localhost:8000/comments/${id}`, {
             method: 'DELETE',
             headers: {
                 "Authorization": `Token ${localStorage.getItem("days_since_token")}`
             },
+        }).then(() => { 
+            getCommentsByArticleId(articleId)
         })
         
     }

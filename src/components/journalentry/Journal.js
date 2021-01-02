@@ -120,7 +120,7 @@ export function Journal() {
                 <CardContent>
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         {journalFilter.map(entry => {
-                            return <div key={entry.id}>
+                            return <div key={entry}>
                                 <h2 style={{ fontSize: 'Bolder' }}>date: {entry.date}</h2>
                                 <h3 style={{ fontSize: 'Bolder' }}>entry: {entry.entry}</h3>
                                 <Button onClick={() => deleteJournalEntry(entry.id)}>

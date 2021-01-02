@@ -98,16 +98,7 @@ export const ApplicationViews = (props) => {
                                             </>
                                         )}
                                     />
-                                    {/* <Route
-                                        exact
-                                        path="comments/:commentId(\d+)/commentform/"
-                                        render={(props, matchProps) => (
-                                            <>
-                                                <CommentForm {...props} {...matchProps} />
-                                            </>
-                                        )}
-                                    /> */}
-
+                               
 
                                     <ScoreBoardProvider>
                                         <Route exact path="/">

@@ -2,7 +2,7 @@ import { Paper, Button } from '@material-ui/core'
 import React, { useContext, useEffect } from 'react'
 import { CommentContext } from './CommentProvider'
 import './Comment.css'
-import { Link } from 'react-router-dom'
+
 
 
 
@@ -14,10 +14,11 @@ export function CommentDetails(props) {
         getCommentsByArticleId(articleId)
     }, [])
 
-    const handleDelete = (commentId, articleId) => {
-        deleteAComment(commentId, articleId)
+    const handleDelete = (articleId) => {
+        const article = parseInt(props.match.params.articleId)
+        deleteAComment(articleId)
        .then(() => { 
-           getCommentsByArticleId(articleId)
+           getCommentsByArticleId(article)
        })
     } 
 
@@ -26,10 +27,10 @@ export function CommentDetails(props) {
     
         <Paper className="comment_paper">
             {commentData.map(val => {
-                return <div className="card" key={val.id}>
-                    <p>user: {val.user}</p>
+                return <div className="card" key={val}>
+                    <p>user: {val.user.user.username}</p>
                     <p>{val.comment}</p>
-                   {val.user === localStorage.getItem('days_since_user') ? <Button onClick={() => handleDelete(val.id, val.article)}>delete</Button> : ''}
+                    <Button onClick={() => handleDelete(val.id, val.articleId)}>delete</Button>
                 </div>
                 
             })}

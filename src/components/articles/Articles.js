@@ -53,12 +53,12 @@ export function Articles(props) {
         <div className={classes.root}>
             {articleData.map((row) => (
              
-                <div key={row}>
+                <div key={row.id}>
                  <Paper>
                         <a href={row.link}> article: {row.link}</a>
                         <p> date: {row.date}</p>
                         <p> title: {row.title}</p>
-                        <p> user: {row.user.id}</p>
+                        <p> posted by: {row.user.user.username}</p>
                         <Link to={`/articles/${row.id}/comments`}><CommentIcon></CommentIcon></Link>
                         <Button onClick={() => handleDelete(row.id)}>delete</Button>
                 </Paper>

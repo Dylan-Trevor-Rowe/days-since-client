@@ -24,12 +24,6 @@ export  function CommentForm(props) {
 
     const classes = useStyles();
 
-    
-    console.log(props.match.params.articleId)
-
-
-
-
   const handleControlledInputChange = (e) => {
         const newCommentObject = Object.assign({}, localState)
         newCommentObject[e.target.name] = e.target.value
@@ -37,21 +31,21 @@ export  function CommentForm(props) {
     }
 
     const constructANewComment = () => {
-
+    const articleProps = parseInt(props.match.params.articleId)
     const newComment = {
             user: parseInt(localStorage.getItem("user_id")),
             comment: localState.comment,
-            article: parseInt(props.match.params.articleId)
+            article: articleProps
       }
         createCommentData(newComment).then(() => {
-          getCommentsByArticleId(props.match.params.articleId)
+          getCommentsByArticleId(parseInt(props.match.params.articleId))
         })
     }
 
   return (
     <div className="comment_form_container">
     <form className={classes.root} noValidate autoComplete="off">
-    <TextField id="outlined-basic" label="Outlined" variant="outlined" name='comment' defaultValue={localState.comment} onChange={handleControlledInputChange} />
+    <TextField id="outlined-basic" label="Outlined" variant="outlined" name='comment'  onChange={handleControlledInputChange} />
     <Button onClick={constructANewComment}>submit comment</Button>
     </form>
     </div>
