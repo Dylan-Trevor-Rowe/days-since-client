@@ -19,6 +19,11 @@ import { ArticleForm } from "./articles/ArticleForm"
 import { CommentDetails } from "./comments/Comments"
 import { CommentProvider } from "./comments/CommentProvider"
 import { CommentForm } from "./comments/CommentForm"
+import { QuoteProvider } from "./quotes/QuoteProvider"
+
+
+
+
 
 export const ApplicationViews = (props) => {
 
@@ -30,21 +35,29 @@ export const ApplicationViews = (props) => {
                         <WellBeingProvider>
                             <ArticleProvider>
                                 <CommentProvider>
-
                                     <NavBar />
+                 
+                                       
+                                   
                                     <Route exact path="/login"></Route>
-
+                                    <Route
+                                        path="/logout"
+                                        render={() => {
+                                            // Removes the user Id and Token from local storage and redirects the user back to log in
+                                            localStorage.removeItem("user_id");
+                                            localStorage.removeItem("days_since_token");
+                                            props.history.push('/logout')
+                                        }}
+                                    />
                                     <Route exact path="/wellbeing" render={(matchProps) => {
                                         return <WellBeingList {...props} {...matchProps} />
                                     }} />
                                     <Route exact path="/comments" render={(matchProps) => {
                                         return <CommentDetails {...props} {...matchProps} />
                                     }} />
-                                          <Route exact path="/commentform" render={(matchProps) => {
+                                    <Route exact path="/commentform" render={(matchProps) => {
                                         return <CommentForm {...props} {...matchProps} />
                                     }} />
-
-
 
                                     <Route path="/goalsform" exact component={GoalsForm} render={(matchProps) => {
                                         return <GoalsForm {...props} {...matchProps} />
@@ -90,21 +103,21 @@ export const ApplicationViews = (props) => {
                                         path="/articles/:articleId(\d+)/comments"
                                         render={(props, matchProps) => (
                                             <>
-                                    
+
                                                 <CommentDetails {...props} {...matchProps} />
                                                 <CommentForm {...props} {...matchProps} />
-                   
+
 
                                             </>
                                         )}
                                     />
-                               
-
                                     <ScoreBoardProvider>
-                                        <Route exact path="/">
+                                        <QuoteProvider>
+                                            <Route exact path="/">
 
-                                            <ScoreBoardList />
-                                        </Route>
+                                                <ScoreBoardList />
+                                            </Route>
+                                        </QuoteProvider>
                                     </ScoreBoardProvider>
                                 </CommentProvider>
                             </ArticleProvider>

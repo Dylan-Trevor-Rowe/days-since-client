@@ -19,16 +19,6 @@ export const JournalEntryForm = (props) => {
 
     const editMode = props.match.params.journalId
 
-    // const handleChange = (e) => {
-    //     const name = e.target.value
-    //     setJournalEntry(name)
-    // }
-
-    // const handleChangeTwo = (e) => {
-    //     const name = e.target.value
-    //     setCurrentDate(name)
-    // }
-
     const handleControlledInputChange = (e) => {
         const newJournalObject = Object.assign({}, localState)
         newJournalObject[e.target.name] = e.target.value
