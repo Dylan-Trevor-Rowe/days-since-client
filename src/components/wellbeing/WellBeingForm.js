@@ -118,7 +118,7 @@ export function WellBeingForm(props) {
     const dateData = new Date().toISOString().slice(0, 10);
 
     const constructANewDay = () => {
-        console.log("====> params", props)
+ 
         if (props.match.params.wellBeingId) {
 
             updateWellBeingData({
@@ -160,15 +160,18 @@ export function WellBeingForm(props) {
                 incontenance: incontenanceChecked,
                 brainFog: brainFogChecked,
             }
-            createWellBeingData(newEntry)
+            createWellBeingData(newEntry).then(() => {
+                props.history.push('/wellbeing')
+
+            })
         }
     }
 
     if (props.match.params.wellBeingId) {
         return (
             <>
-        
-                <h1>edit form</h1>
+
+         
                 <div className="slider_container">
                     <Typography id="discrete-slider" gutterBottom>
                         <h2>fatigue-scale: 1-5</h2>
@@ -241,46 +244,54 @@ export function WellBeingForm(props) {
                     <br />
                 </div>
                 <h2>Symptoms</h2>
+                <div className='checkbox_container'>
+                    <div className='checkbox'>
+                        <div>
+                            <label>None</label>
+                            {<input type="checkbox" name="noSymptoms" onChange={toggle} defaultChecked={defaultvalues.noSymptoms && defaultvalues.noSymptoms} />}
+                        </div>
+                        <div>
+                            <label>numbness</label>
+                            {<input type="checkbox" name="numbness" onChange={toggle} defaultChecked={defaultvalues.numbness && defaultvalues.numbness} />}
+                        </div>
 
-                <div className="checkbox_container">
-                    <div>
-                        <label>None</label>
-                        {<input type="checkbox" name="noSymptoms" onChange={toggle} defaultChecked={defaultvalues.noSymptoms && defaultvalues.noSymptoms} />}
+                        <div>
+                            <label>tingling</label>
+                            {<input type="checkbox" name="tingling" onChange={toggle} defaultChecked={defaultvalues.tingling && defaultvalues.tingling} />}
+                        </div>
                     </div>
-                    <div>
-                        <label>numbness</label>
-                        {<input type="checkbox" name="numbness" onChange={toggle} defaultChecked={defaultvalues.numbness && defaultvalues.numbness} />}
-                    </div>
+                    <div className='checkbox'>
+                        <div>
+                            <label>weakness</label>
+                            {<input type="checkbox" name="weakness" onChange={toggle} defaultChecked={defaultvalues.weakness && defaultvalues.weakness} />}
+                        </div>
 
-                    <div>
-                        <label>tingling</label>
-                        {<input type="checkbox" name="tingling" onChange={toggle} defaultChecked={defaultvalues.tingling && defaultvalues.tingling} />}
-                    </div>
+                        <div>
+                            <label>stiffness</label>
+                            {<input type="checkbox" name='stiffness' onChange={toggle} defaultChecked={defaultvalues.stiffness && defaultvalues.stiffness} />}
+                        </div>
 
-                    <div>
-                        <label>weakness</label>
-                        {<input type="checkbox" name="weakness" onChange={toggle} defaultChecked={defaultvalues.weakness && defaultvalues.weakness} />}
+                        <div>
+                            <label>coordination-problems</label>
+                            {<input type="checkbox" name="coordinationOrBalanceProblems" onChange={toggle} defaultChecked={defaultvalues.coordinationOrBalanceProblems && defaultvalues.coordinationOrBalanceProblems} />}
+                        </div>
                     </div>
+                    <div className='checkbox'>
+                        <div>
+                            <label>heat-sensitivity</label>
+                            {<input type="checkbox" name="heatSensitivity" onChange={toggle} defaultChecked={defaultvalues.heatSensitivity && defaultvalues.heatSensitivity} />}
+                        </div>
 
-                    <div>
-                        <label>coordination-problems</label>
-                        {<input type="checkbox" name="coordinationOrBalanceProblems" onChange={toggle} defaultChecked={defaultvalues.coordinationOrBalanceProblems && defaultvalues.coordinationOrBalanceProblems} />}
-                    </div>
+                        <div>
+                            <label>incontenance</label>
+                            {<input type="checkbox" name="incontenance" onChange={toggle} defaultChecked={defaultvalues.incontenance && defaultvalues.incontenance} />}
+                        </div>
 
-                    <div>
-                        <label>heat-sensitivity</label>
-                        {<input type="checkbox" name="heatSensitivity" onChange={toggle} defaultChecked={defaultvalues.heatSensitivity && defaultvalues.heatSensitivity} />}
-                    </div>
-
-                    <div>
-                        <label>incontenance</label>
-                        {<input type="checkbox" name="incontenance" onChange={toggle} defaultChecked={defaultvalues.incontenance && defaultvalues.incontenance} />}
+                        <div className="button_container">
+                            <Button onClick={constructANewDay} style={{ backgroundColor: "#1B4353", margin: 10 }} className={classes.Button} variant="contained" color="primary" >submit</Button>
+                        </div>
                     </div>
                 </div>
-                <div className="button_container">
-                    <Button onClick={constructANewDay} style={{ backgroundColor: "#1B4353", margin: 10 }} className={classes.Button} variant="contained" color="primary" >submit</Button>
-                </div>
-
             </>
         )
     } else {
@@ -350,47 +361,53 @@ export function WellBeingForm(props) {
                 <br />
                 <h2>Symptoms</h2>
             </div>
-            <div className="checkbox_container">
-                <div>
-                    <label>none</label>
-                    <input type="checkbox" name='noSymptoms' onChange={toggle} checked={checkedValues.includes('noSymptoms')} />
+            <div className='checkbox_container'>
+                <div className='checkbox'>
+                    <div>
+                        <label>none</label>
+                        <input type="checkbox" name='noSymptoms' onChange={toggle} checked={checkedValues.includes('noSymptoms')} />
+                    </div>
+                    <div>
+                        <label>numbness</label>
+                        <input type="checkbox" name='numbness' onChange={toggle} checked={checkedValues.includes('numbness')} />
+                    </div>
+                    <div>
+                        <label>tingling</label>
+                        <input type="checkbox" name='tingling' onChange={toggle} checked={checkedValues.includes('tingling')} />
+                    </div>
                 </div>
-                <div>
-                    <label>numbness</label>
-                    <input type="checkbox" name='numbness' onChange={toggle} checked={checkedValues.includes('numbness')} />
+                <div className='checkbox'>
+                    <div>
+                        <label>weakness</label>
+                        <input type="checkbox" name='weakness' onChange={toggle} checked={checkedValues.includes('weakness')} />
+                    </div>
+                    <div>
+                        <label>stiffness</label>
+                        <input type="checkbox" name='stiffness' onChange={toggle} checked={checkedValues.includes('stiffness')} />
+                    </div>
+                    <div>
+                        <label>balance-issues</label>
+                        <input type="checkbox" name='coordinationOrBalanceProblems' onChange={toggle} checked={checkedValues.includes('coordinationOrBalanceProblems')} />
+                    </div>
                 </div>
-                <div>
-                    <label>tingling</label>
-                    <input type="checkbox" name='tingling' onChange={toggle} checked={checkedValues.includes('tingling')} />
+                <div className='checkbox'>
+                    <div>
+                        <label>heat-sensitivity</label>
+                        < input type="checkbox" type="checkbox" name="heatSensitivity" onChange={toggle} checked={checkedValues.includes('heatSensitivity')} />
+                    </div>
+                    <div>
+                        <label>incontenance</label>
+                        <input type="checkbox" name="incontenance" onChange={toggle} checked={checkedValues.includes('incontenance')} />
+                    </div>
+                    <div>
+                        <label>brain-fog</label>
+                        < input type="checkbox" name="brainFog" onChange={toggle} checked={checkedValues.includes('brainFog')} />
+                    </div>
                 </div>
-                <div>
-                    <label>weakness</label>
-                    <input type="checkbox" name='weakness' onChange={toggle} checked={checkedValues.includes('weakness')} />
                 </div>
-                <div>
-                    <label>stiffness</label>
-                    <input type="checkbox" name='stiffness' onChange={toggle} checked={checkedValues.includes('stiffness')} />
-                </div>
-                <div>
-                    <label>coordiantion-problems</label>
-                    <input type="checkbox" name='coordinationOrBalanceProblems' onChange={toggle} checked={checkedValues.includes('coordinationOrBalanceProblems')} />
-                </div>
-                <div>
-                    <label>heat-sensitivity</label>
-                    < input type="checkbox" type="checkbox" name="heatSensitivity" onChange={toggle} checked={checkedValues.includes('heatSensitivity')} />
-                </div>
-                <div>
-                    <label>incontenance</label>
-                    <input type="checkbox" name="incontenance" onChange={toggle} checked={checkedValues.includes('incontenance')} />
-                </div>
-                <div>
-                    <label>brain-fog</label>
-                    < input type="checkbox" name="brainFog" onChange={toggle} checked={checkedValues.includes('brainFog')} />
-                </div>
-            </div>
             <div className="button_container">
-                <Button onClick={constructANewDay} style={{ backgroundColor: "#1B4353", margin: 10 }} className={classes.Button} variant="contained" color="primary" >submit</Button>
-            </div>
+                    <Button onClick={constructANewDay} style={{ backgroundColor: "#1B4353", margin: 10 }} className={classes.Button} variant="contained" color="primary" >submit</Button>
+                </div>
         </>
     }
 }    

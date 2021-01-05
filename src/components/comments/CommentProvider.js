@@ -29,8 +29,6 @@ export const CommentProvider = (props) => {
         
     }
 
-    
-
     const getCommentsByArticleId = (articleId) => {
         return fetch(`http://localhost:8000/comments?article=${articleId}`, {
             headers: {

@@ -29,8 +29,10 @@ const useStyles = makeStyles((theme) => ({
 
     },
     root: {
-        width: 200,
-        height: 300,
+        display: 'flex',
+        minHeight: 300,
+        minWidth: 200,
+        maxWidth: 250
 
     },
     bullet: {

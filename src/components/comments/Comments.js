@@ -3,9 +3,6 @@ import React, { useContext, useEffect } from 'react'
 import { CommentContext } from './CommentProvider'
 import './Comment.css'
 
-
-
-
 export function CommentDetails(props) {
     const { commentData, getCommentsByArticleId, deleteAComment } = useContext(CommentContext)
 
@@ -17,22 +14,21 @@ export function CommentDetails(props) {
     const handleDelete = (articleId) => {
         const article = parseInt(props.match.params.articleId)
         deleteAComment(articleId)
-       .then(() => { 
-           getCommentsByArticleId(article)
-       })
-    } 
+            .then(() => {
+                getCommentsByArticleId(article)
+            })
+    }
+    return <>
 
-
- return <>
-    
         <Paper className="comment_paper">
             {commentData.map(val => {
                 return <div className="card" key={val}>
                     <p>user: {val.user.user.username}</p>
                     <p>{val.comment}</p>
-                    <Button onClick={() => handleDelete(val.id, val.articleId)}>delete</Button>
+                    {val.user.id === parseInt(localStorage.getItem('user_id'))
+                        ? <Button onClick={() => handleDelete(val.id, val.articleId)}>
+                            delete</Button> : ''}
                 </div>
-                
             })}
         </Paper>
     </>

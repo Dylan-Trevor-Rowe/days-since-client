@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
 
         display: 'flex',
         minHeight: 300,
-        minWidth: 200
+        minWidth: 200,
+        maxWidth: 250
     },
     bullet: {
         display: 'inline-block',
