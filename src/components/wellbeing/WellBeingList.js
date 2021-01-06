@@ -119,7 +119,7 @@ export function WellBeingList(props) {
                 <CardContent>
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         {sortedData.map(value => {
-                            return <div key={value.id}>
+                            return <div style={{ fontFamily: 'Belleza' }} key={value.id}>
                                 <h3 style={{ fontSize: 'small' }}>date: {value.date}</h3>
                                 <h3 style={{ fontSize: 'small' }}>Fatigue-Scale {value.fatigueScale}</h3>
                                 <h3 style={{ fontSize: 'small' }}>painScale: {value.painScale}</h3>
@@ -144,6 +144,7 @@ export function WellBeingList(props) {
                     </Typography>
                 </CardContent>
             </Card>
+
         </div>
         <div className='button_container'>
             <Button onClick={handleClick} >create a new wellness entry</Button>

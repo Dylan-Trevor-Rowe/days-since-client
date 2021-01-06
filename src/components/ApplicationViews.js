@@ -25,6 +25,7 @@ import { QuoteProvider } from "./quotes/QuoteProvider"
 
 
 
+
 export const ApplicationViews = (props) => {
 
     return <>
@@ -36,9 +37,6 @@ export const ApplicationViews = (props) => {
                             <ArticleProvider>
                                 <CommentProvider>
                                     <NavBar />
-                 
-                                       
-                                   
                                     <Route exact path="/login"></Route>
                                     <Route
                                         path="/logout"
@@ -116,6 +114,7 @@ export const ApplicationViews = (props) => {
                                             <Route exact path="/">
 
                                                 <ScoreBoardList />
+                                       
                                             </Route>
                                         </QuoteProvider>
                                     </ScoreBoardProvider>
