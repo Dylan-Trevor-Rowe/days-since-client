@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignContent: 'center',
         paddingTop: 40,
-   
+
     },
     textField: {
         marginLeft: theme.spacing(1),
@@ -67,26 +67,27 @@ export function ArticleForm() {
             link: localState.link
 
         }
-        createArticleData(newArticle).then(() => history.push("/articles"))
+            createArticleData(newArticle).then(() => history.push("/articles"))
+        
     }
 
     return <>
         <form className={classes.container} noValidate>
-       <div className={classes.div}>
-            <TextField
-                id="date"
-                label="date"
-                type="date"
-                name="date"
-                value={localState.date}
-                className={classes.textField}
-                onChange={handleControlledInputChange}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-            />
-            <TextField  id="standard-basic" label="title" name="title" defaultValue={localState.title} onChange={handleControlledInputChange} />
-            <TextField  id="standard-basic" label="link" name="link" defaultValue={localState.link} onChange={handleControlledInputChange} />
+            <div className={classes.div}>
+                <TextField
+                    id="date"
+                    label="date"
+                    type="date"
+                    name="date"
+                    value={localState.date}
+                    className={classes.textField}
+                    onChange={handleControlledInputChange}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                />
+                <TextField id="standard-basic" label="title" name="title" defaultValue={localState.title} onChange={handleControlledInputChange} />
+                <TextField id="standard-basic" label="link" name="link" defaultValue={localState.link} onChange={handleControlledInputChange} />
             </div>
             <div className='articleform_button'>
                 <Button style={{ backgroundColor: "#1B4353", marginLeft: 10 }} type="submit" variant="contained" color="primary" onClick={evt => {

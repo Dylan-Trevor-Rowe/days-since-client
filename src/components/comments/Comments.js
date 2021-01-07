@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
     root: {
         width: "100%",
-        backgroundColor: theme.palette.background.paper
+        backgroundColor: 'lightGrey',
     }
 
 }));
@@ -48,11 +48,12 @@ export function CommentDetails(props) {
                 console.log("Comment", comment);
                 return (
                     <React.Fragment key={comment.id}>
+
                         <ListItem key={comment.id} alignItems="flex-start">
-                             <ListItemText
+                            <ListItemText
                                 primary={
                                     <Typography className={classes.fonts}>
-                                        user: {comment.user.user.username}
+                                        User: {comment.user.user.username}
                                     </Typography>
                                 }
                                 secondary={
@@ -68,13 +69,12 @@ export function CommentDetails(props) {
                                     </>
                                 }
                             />
-                        </ListItem>
-                        {comment.user.id === parseInt(localStorage.getItem('user_id'))
-                            ? <Button onClick={() => handleDelete(comment.id, comment.articleId)}>
-                                delete</Button> : ''}
-                        <Divider />
-                    </React.Fragment>
 
+                            {comment.user.id === parseInt(localStorage.getItem('user_id'))
+                                ? <Button onClick={() => handleDelete(comment.id, comment.articleId)}>
+                                    delete</Button> : ''}
+                        </ListItem>
+                    </React.Fragment>
                 );
             })}
         </List>

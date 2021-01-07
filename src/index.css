@@ -2,10 +2,16 @@
 body {
   margin: 0;
   font-family: Helvetica;
-
-    
+  background-image: url('/home/useradd/workspace/python/days-since-client/src/components/pexels-photo-2341290.jpeg');
   -webkit-font-smoothing: antialiased;
-background-color:white
+  background-size: cover;
+  opacity: 90%;
+
+
+
+
+
+
 }
 /* 
 code {

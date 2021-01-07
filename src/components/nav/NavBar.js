@@ -9,7 +9,7 @@ import Tab from '@material-ui/core/Tab';
 const useStyles = makeStyles({
   root: {
     flexGrow: 3,
-    backgroundColor:'#F4A261'
+    backgroundColor:'#f2ae0f'
 
   },
 });

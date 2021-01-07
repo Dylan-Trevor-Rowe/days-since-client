@@ -12,3 +12,10 @@
     margin-top: 40px;
 }
 
+.link_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+

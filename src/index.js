@@ -8,11 +8,13 @@ import { BrowserRouter } from 'react-router-dom';
 
 
 
+
 ReactDOM.render(
 
   <BrowserRouter>
   <React.StrictMode>
     <DaysSinceRender />
+
   </React.StrictMode>,
   </BrowserRouter>,
 

@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
     root: {
 
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'space-evenly',
+        margin: 20
 
     },
     title: {
@@ -27,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
     },
     Card: {
         marginTop: 20,
-        minHeight: 300,
+        minHeight: 200,
+        maxHeight: 450,
         minWidth: 200,
         maxWidth: 250
     },
@@ -70,29 +72,32 @@ export function Articles(props) {
                     <Card className={classes.Card} variant="outlined">
                         <CardContent>
                             <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                date: {row.date}
+                               <h3 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}>Date: {row.date}</h3>
                                 <br />
                             </Typography>
                             <Typography variant="h5" component="h2">
                             </Typography>
                             <Typography className={classes.pos} color="textSecondary">
-                                title: {row.title}
+                            <h3 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}>Title: {row.title}</h3>
                                 <br />
                             </Typography>
                             <Typography className={classes.pos} color="textSecondary">
-                                <Link> {row.link} </Link>
+                            <h3 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}><Link> {row.link} </Link></h3>
                                 <br />
                             </Typography>
                             <Typography variant="body2" component="p">
-                                posted by: {row.user.user.username}
+                                <h3 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}>Posted-By: {row.user.user.username}</h3>
                                 <br />
                             </Typography>
                             <Typography variant="body2" component="p" className={classes.Buttons}>
                             </Typography>
+                            <br />
+                            <div className="link_container">
+                            <Link to={`/articles/${row.id}/comments`}><CommentIcon color='primary'></CommentIcon></Link>
                             {row.user.user.id === parseInt(localStorage.getItem('user_id')) ? 
                             <Button onClick={() => handleDelete(row.id)}>delete</Button> : ''}
                             <br />
-                            <Link to={`/articles/${row.id}/comments`}><CommentIcon>add</CommentIcon></Link>
+                            </div>
                         </CardContent>
                     </Card>
                 </div>

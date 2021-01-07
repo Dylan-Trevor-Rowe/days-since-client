@@ -31,8 +31,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         flexWrap: 'wrap',
         overflow: 'scroll',
-        backgroundColor: 'white'
-
+        backgroundColor: '#f2ae0f'
     },
 }));
 
@@ -61,20 +60,21 @@ export function CompletedGoals() {
     };
 
     const body = (
-
-        <div style={modalStyle} className={classes.paper}>
-            <h3>dates completed</h3>
+        <div>
+        <div style={modalStyle} className={classes.paper} >
+            <h3 style={{ fontFamily: 'Tinos', fontSize: 'larger' }} >dates completed</h3>
             {checkedGoals.map(item => {
                 return <div>
-                    <h4 id="simple-modal-description">{item.goal.goal_name}</h4>
-                    <p id="simple-modal-description"> date-completed: {item.date}</p>
+                    <h4 style={{ fontFamily: 'Tinos', fontSize: 'larger' }} id="simple-modal-description">{item.goal.goal_name}</h4>
+                    <p style={{ fontFamily: 'Tinos', fontSize: 'larger' }} id="simple-modal-description"> date-completed: {item.date}</p>
                 </div>
             })}
+        </div>
         </div>
     );
 
     return (
-        <div className modal_button>
+        <div className= 'modal_button'>
             <Button type="button" onClick={handleOpen}>
                 completed goal dates
           </Button>

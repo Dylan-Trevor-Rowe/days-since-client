@@ -147,10 +147,10 @@ export function GoalsList(props) {
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         {goalFilter.map(val => {
                             return <div key={val.id}>
-                                <h2 style={{ fontSize: 'Bolder' }}>date: {val.date}</h2>
-                                <h2 style={{ fontSize: 'Bolder' }}>Goal title: {val.goal_name}</h2>
-                                <h3 style={{ fontSize: 'Bolder' }}>Goal length: {val.goal_length}</h3>
-                                <h4 style={{ fontSize: 'Bolder' }}>Reason: {val.goal_reason}</h4>
+                                <h2 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}>Date: {val.date}</h2>
+                                <h2 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}>Goal-Title: {val.goal_name}</h2>
+                                <h3 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}>Goal Length: {val.goal_length}</h3>
+                                <h4 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}>Reason: {val.goal_reason}</h4>
                                 <Button onClick={() => deleteGoalData(val.id)}>
                                     Remove Goal
                            </Button>

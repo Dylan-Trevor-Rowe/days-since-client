@@ -46,11 +46,16 @@ export const JournalEntryForm = (props) => {
             date: localState.date,
             entry: localState.journal,
         }
+        if (localState.date === '' || localState.journal === '') { 
+        window.alert('please fill out all inputs')
+        } else {
+        
         createJournalEntryData(newEntry).then(() => {
             getJournalEntryData().then(() => {
                 history.push('/journal')
+                })
             })
-        })
+        }
     }
 }
     const useStyles = makeStyles((theme) => ({

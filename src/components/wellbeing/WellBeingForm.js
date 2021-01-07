@@ -171,7 +171,7 @@ export function WellBeingForm(props) {
         return (
             <>
 
-
+                <div className= 'form_container'>
                 <div className="slider_container">
                     <Typography id="discrete-slider" gutterBottom>
                         <h3 style={{ fontFamily: 'Belleza' }}>fatigue-scale: 1-5</h3>
@@ -295,12 +295,13 @@ export function WellBeingForm(props) {
                 <div className="button_container">
                     <Button onClick={constructANewDay} style={{ backgroundColor: "#1B4353", margin: 10 }} className={classes.Button} variant="contained" color="primary" >submit</Button>
                 </div>
+                </div>
             </>
         )
     } else {
 
         return <>
-
+            
             <div className="slider_container">
                 <Typography id="discrete-slider" gutterBottom>
                     <h3 style={{ fontFamily: 'Belleza' }}>fatigue-scale: 1-5</h3>

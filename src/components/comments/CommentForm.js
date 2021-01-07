@@ -37,6 +37,8 @@ export  function CommentForm(props) {
             comment: localState.comment,
             article: articleProps
       }
+
+
         createCommentData(newComment).then(() => {
           getCommentsByArticleId(parseInt(props.match.params.articleId))
         })
@@ -45,8 +47,8 @@ export  function CommentForm(props) {
   return (
     <div className="comment_form_container">
     <form className={classes.root} noValidate autoComplete="off">
-    <TextField id="outlined-basic" label="Outlined" variant="outlined" name='comment'  onChange={handleControlledInputChange} />
-    <Button onClick={constructANewComment}>submit comment</Button>
+    <TextField id="outlined-basic" label="comment" variant="outlined" name='comment' style={{backgroundColor: 'white'}}  onChange={handleControlledInputChange} />
+    <Button onClick={constructANewComment}>add comment</Button>
     </form>
     </div>
   );

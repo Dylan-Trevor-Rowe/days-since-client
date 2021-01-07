@@ -120,20 +120,20 @@ export function WellBeingList(props) {
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         {sortedData.map(value => {
                             return <div style={{ fontFamily: 'Belleza' }} key={value.id}>
-                                <h3 style={{ fontSize: 'small' }}>date: {value.date}</h3>
+                                <h3 style={{ fontSize: 'small' }}>Date: {value.date}</h3>
                                 <h3 style={{ fontSize: 'small' }}>Fatigue-Scale {value.fatigueScale}</h3>
-                                <h3 style={{ fontSize: 'small' }}>painScale: {value.painScale}</h3>
-                                <h3 style={{ fontSize: 'small' }}>emotionalWellBeing: {value.emotionalWellBeing}</h3>
-                                <h3 style={{ fontSize: 'small' }}>hoursOfSleep: {value.hoursOfSleep}</h3>
-                                {value.noSymptoms ? <h3 style={{ fontSize: 'small' }}>noSymptoms {value.noSymptoms}</h3> : ""}
-                                {value.numbness ? <h3 style={{ fontSize: 'small' }}>numbness {value.numbness}</h3> : ""}
-                                {value.tingling ? <h3 style={{ fontSize: 'small' }}>tingling {value.tingling}</h3> : ""}
-                                {value.weakness ? <h3 style={{ fontSize: 'small' }}>weakness {value.weakness}</h3> : ""}
-                                {value.stiffness ? <h3 style={{ fontSize: 'small' }}>stiffness {value.stiffness}</h3> : ""}
-                                {value.coordinationOrBalanceProblems ? <h3 style={{ fontSize: 'small' }}>coordinationOrBalanceProblems {value.coordinationOrBalanceProblems}</h3> : ""}
-                                {value.heatSensitivity ? <h3 style={{ fontSize: 'small' }}>heatSensitivity {value.heatSensitivity}</h3> : ""}
-                                {value.incontenance ? <h3 style={{ fontSize: 'small' }}>incontenance {value.incontenance}</h3> : ""}
-                                {value.brainFog ? <h3 style={{ fontSize: 'small' }}>incontenance {value.brainFog}</h3> : ""}
+                                <h3 style={{ fontSize: 'small' }}>Pain -Scale: {value.painScale}</h3>
+                                <h3 style={{ fontSize: 'small' }}>Emotional-Well-Being: {value.emotionalWellBeing}</h3>
+                                <h3 style={{ fontSize: 'small' }}>Sleep: {value.hoursOfSleep}</h3>
+                                {value.noSymptoms ? <h3 style={{ fontSize: 'small' }}>None {value.noSymptoms}</h3> : ""}
+                                {value.numbness ? <h3 style={{ fontSize: 'small' }}>Numbness {value.numbness}</h3> : ""}
+                                {value.tingling ? <h3 style={{ fontSize: 'small' }}>Tingling {value.tingling}</h3> : ""}
+                                {value.weakness ? <h3 style={{ fontSize: 'small' }}>Weakness {value.weakness}</h3> : ""}
+                                {value.stiffness ? <h3 style={{ fontSize: 'small' }}>Stiffness {value.stiffness}</h3> : ""}
+                                {value.coordinationOrBalanceProblems ? <h3 style={{ fontSize: 'small' }}>Coordination-Problems {value.coordinationOrBalanceProblems}</h3> : ""}
+                                {value.heatSensitivity ? <h3 style={{ fontSize: 'small' }}>Heat-Sensitivity {value.heatSensitivity}</h3> : ""}
+                                {value.incontenance ? <h3 style={{ fontSize: 'small' }}>Incontenance {value.incontenance}</h3> : ""}
+                                {value.brainFog ? <h3 style={{ fontSize: 'small' }}>Brain-Fog {value.brainFog}</h3> : ""}
                                 <br></br>
                                 <Button onClick={() => deleteWellBeingData(value.id)} >delete entry</Button>
                                 <Button onClick={() => {

@@ -11,8 +11,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-
-
 const useStyles = makeStyles((theme) => ({
     button: {
         display: 'block',
@@ -46,9 +44,6 @@ const useStyles = makeStyles((theme) => ({
     pos: {
         marginBottom: 12,
     },
-
-
-
 }));
 
 export function Journal() {
@@ -123,8 +118,8 @@ export function Journal() {
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         {journalFilter.map(entry => {
                             return <div key={entry}>
-                                <h2 style={{ fontSize: 'Bolder' }}>date: {entry.date}</h2>
-                                <h3 style={{ fontSize: 'Bolder' }}>entry: {entry.entry}</h3>
+                                <h2 style={{ fontSize: 'Bolder' }}>Date: {entry.date}</h2>
+                                <h3 style={{ fontSize: 'Bolder' }}>Entry: {entry.entry}</h3>
                                 <Button onClick={() => deleteJournalEntry(entry.id)}>
                                     Remove-Entry
                            </Button>
