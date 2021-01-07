@@ -2,8 +2,32 @@ import { Paper, Button } from '@material-ui/core'
 import React, { useContext, useEffect } from 'react'
 import { CommentContext } from './CommentProvider'
 import './Comment.css'
+import {
+    List,
+    ListItem,
+    ListItemText,
+    Typography,
+    Divider
+
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(theme => ({
+    fonts: {
+        fontWeight: "bold"
+    },
+    inline: {
+        display: "inline"
+    },
+    root: {
+        width: "100%",
+        backgroundColor: theme.palette.background.paper
+    }
+
+}));
 
 export function CommentDetails(props) {
+    const classes = useStyles();
     const { commentData, getCommentsByArticleId, deleteAComment } = useContext(CommentContext)
 
     useEffect(() => {
@@ -19,17 +43,52 @@ export function CommentDetails(props) {
             })
     }
     return <>
+        <List className={classes.root}>
+            {commentData.map(comment => {
+                console.log("Comment", comment);
+                return (
+                    <React.Fragment key={comment.id}>
+                        <ListItem key={comment.id} alignItems="flex-start">
+                             <ListItemText
+                                primary={
+                                    <Typography className={classes.fonts}>
+                                        user: {comment.user.user.username}
+                                    </Typography>
+                                }
+                                secondary={
+                                    <>
+                                        <Typography
+                                            component="span"
+                                            variant="body2"
+                                            className={classes.inline}
+                                            color="textPrimary"
+                                        >
+                                            {` - ${comment.comment}`}
+                                        </Typography>
+                                    </>
+                                }
+                            />
+                        </ListItem>
+                        {comment.user.id === parseInt(localStorage.getItem('user_id'))
+                            ? <Button onClick={() => handleDelete(comment.id, comment.articleId)}>
+                                delete</Button> : ''}
+                        <Divider />
+                    </React.Fragment>
 
-        <Paper className="comment_paper">
-            {commentData.map(val => {
-                return <div className="card" key={val}>
-                    <p>user: {val.user.user.username}</p>
-                    <p>{val.comment}</p>
-                    {val.user.id === parseInt(localStorage.getItem('user_id'))
-                        ? <Button onClick={() => handleDelete(val.id, val.articleId)}>
-                            delete</Button> : ''}
-                </div>
+                );
             })}
-        </Paper>
+        </List>
+
+        {/* <List className={classes.root}>
+            {commentData.map(val => {
+                return <ListItem key={val.id} alignItems="flex-start">
+                    <Typography className={classes.fonts}>
+                    <p>user: {val.user.user.username}</p>
+                    </Typography >
+                    <p>{val.comment}</p>
+                  
+              </ListItem>
+            })}
+        </List> */}
     </>
 }

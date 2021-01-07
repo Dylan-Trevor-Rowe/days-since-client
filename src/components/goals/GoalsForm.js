@@ -86,6 +86,7 @@ export const GoalsForm = (props) => {
             <form className={classes.container} noValidate>
 
                 <TextField
+                    style={{backgroundColor: 'white'}}
                     id="date"
                     name="date"
                     type="date"
@@ -104,24 +105,26 @@ export const GoalsForm = (props) => {
             <h4>goal name</h4>
         </div>
         <div className="goal_input">
-            <TextField name="goal_name" defaultValue={localState.goal_name} value={localState.goal_name} type="input" id="standard-basic" onChange={handleControlledInputChange} />
+            <TextField  style={{backgroundColor: 'white'}} name="goal_name" defaultValue={localState.goal_name} value={localState.goal_name} type="input" id="standard-basic" onChange={handleControlledInputChange} />
         </div>
         <div className="goal_labels">
             <h4>goal length</h4>
         </div>
         <div className="goal_input">
-            <TextField type="input" id="standard-basic" name="goal_length" defaultValue={localState.goal_length} value={localState.goal_length} onChange={handleControlledInputChange} />
+            <TextField        style={{backgroundColor: 'white'}} type="input" id="standard-basic" name="goal_length" defaultValue={localState.goal_length} value={localState.goal_length} onChange={handleControlledInputChange} />
         </div>
         <div className="goal_labels">
             <h4>goal reason</h4>
         </div>
         <div className="goal_input">
             <TextField
+                style={{backgroundColor: 'white'}}
                 variant="outlined"
                 placeholder="reason for goal"
                 multiline
                 name="goal_reason" defaultValue={localState.goal_reason} value={localState.goal_reason} onChange={handleControlledInputChange} rows={8}
                 rowsMax={10}
+                
             />
         </div>
         <div className="button_container">

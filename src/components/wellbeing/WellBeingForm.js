@@ -118,7 +118,7 @@ export function WellBeingForm(props) {
     const dateData = new Date().toISOString().slice(0, 10);
 
     const constructANewDay = () => {
- 
+
         if (props.match.params.wellBeingId) {
 
             updateWellBeingData({
@@ -171,10 +171,10 @@ export function WellBeingForm(props) {
         return (
             <>
 
-         
+
                 <div className="slider_container">
                     <Typography id="discrete-slider" gutterBottom>
-                        <h2>fatigue-scale: 1-5</h2>
+                        <h3 style={{ fontFamily: 'Belleza' }}>fatigue-scale: 1-5</h3>
                     </Typography>
                     {defaultvalues.fatigueScale >= 0 &&
                         <Slider
@@ -192,7 +192,7 @@ export function WellBeingForm(props) {
                     }
 
                     <Typography id="discrete-slider" gutterBottom>
-                        <h2>pain-scale: 1-5</h2>
+                        <h3 style={{ fontFamily: 'Belleza' }}>pain-scale: 1-5</h3>
                     </Typography>
                     {defaultvalues.fatigueScale >= 0 &&
                         <Slider
@@ -209,7 +209,7 @@ export function WellBeingForm(props) {
                         />
                     }
                     <Typography id="discrete-slider" gutterBottom>
-                        <h2>emotional-well-being: 1-5</h2>
+                        <h3 style={{ fontFamily: 'Belleza' }}>emotional-well-being: 1-5</h3>
                     </Typography>
                     {defaultvalues.emotionalWellBeing >= 0 &&
                         <Slider
@@ -225,7 +225,7 @@ export function WellBeingForm(props) {
                         />
                     }
                     <Typography id="discrete-slider" gutterBottom>
-                        <h2>hours of sleep</h2>
+                        <h3 style={{ fontFamily: 'Belleza' }}>hours of sleep</h3>
                     </Typography>
                     {defaultvalues.hoursOfSleep >= 0 &&
                         <Slider
@@ -243,54 +243,57 @@ export function WellBeingForm(props) {
                     <br />
                     <br />
                 </div>
-                <h2>Symptoms</h2>
+                <h3 className='symptoms' style={{ fontFamily: 'Belleza' }}>Symptoms</h3>
                 <div className='checkbox_container'>
                     <div className='checkbox'>
                         <div>
-                            <label>None</label>
+                            <label style={{ fontFamily: 'Belleza' }}>None</label>
                             {<input type="checkbox" name="noSymptoms" onChange={toggle} defaultChecked={defaultvalues.noSymptoms && defaultvalues.noSymptoms} />}
                         </div>
                         <div>
-                            <label>numbness</label>
+                            <label style={{ fontFamily: 'Belleza' }}>numbness</label>
                             {<input type="checkbox" name="numbness" onChange={toggle} defaultChecked={defaultvalues.numbness && defaultvalues.numbness} />}
                         </div>
 
                         <div>
-                            <label>tingling</label>
+                            <label style={{ fontFamily: 'Belleza' }}>tingling</label>
                             {<input type="checkbox" name="tingling" onChange={toggle} defaultChecked={defaultvalues.tingling && defaultvalues.tingling} />}
                         </div>
                     </div>
                     <div className='checkbox'>
                         <div>
-                            <label>weakness</label>
+                            <label style={{ fontFamily: 'Belleza' }}>weakness</label>
                             {<input type="checkbox" name="weakness" onChange={toggle} defaultChecked={defaultvalues.weakness && defaultvalues.weakness} />}
                         </div>
 
                         <div>
-                            <label>stiffness</label>
+                            <label style={{ fontFamily: 'Belleza' }}>stiffness</label>
                             {<input type="checkbox" name='stiffness' onChange={toggle} defaultChecked={defaultvalues.stiffness && defaultvalues.stiffness} />}
                         </div>
 
                         <div>
-                            <label>coordination-problems</label>
+                            <label style={{ fontFamily: 'Belleza' }}>coordination-problems</label>
                             {<input type="checkbox" name="coordinationOrBalanceProblems" onChange={toggle} defaultChecked={defaultvalues.coordinationOrBalanceProblems && defaultvalues.coordinationOrBalanceProblems} />}
                         </div>
                     </div>
                     <div className='checkbox'>
                         <div>
-                            <label>heat-sensitivity</label>
+                            <label style={{ fontFamily: 'Belleza' }}>heat-sensitivity</label>
                             {<input type="checkbox" name="heatSensitivity" onChange={toggle} defaultChecked={defaultvalues.heatSensitivity && defaultvalues.heatSensitivity} />}
                         </div>
 
                         <div>
-                            <label>incontenance</label>
+                            <label style={{ fontFamily: 'Belleza' }}>incontenance</label>
                             {<input type="checkbox" name="incontenance" onChange={toggle} defaultChecked={defaultvalues.incontenance && defaultvalues.incontenance} />}
                         </div>
-
-                        <div className="button_container">
-                            <Button onClick={constructANewDay} style={{ backgroundColor: "#1B4353", margin: 10 }} className={classes.Button} variant="contained" color="primary" >submit</Button>
+                        <div>
+                            <label style={{ fontFamily: 'Belleza' }}>brain-fog</label>
+                            {<input type="checkbox" name="brainFog" onChange={toggle} defaultChecked={defaultvalues.brainFog && defaultvalues.brainFog} />}
                         </div>
                     </div>
+                </div>
+                <div className="button_container">
+                    <Button onClick={constructANewDay} style={{ backgroundColor: "#1B4353", margin: 10 }} className={classes.Button} variant="contained" color="primary" >submit</Button>
                 </div>
             </>
         )
@@ -300,7 +303,7 @@ export function WellBeingForm(props) {
 
             <div className="slider_container">
                 <Typography id="discrete-slider" gutterBottom>
-                    <h2>fatigue-scale: 1-5</h2>
+                    <h3 style={{ fontFamily: 'Belleza' }}>fatigue-scale: 1-5</h3>
                 </Typography>
                 <Slider
 
@@ -315,7 +318,7 @@ export function WellBeingForm(props) {
                     max={5}
                 />
                 <Typography id="discrete-slider" gutterBottom>
-                    <h2>pain-scale: 1-5</h2>
+                    <h3 style={{ fontFamily: 'Belleza' }}>pain-scale: 1-5</h3>
                 </Typography>
                 <Slider
 
@@ -330,7 +333,7 @@ export function WellBeingForm(props) {
                     max={5}
                 />
                 <Typography id="discrete-slider" gutterBottom>
-                    <h2>emotional-well-being: 1-5</h2>
+                    <h3 style={{ fontFamily: 'Belleza' }}>emotional-well-being: 1-5</h3>
                 </Typography>
                 <Slider
                     onChange={updateRangeThree}
@@ -344,7 +347,7 @@ export function WellBeingForm(props) {
                     max={5}
                 />
                 <Typography id="discrete-slider" gutterBottom>
-                    <h2>hours of sleep</h2>
+                    <h3 style={{ fontFamily: 'Belleza' }}>hours of sleep</h3>
                 </Typography>
                 <Slider
                     onChange={updateRangeFour}
@@ -359,12 +362,12 @@ export function WellBeingForm(props) {
                 />
                 <br />
                 <br />
-                <h2>Symptoms</h2>
             </div>
+            <h3 className='symptoms' style={{ fontFamily: 'Belleza' }}>Symptoms</h3>
             <div className='checkbox_container'>
                 <div className='checkbox'>
                     <div>
-                        <label>none</label>
+                        <label style={{ fontFamily: 'Belleza' }} >none</label>
                         <input type="checkbox" name='noSymptoms' onChange={toggle} checked={checkedValues.includes('noSymptoms')} />
                     </div>
                     <div>
@@ -378,36 +381,36 @@ export function WellBeingForm(props) {
                 </div>
                 <div className='checkbox'>
                     <div>
-                        <label>weakness</label>
+                        <label style={{ fontFamily: 'Belleza' }}>weakness</label>
                         <input type="checkbox" name='weakness' onChange={toggle} checked={checkedValues.includes('weakness')} />
                     </div>
                     <div>
-                        <label>stiffness</label>
+                        <label style={{ fontFamily: 'Belleza' }}>stiffness</label>
                         <input type="checkbox" name='stiffness' onChange={toggle} checked={checkedValues.includes('stiffness')} />
                     </div>
                     <div>
-                        <label>balance-issues</label>
+                        <label style={{ fontFamily: 'Belleza' }}>balance-issues</label>
                         <input type="checkbox" name='coordinationOrBalanceProblems' onChange={toggle} checked={checkedValues.includes('coordinationOrBalanceProblems')} />
                     </div>
                 </div>
                 <div className='checkbox'>
                     <div>
-                        <label>heat-sensitivity</label>
+                        <label style={{ fontFamily: 'Belleza' }}>heat-sensitivity</label>
                         < input type="checkbox" type="checkbox" name="heatSensitivity" onChange={toggle} checked={checkedValues.includes('heatSensitivity')} />
                     </div>
                     <div>
-                        <label>incontenance</label>
+                        <label style={{ fontFamily: 'Belleza' }}>incontenance</label>
                         <input type="checkbox" name="incontenance" onChange={toggle} checked={checkedValues.includes('incontenance')} />
                     </div>
                     <div>
-                        <label>brain-fog</label>
-                        < input type="checkbox" name="brainFog" onChange={toggle} checked={checkedValues.includes('brainFog')} />
+                        <label style={{ fontFamily: 'Belleza' }}>brain-fog</label>
+                        <input type="checkbox" name="brainFog" onChange={toggle} checked={checkedValues.includes('brainFog')} />
                     </div>
                 </div>
-                </div>
+            </div>
             <div className="button_container">
-                    <Button onClick={constructANewDay} style={{ backgroundColor: "#1B4353", margin: 10 }} className={classes.Button} variant="contained" color="primary" >submit</Button>
-                </div>
+                <Button onClick={constructANewDay} style={{ backgroundColor: "#1B4353", margin: 10 }} className={classes.Button} variant="contained" color="primary" >submit</Button>
+            </div>
         </>
     }
 }    

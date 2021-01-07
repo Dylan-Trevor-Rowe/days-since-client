@@ -88,6 +88,7 @@ export const JournalEntryForm = (props) => {
                     InputLabelProps={{
                         shrink: true,
                     }}
+                    style={{backgroundColor: 'white'}}
                 />
                 <br></br>
                 <div className="root">
@@ -100,7 +101,8 @@ export const JournalEntryForm = (props) => {
                         rowsMax={10}
                         value={localState.journal}
                         defaultValue={localState.entry}
-                        onChange={handleControlledInputChange} />
+                        onChange={handleControlledInputChange}
+                        style={{backgroundColor: 'white'}} />
                 </div>
                 <Button onClick={constructANewDay}
                     style={{ backgroundColor: "#1B4353", margin: 10 }}

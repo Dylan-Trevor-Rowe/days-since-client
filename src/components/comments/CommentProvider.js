@@ -6,9 +6,7 @@ export const CommentContext = createContext()
 export const CommentProvider = (props) => {
     const [commentData, setCommentData] = useState([])
 
-
- 
-    const getCommentById = (commentId) => {
+const getCommentById = (commentId) => {
         return fetch(`http://localhost:8000/comments/${commentId}`, {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("days_since_token")}`

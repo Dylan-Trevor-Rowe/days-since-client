@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
         justifyContent: 'center',
         alignContent: 'center',
-        paddingTop: 40
+        paddingTop: 40,
+   
     },
     textField: {
         marginLeft: theme.spacing(1),
@@ -27,10 +28,17 @@ const useStyles = makeStyles((theme) => ({
             width: '25ch',
         },
     },
+    div: {
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignContent: 'center',
+        backgroundColor: 'white',
+        padding: 20
+    }
 
 }));
-
-
 
 export function ArticleForm() {
     const { getArticleData, createArticleData } = useContext(ArticleContext)
@@ -52,11 +60,9 @@ export function ArticleForm() {
 
     const constructANewArticle = () => {
 
-       
-
         const newArticle = {
             user: parseInt(localStorage.getItem("user_id")),
-            date:localState.date,
+            date: localState.date,
             title: localState.title,
             link: localState.link
 
@@ -66,11 +72,12 @@ export function ArticleForm() {
 
     return <>
         <form className={classes.container} noValidate>
+       <div className={classes.div}>
             <TextField
                 id="date"
                 label="date"
                 type="date"
-                name="date" 
+                name="date"
                 value={localState.date}
                 className={classes.textField}
                 onChange={handleControlledInputChange}
@@ -78,15 +85,15 @@ export function ArticleForm() {
                     shrink: true,
                 }}
             />
-            <TextField id="standard-basic" label="title" name="title"  defaultValue={localState.title} onChange={handleControlledInputChange} />
-            <TextField id="standard-basic" label="link" name="link"  defaultValue={localState.link} onChange={handleControlledInputChange} />
-  
-        <div className='articleform_button'>
-            <Button type="submit" variant="outlined" color="primary"  onClick={evt => {
+            <TextField  id="standard-basic" label="title" name="title" defaultValue={localState.title} onChange={handleControlledInputChange} />
+            <TextField  id="standard-basic" label="link" name="link" defaultValue={localState.link} onChange={handleControlledInputChange} />
+            </div>
+            <div className='articleform_button'>
+                <Button style={{ backgroundColor: "#1B4353", marginLeft: 10 }} type="submit" variant="contained" color="primary" onClick={evt => {
                     evt.preventDefault()
                     constructANewArticle()
                 }}>submit</Button>
-        </div>
+            </div>
         </form>
     </>
 }

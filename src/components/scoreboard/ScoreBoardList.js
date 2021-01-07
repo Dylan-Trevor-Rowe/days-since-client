@@ -11,7 +11,6 @@ import { MediaCard } from '../wellbeing/MsContainer';
 
 export const ScoreBoardList = (props) => {
 
-  const [spacing] = React.useState(2);
   const { getQuoteData, quoteData, } = useContext(QuoteContext)
 
   useEffect(() => {
@@ -24,14 +23,15 @@ export const ScoreBoardList = (props) => {
       flexGrow: 2,
       flexDirection: 'row',
       justifyContent: 'space-evenly',
-      alignContent: 'center'
-    },
+      alignContent: 'center',
+      
+      },
     paper: {
       marginTop: 50,
       marginRight: 20,
       textAlign: 'center',
       maxHeight: 300,
-      Width: 200,
+      maxWidth: 300,
       borderColor: 'grey.500',
   },
     control: {
@@ -55,7 +55,9 @@ export const ScoreBoardList = (props) => {
       num: num + 1
     }
     // function that creates an object and sets the state to num + 1
+    
     numbers.push(lastVal)
+  
     // push object into an empty array called numbers and set it in local state
     localStorage.setItem("numbers", JSON.stringify(numbers))
   }

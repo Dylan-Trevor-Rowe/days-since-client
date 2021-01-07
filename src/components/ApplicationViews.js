@@ -16,10 +16,11 @@ import { Journal } from './journalentry/Journal'
 import { Articles } from './articles/Articles'
 import { ArticleProvider } from "./articles/ArticleProvider"
 import { ArticleForm } from "./articles/ArticleForm"
-import { CommentDetails } from "./comments/Comments"
+import { CommentDetails }  from './comments/Comments'
 import { CommentProvider } from "./comments/CommentProvider"
 import { CommentForm } from "./comments/CommentForm"
 import { QuoteProvider } from "./quotes/QuoteProvider"
+
 
 
 
@@ -36,6 +37,7 @@ export const ApplicationViews = (props) => {
                         <WellBeingProvider>
                             <ArticleProvider>
                                 <CommentProvider>
+             
                                     <NavBar />
                                     <Route exact path="/login"></Route>
                                     <Route
