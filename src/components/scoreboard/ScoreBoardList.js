@@ -24,8 +24,8 @@ export const ScoreBoardList = (props) => {
       flexDirection: 'row',
       justifyContent: 'space-evenly',
       alignContent: 'center',
-      
-      },
+
+    },
     paper: {
       marginTop: 50,
       marginRight: 20,
@@ -33,7 +33,7 @@ export const ScoreBoardList = (props) => {
       maxHeight: 300,
       maxWidth: 300,
       borderColor: 'grey.500',
-  },
+    },
     control: {
       padding: theme.spacing(2),
     },
@@ -42,11 +42,17 @@ export const ScoreBoardList = (props) => {
     },
   }));
 
-  const [num, setNum] = useState(0)
 
-  const numbers = JSON.parse(localStorage.getItem("numbers")) || []
-  //getting numbers array in localStorage
   const userId = localStorage.getItem("user_id")
+  const numbers = JSON.parse(localStorage.getItem("numbers")) || []
+  const newValues = numbers.map((int) => {
+    return int
+  })
+  const filtered = newValues.filter(number => number.userId === userId)
+  const popped = filtered.pop()
+  const [num, setNum] = useState(popped.num)
+  //getting numbers array in localStorage
+
   // get the userId created upon log in and registration
   const increase = () => {
     setNum(num + 1)
@@ -55,9 +61,9 @@ export const ScoreBoardList = (props) => {
       num: num + 1
     }
     // function that creates an object and sets the state to num + 1
-    
+
     numbers.push(lastVal)
-  
+
     // push object into an empty array called numbers and set it in local state
     localStorage.setItem("numbers", JSON.stringify(numbers))
   }
@@ -101,7 +107,7 @@ export const ScoreBoardList = (props) => {
           </div>
         </div>
       </Paper>
-      <MediaCard className={classes.media}/>
+      <MediaCard className={classes.media} />
     </div>
 
 

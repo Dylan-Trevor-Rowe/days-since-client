@@ -93,7 +93,7 @@ export function GoalsList(props) {
     const handleOpen = () => {
         setOpen(true);
     };
-
+        
 
     const handleControlledInputChange = (e) => {
         const newCheckedGoal = Object.assign({}, isClicked)

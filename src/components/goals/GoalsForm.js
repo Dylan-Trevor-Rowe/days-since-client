@@ -75,10 +75,17 @@ export const GoalsForm = (props) => {
                 goal_reason: localState.goal_reason
             }
 
-            if (localState.date === '' || localState.goal_name === ''
-                || localState.goal_length === ''
-                || localState.goal_reason === '') {
+            if (localState.date === '') {
                 window.alert('please fill out all inputs')
+
+            }  if (localState.goal_name === '') {
+               alert('please fill out all inputs')
+            }  if (localState.goal_length ==='') {
+                alert('please fill out all inputs')
+
+            }  if (localState.goal_length === '') {
+                alert('please fill out all inputs')
+
             } else {
                 createGoalData(newGoal).then(() => {
                     props.history.push('/goals')

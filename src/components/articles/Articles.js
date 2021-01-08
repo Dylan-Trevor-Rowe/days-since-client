@@ -22,15 +22,19 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         fontSize: 14,
+        border: 'solid',
+        
     },
     pos: {
         marginBottom: 12,
+        border: 'solid',
     },
     Card: {
         marginTop: 20,
         minHeight: 200,
-        maxHeight: 450,
-        minWidth: 200,
+        maxHeight: 600,
+        height: 500,
+        minWidth: 400,
         maxWidth: 250
     },
     Buttons: {
@@ -38,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         flexDirection: 'row'
     },
+    contain: {
+        border: 'solid'
+    }
 
 }));
 
@@ -85,7 +92,7 @@ export function Articles(props) {
                             <h3 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}><Link> {row.link} </Link></h3>
                                 <br />
                             </Typography>
-                            <Typography variant="body2" component="p">
+                            <Typography variant="body2" component="p" className={classes.contain}>
                                 <h3 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}>Posted-By: {row.user.user.username}</h3>
                                 <br />
                             </Typography>
@@ -93,7 +100,7 @@ export function Articles(props) {
                             </Typography>
                             <br />
                             <div className="link_container">
-                            <Link to={`/articles/${row.id}/comments`}><CommentIcon color='primary'></CommentIcon></Link>
+                            <Link to={`/articles/${row.id}/comments`}><p>add a comment</p><CommentIcon color='primary'></CommentIcon></Link>
                             {row.user.user.id === parseInt(localStorage.getItem('user_id')) ? 
                             <Button onClick={() => handleDelete(row.id)}>delete</Button> : ''}
                             <br />
