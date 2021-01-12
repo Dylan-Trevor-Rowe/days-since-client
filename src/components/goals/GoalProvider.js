@@ -75,7 +75,6 @@ export const GoalProvider = (props) => {
             body: JSON.stringify(goalId)
         })
         return getGoalData(result)
-    
     }
 
     return (

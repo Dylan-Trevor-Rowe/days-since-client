@@ -58,18 +58,23 @@ export function ArticleForm() {
         getArticleData()
     }, [])
 
+
+
     const constructANewArticle = () => {
+        if (localState.date && localState.title && localState.link) {
 
-        const newArticle = {
-            user: parseInt(localStorage.getItem("user_id")),
-            date: localState.date,
-            title: localState.title,
-            link: localState.link
-
-        }
+            const newArticle = {
+                user: parseInt(localStorage.getItem("user_id")),
+                date: localState.date,
+                title: localState.title,
+                link: localState.link
+            }
             createArticleData(newArticle).then(() => history.push("/articles"))
-        
+        } else {
+            return alert('fill out all fields')
+        }
     }
+
 
     return <>
         <form className={classes.container} noValidate>

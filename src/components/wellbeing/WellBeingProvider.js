@@ -6,6 +6,13 @@ export const WellBeingContext = createContext()
 export const WellBeingProvider = (props) => {
     const [wellBeingData, setWellBeingData] = useState([])
 
+
+
+
+
+   
+    
+
     const getWellBeingData = async () => {
         const response = await fetch("http://localhost:8000/wellbeing", {
             headers: {

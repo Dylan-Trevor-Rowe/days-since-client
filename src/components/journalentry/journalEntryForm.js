@@ -7,14 +7,14 @@ import { useHistory } from 'react-router-dom';
 
 export const JournalEntryForm = (props) => {
 
-    
+
     const { getJournalEntryData, createJournalEntryData, getJournalEntryDataById, updateJournalData } = useContext(JournalEntryContext)
     const [localState, setLocalState] = useState({})
 
     useEffect(() => {
         getJournalEntryData()
         getJournalEntryDataById(props.match.params.journalId)
-        .then(res => setLocalState(res))
+            .then(res => setLocalState(res))
     }, [])
 
     const editMode = props.match.params.journalId
@@ -24,9 +24,6 @@ export const JournalEntryForm = (props) => {
         newJournalObject[e.target.name] = e.target.value
         setLocalState(newJournalObject)
     }
-
-    // const dateData = new Date(Date.now()).toJSON().slice(0, 10);
-
 
     const history = useHistory()
 
@@ -42,19 +39,20 @@ export const JournalEntryForm = (props) => {
             })
         } else {
 
-        const newEntry = {
-            date: localState.date,
-            entry: localState.journal,
-        }
-        // if (localState.date === '' || localState.journal === '') { 
-        // window.alert('please fill out all inputs')
-        // } else {
-        
-        createJournalEntryData(newEntry).then(() => {
-            getJournalEntryData().then(() => {
-                history.push('/journal')
+            const newEntry = {
+                date: localState.date,
+                entry: localState.journal,
+            }
+            if (localState.date && localState.journal) {
+
+                createJournalEntryData(newEntry).then(() => {
+                    getJournalEntryData().then(() => {
+                        history.push('/journal')
+                    })
                 })
-            })
+            } else {
+                return alert('fill out all data')
+            }
         }
     }
 
@@ -93,7 +91,7 @@ export const JournalEntryForm = (props) => {
                     InputLabelProps={{
                         shrink: true,
                     }}
-                    style={{backgroundColor: 'white'}}
+                    style={{ backgroundColor: 'white' }}
                 />
                 <br></br>
                 <div className="root">
@@ -107,7 +105,7 @@ export const JournalEntryForm = (props) => {
                         value={localState.journal}
                         defaultValue={localState.entry}
                         onChange={handleControlledInputChange}
-                        style={{backgroundColor: 'white'}} />
+                        style={{ backgroundColor: 'white' }} />
                 </div>
                 <Button onClick={constructANewDay}
                     style={{ backgroundColor: "#1B4353", margin: 10 }}

@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
     root: {
         display: 'flex',
-        minHeight: 300,
+        minHeight: 250,
         minWidth: 200,
         maxWidth: 250
 
@@ -72,10 +72,8 @@ export function GoalsList(props) {
     useEffect(() => {
         getGoalData()
         getCheckedGoalsData()
-
     }, [])
-
-
+    
     const handleChange = (event) => {
         setGoalName(event.target.value);
         setSelectValue(event.target.value)
@@ -100,7 +98,6 @@ export function GoalsList(props) {
         newCheckedGoal[e.target.name] = e.target.value
         setIsClicked(newCheckedGoal)
     }
-
 
     const constructACheckedGoal = () => {
         const dateData = new Date().toISOString().slice(0, 10);

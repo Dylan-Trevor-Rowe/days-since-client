@@ -20,6 +20,7 @@ import { CommentDetails }  from './comments/Comments'
 import { CommentProvider } from "./comments/CommentProvider"
 import { CommentForm } from "./comments/CommentForm"
 import { QuoteProvider } from "./quotes/QuoteProvider"
+import { DataTable } from "./wellbeing/Table"
 
 
 
@@ -72,6 +73,19 @@ export const ApplicationViews = (props) => {
                                     <Route path="/goals" exact component={GoalsList} render={(matchProps) => {
                                         return <GoalsList {...props} {...matchProps} />
                                     }} />
+                                             <Route
+                                        exact
+                                        path="/Table"
+                                        render={(props, matchProps) => (
+                                            <>
+
+                                                <DataTable {...props} {...matchProps} />
+                                              
+
+
+                                            </>
+                                        )}
+                                    />
 
                                     <Route exact path="/journalform" render={(matchProps) => {
                                         return <JournalEntryForm {...props} {...matchProps} />

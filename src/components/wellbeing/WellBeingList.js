@@ -50,7 +50,6 @@ export function WellBeingList(props) {
 
     const [open, setOpen] = React.useState(false);
     const [selectedWellBeingValue, setWellBeingValue] = React.useState([]);
-    // const [selectedValue, setSelectedValue] = React.useState([]);
     const { getWellBeingData, wellBeingData, deleteWellBeingData } = useContext(WellBeingContext)
 
     const classes = useStyles();
@@ -73,7 +72,6 @@ export function WellBeingList(props) {
     const filteredWellBeingData = wellBeingData.filter((val) => {
         return val.id === selectedWellBeingValue
     })
-
 
     const handleClose = () => {
         setOpen(false);
@@ -104,7 +102,6 @@ export function WellBeingList(props) {
                     onOpen={handleOpen}
                     value={selectedWellBeingValue}
                     onChange={handleChange}>
-
                     <MenuItem>
                         none
                     </MenuItem>
@@ -142,9 +139,9 @@ export function WellBeingList(props) {
                             </div>
                         })}
                     </Typography>
+                    <Button style={{ textDecoration: 'none', color: 'default' }}><Link style={{ textDecoration: 'none', color: 'default' }} to={'/Table'}>view averages</Link></Button>
                 </CardContent>
             </Card>
-
         </div>
         <div className='button_container'>
             <Button onClick={handleClick} >create a new wellness entry</Button>

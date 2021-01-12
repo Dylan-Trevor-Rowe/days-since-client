@@ -27,7 +27,10 @@ const useStyles = makeStyles((theme) => ({
     },
     pos: {
         marginBottom: 12,
+        display: 'flex',
+        flexWrap: 'wrap',
         border: 'solid',
+        textAlign: 'justify'
     },
     Card: {
         marginTop: 20,
@@ -74,8 +77,7 @@ export function Articles(props) {
         </div>
         <div className={classes.root}>
             {articleData.map((row) => (
-
-                <div key={row.id}>
+            <div key={row.id}>
                     <Card className={classes.Card} variant="outlined">
                         <CardContent>
                             <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -89,7 +91,7 @@ export function Articles(props) {
                                 <br />
                             </Typography>
                             <Typography className={classes.pos} color="textSecondary">
-                            <h3 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}><Link> {row.link} </Link></h3>
+                           <a href={row.link}>{row.link}</a>
                                 <br />
                             </Typography>
                             <Typography variant="body2" component="p" className={classes.contain}>
@@ -100,13 +102,16 @@ export function Articles(props) {
                             </Typography>
                             <br />
                             <div className="link_container">
-                            <Link to={`/articles/${row.id}/comments`}><p>add a comment</p><CommentIcon color='primary'></CommentIcon></Link>
-                            {row.user.user.id === parseInt(localStorage.getItem('user_id')) ? 
-                            <Button onClick={() => handleDelete(row.id)}>delete</Button> : ''}
+                   
                             <br />
                             </div>
+                            <Link to={`/articles/${row.id}/comments`}><CommentIcon color='primary'></CommentIcon></Link>
+                            {row.user.user.id === parseInt(localStorage.getItem('user_id')) ? 
+                            <Button onClick={() => handleDelete(row.id)}>delete</Button> : ''}
                         </CardContent>
+                   
                     </Card>
+             
                 </div>
             ))}
         </div>
