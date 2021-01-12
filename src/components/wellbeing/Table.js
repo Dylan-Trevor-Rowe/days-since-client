@@ -71,11 +71,10 @@ export function DataTable(props) {
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-
-                        <TableCell style={{ fontFamily: 'Tinos', fontSize: 'larger' }}>Averages</TableCell>
+                        <TableCell style={{ fontFamily: 'Tinos', fontSize: 'larger' }}>All Time averages</TableCell>
                         <TableCell style={{ fontFamily: 'Tinos', fontSize: 'larger' }} align="right">Sleep Average</TableCell>
                         <TableCell style={{ fontFamily: 'Tinos', fontSize: 'larger' }} align="right">Pain Average</TableCell>
-                        <TableCell style={{ fontFamily: 'Tinos', fontSize: 'larger' }} align="right">Fatigue Average(g)</TableCell>
+                        <TableCell style={{ fontFamily: 'Tinos', fontSize: 'larger' }} align="right">Fatigue Average</TableCell>
                         <TableCell style={{ fontFamily: 'Tinos', fontSize: 'larger' }} align="right">Emotional Average</TableCell>
                     </TableRow>
                 </TableHead>

@@ -307,7 +307,6 @@ export function WellBeingForm(props) {
                     <h3 style={{ fontFamily: 'Belleza' }}>fatigue-scale: 1-5</h3>
                 </Typography>
                 <Slider
-
                     value={sliderValue}
                     onChange={updateRange}
                     getAriaValueText={valuetext}
@@ -322,7 +321,6 @@ export function WellBeingForm(props) {
                     <h3 style={{ fontFamily: 'Belleza' }}>pain-scale: 1-5</h3>
                 </Typography>
                 <Slider
-
                     value={sliderValueTwo}
                     onChange={updateRangeTwo}
                     getAriaValueText={valuetext}
@@ -359,8 +357,7 @@ export function WellBeingForm(props) {
                     step={1}
                     marks
                     min={1}
-                    max={10}
-                />
+                    max={10}/>
                 <br />
                 <br />
             </div>

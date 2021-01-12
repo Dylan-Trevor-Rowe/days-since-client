@@ -105,9 +105,11 @@ export function Articles(props) {
                    
                             <br />
                             </div>
+                            <div className= "link_container">
                             <Link to={`/articles/${row.id}/comments`}><CommentIcon color='primary'></CommentIcon></Link>
                             {row.user.user.id === parseInt(localStorage.getItem('user_id')) ? 
                             <Button onClick={() => handleDelete(row.id)}>delete</Button> : ''}
+                            </div>
                         </CardContent>
                    
                     </Card>

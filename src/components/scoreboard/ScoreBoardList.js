@@ -6,9 +6,6 @@ import Button from '@material-ui/core/Button';
 import './ScoreBoard.css';
 import { MediaCard } from '../wellbeing/MsContainer';
 
-
-
-
 export const ScoreBoardList = (props) => {
 
   const { getQuoteData, quoteData, } = useContext(QuoteContext)
@@ -24,8 +21,8 @@ export const ScoreBoardList = (props) => {
       flexDirection: 'row',
       justifyContent: 'space-evenly',
       alignContent: 'center',
-      
-      },
+
+    },
     paper: {
       marginTop: 50,
       marginRight: 20,
@@ -33,7 +30,7 @@ export const ScoreBoardList = (props) => {
       maxHeight: 300,
       maxWidth: 300,
       borderColor: 'grey.500',
-  },
+    },
     control: {
       padding: theme.spacing(2),
     },
@@ -42,10 +39,9 @@ export const ScoreBoardList = (props) => {
     },
   }));
 
-
   const userId = localStorage.getItem("user_id")
   const numbers = JSON.parse(localStorage.getItem("numbers")) || []
- const newValues = numbers.map((int) => {
+  const newValues = numbers.map((int) => {
     return int
   })
   const filtered = newValues.filter(number => number.userId === userId)
@@ -61,13 +57,10 @@ export const ScoreBoardList = (props) => {
       num: num + 1
     }
     // function that creates an object and sets the state to num + 1
-    
     numbers.push(lastVal)
-  
     // push object into an empty array called numbers and set it in local state
     localStorage.setItem("numbers", JSON.stringify(numbers))
   }
-
   const decrease = () => {
     setNum(0)
     const lastVal = {
@@ -90,7 +83,6 @@ export const ScoreBoardList = (props) => {
   return <>
 
     <div container className={classes.root} spacing={2}>
-
       <Paper className={classes.paper} style={{ border: 'solid', borderWidth: '1px' }} >
         <div>
           <Button onClick={() => increase()}>LOG</Button>
@@ -107,9 +99,7 @@ export const ScoreBoardList = (props) => {
           </div>
         </div>
       </Paper>
-      <MediaCard className={classes.media}/>
+      <MediaCard className={classes.media} />
     </div>
-
-
   </>
 }

@@ -16,17 +16,11 @@ import { Journal } from './journalentry/Journal'
 import { Articles } from './articles/Articles'
 import { ArticleProvider } from "./articles/ArticleProvider"
 import { ArticleForm } from "./articles/ArticleForm"
-import { CommentDetails }  from './comments/Comments'
+import { CommentDetails } from './comments/Comments'
 import { CommentProvider } from "./comments/CommentProvider"
 import { CommentForm } from "./comments/CommentForm"
 import { QuoteProvider } from "./quotes/QuoteProvider"
 import { DataTable } from "./wellbeing/Table"
-
-
-
-
-
-
 
 export const ApplicationViews = (props) => {
 
@@ -38,7 +32,7 @@ export const ApplicationViews = (props) => {
                         <WellBeingProvider>
                             <ArticleProvider>
                                 <CommentProvider>
-             
+
                                     <NavBar />
                                     <Route exact path="/login"></Route>
                                     <Route
@@ -73,19 +67,15 @@ export const ApplicationViews = (props) => {
                                     <Route path="/goals" exact component={GoalsList} render={(matchProps) => {
                                         return <GoalsList {...props} {...matchProps} />
                                     }} />
-                                             <Route
+                                    <Route
                                         exact
                                         path="/Table"
                                         render={(props, matchProps) => (
                                             <>
 
                                                 <DataTable {...props} {...matchProps} />
-                                              
-
-
                                             </>
-                                        )}
-                                    />
+                                        )} />
 
                                     <Route exact path="/journalform" render={(matchProps) => {
                                         return <JournalEntryForm {...props} {...matchProps} />
@@ -117,20 +107,12 @@ export const ApplicationViews = (props) => {
                                         path="/articles/:articleId(\d+)/comments"
                                         render={(props, matchProps) => (
                                             <>
-
                                                 <CommentDetails {...props} {...matchProps} />
                                                 <CommentForm {...props} {...matchProps} />
-
-
-                                            </>
-                                        )}
-                                    />
+                                            </>)} />
                                     <ScoreBoardProvider>
                                         <QuoteProvider>
-                                            <Route exact path="/">
-
-                                                <ScoreBoardList />
-                                       
+                                            <Route exact path="/"><ScoreBoardList />
                                             </Route>
                                         </QuoteProvider>
                                     </ScoreBoardProvider>

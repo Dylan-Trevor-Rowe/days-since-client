@@ -66,8 +66,7 @@ export function WellBeingList(props) {
 
     const handleChange = (event) => {
         setWellBeingValue(event.target.value);
-        // setSelectedValue(event.target.value)
-    };
+       };
 
     const filteredWellBeingData = wellBeingData.filter((val) => {
         return val.id === selectedWellBeingValue
