@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button';
 import './Articles.css'
 import { ArticleContext } from './ArticleProvider';
 
-
 const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
@@ -37,11 +36,11 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'white',
         padding: 20
     }
-
 }));
 
 export function ArticleForm() {
     const { getArticleData, createArticleData } = useContext(ArticleContext)
+
     const [localState, setLocalState] = useState({})
 
     const classes = useStyles();
@@ -58,8 +57,6 @@ export function ArticleForm() {
         getArticleData()
     }, [])
 
-
-
     const constructANewArticle = () => {
         if (localState.date && localState.title && localState.link) {
 
@@ -74,7 +71,6 @@ export function ArticleForm() {
             return alert('fill out all fields')
         }
     }
-
 
     return <>
         <form className={classes.container} noValidate>
@@ -91,14 +87,29 @@ export function ArticleForm() {
                         shrink: true,
                     }}
                 />
-                <TextField id="standard-basic" label="title" name="title" defaultValue={localState.title} onChange={handleControlledInputChange} />
-                <TextField id="standard-basic" label="link" name="link" defaultValue={localState.link} onChange={handleControlledInputChange} />
+                <TextField id="standard-basic"
+                    label="title" name="title"
+                    defaultValue={localState.title}
+                    onChange={handleControlledInputChange} />
+                <TextField id="standard-basic"
+                    label="link"
+                    name="link"
+                    defaultValue={localState.link}
+                    onChange={handleControlledInputChange} />
             </div>
             <div className='articleform_button'>
-                <Button style={{ backgroundColor: "#1B4353", marginLeft: 10 }} type="submit" variant="contained" color="primary" onClick={evt => {
-                    evt.preventDefault()
-                    constructANewArticle()
-                }}>submit</Button>
+                <Button
+                    style={{ backgroundColor: "#1B4353", marginLeft: 10 }}
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    onClick={evt => {
+                        
+                        evt.preventDefault()
+                        
+                        constructANewArticle()
+                        
+                    }}>submit</Button>
             </div>
         </form>
     </>

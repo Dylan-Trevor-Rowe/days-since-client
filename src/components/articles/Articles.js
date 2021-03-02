@@ -2,7 +2,6 @@ import { useContext, useEffect } from 'react'
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import { ArticleContext } from './ArticleProvider';
 import Button from '@material-ui/core/Button';
 import './Articles.css'
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     title: {
         fontSize: 14,
         border: 'solid',
-        
+
     },
     pos: {
         marginBottom: 12,
@@ -77,43 +76,66 @@ export function Articles(props) {
         </div>
         <div className={classes.root}>
             {articleData.map((row) => (
-            <div key={row.id}>
+                <div key={row.id}>
                     <Card className={classes.Card} variant="outlined">
                         <CardContent>
-                            <Typography className={classes.title} color="textSecondary" gutterBottom>
-                               <h3 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}>Date: {row.date}</h3>
+                            <Typography
+                                className={classes.title}
+                                color="textSecondary" gutterBottom>
+                                <h3 style={{
+                                    fontFamily: 'Tinos',
+                                    fontSize: 'larger'
+                                }}>
+                                    Date: {row.date}</h3>
                                 <br />
                             </Typography>
-                            <Typography variant="h5" component="h2">
+                            <Typography
+                                variant="h5"
+                                component="h2">
                             </Typography>
-                            <Typography className={classes.pos} color="textSecondary">
-                            <h3 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}>Title: {row.title}</h3>
+                            <Typography
+                                className={classes.pos}
+                                color="textSecondary">
+                                <h3 style={{
+                                    fontFamily: 'Tinos',
+                                    fontSize: 'larger'
+                                }}>
+                                    Title: {row.title}</h3>
                                 <br />
                             </Typography>
-                            <Typography className={classes.pos} color="textSecondary">
-                           <a href={row.link}>{row.link}</a>
+                            <Typography className={classes.pos}
+                                color="textSecondary">
+                                <a href={row.link}>{row.link}</a>
                                 <br />
                             </Typography>
-                            <Typography variant="body2" component="p" className={classes.contain}>
-                                <h3 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}>Posted-By: {row.user.user.username}</h3>
+                            <Typography variant="body2"
+                                component="p"
+                                className={classes.contain}>
+                                <h3 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}>
+                                    Posted-By: {row.user.user.username}</h3>
                                 <br />
                             </Typography>
-                            <Typography variant="body2" component="p" className={classes.Buttons}>
+                            <Typography variant="body2"
+                                component="p"
+                                className={classes.Buttons}>
                             </Typography>
                             <br />
                             <div className="link_container">
-                   
-                            <br />
+                                <br />
                             </div>
-                            <div className= "link_container">
-                            <Link to={`/articles/${row.id}/comments`}><CommentIcon color='primary'></CommentIcon></Link>
-                            {row.user.user.id === parseInt(localStorage.getItem('user_id')) ? 
-                            <Button onClick={() => handleDelete(row.id)}>delete</Button> : ''}
+                            <div className="link_container">
+                                <Link to={`/articles/${row.id}/comments`}>
+                                    <CommentIcon color='primary'></CommentIcon>
+                                </Link>
+                                {row.user.user.id ===
+                                    parseInt(localStorage.getItem('user_id')) ?
+                                    <Button
+                                        onClick={() =>
+                                            handleDelete(row.id)}>delete
+                                </Button> : ''}
                             </div>
                         </CardContent>
-                   
                     </Card>
-             
                 </div>
             ))}
         </div>

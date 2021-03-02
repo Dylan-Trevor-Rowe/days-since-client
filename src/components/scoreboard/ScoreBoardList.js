@@ -38,62 +38,25 @@ export const ScoreBoardList = (props) => {
       marginTop: 5
     },
   }));
-
-  const userId = localStorage.getItem("user_id")
-  const numbers = JSON.parse(localStorage.getItem("numbers")) || []
-  const newValues = numbers.map((int) => {
-    return int
-  })
-  const filtered = newValues.filter(number => number.userId === userId)
-  const popped = filtered.pop()
-  const [num, setNum] = useState(popped.num)
-  //getting numbers array in localStorage
-
-  // get the userId created upon log in and registration
-  const increase = () => {
-    setNum(num + 1)
-    const lastVal = {
-      userId,
-      num: num + 1
-    }
-    // function that creates an object and sets the state to num + 1
-    numbers.push(lastVal)
-    // push object into an empty array called numbers and set it in local state
-    localStorage.setItem("numbers", JSON.stringify(numbers))
-  }
-  const decrease = () => {
-    setNum(0)
-    const lastVal = {
-      userId,
-      num: 0
-    }
-
-    numbers.push(lastVal)
-    localStorage.setItem("numbers", JSON.stringify(numbers))
-    window.location.reload();
-  }
-
-  const userNum = numbers.filter(number => number.userId === userId)
-  //  filter numbers where userId in the numbers array = localstoreage.getitem('user_id)
-  //  if there is a number like that slice it out and user it. 
-  const specificNum = userNum[0] && userNum.slice(-1)[0].num
-
   const randomQuote = quoteData.splice(Math.floor(Math.random() * quoteData.length), 1);
   const classes = useStyles();
   return <>
-
     <div container className={classes.root} spacing={2}>
       <Paper className={classes.paper} style={{ border: 'solid', borderWidth: '1px' }} >
         <div>
           <Button onClick={() => increase()}>LOG</Button>
           <Button onClick={() => decrease()}>reset</Button>
           <h1 style={{ fontFamily: 'Belleza' }}>Days-Since</h1>
-          <h3 style={{ fontFamily: 'Tinos', fontSize: 'larger' }}>{specificNum}</h3>
           <div>
             {randomQuote.map((quote) => {
               return <div key={quote.id}>
-                <h4 style={{ fontFamily: 'Belleza', fontSize: 'large' }}> "{quote.text}"</h4>
-                {quote.author ? <h4 style={{ fontFamily: 'Tinos', fontSize: 'smaller' }}>  {quote.author}</h4> : <h4>Unknown</h4>}
+                <h4 style={{ fontFamily: 'Belleza', fontSize: 'large' }}>
+                  "{quote.text}"
+                </h4>
+                {quote.author ? <h4 style={{ fontFamily: 'Tinos', fontSize: 'smaller' }}>
+                  {quote.author}
+                </h4>
+                  : <h4>Unknown</h4>}
               </div>
             })}
           </div>

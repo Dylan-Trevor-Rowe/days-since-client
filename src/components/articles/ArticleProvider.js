@@ -1,12 +1,10 @@
 import React, { useState, createContext } from "react"
-
 export const ArticleContext = createContext()
 
 export const ArticleProvider = (props) => {
     const [articleData, setArticleData] = useState([])
-console.log(articleData)
-   
-const getArticleData = async () => {
+
+    const getArticleData = async () => {
         const response = await fetch("http://localhost:8000/articles", {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("days_since_token")}`
@@ -16,8 +14,8 @@ const getArticleData = async () => {
         return setArticleData(value)
 
     }
-   
-const getArticleDataById = async (articleId) => {
+
+    const getArticleDataById = async (articleId) => {
         const response = await fetch(`http://localhost:8000/articles/${articleId}`, {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("days_since_token")}`,
@@ -41,7 +39,6 @@ const getArticleDataById = async (articleId) => {
         return getArticleData(getData)
     }
 
-
     const deleteArticleData = async (id) => {
         const result = await fetch(`http://localhost:8000/articles/${id}`, {
             method: 'DELETE',
@@ -49,12 +46,11 @@ const getArticleDataById = async (articleId) => {
                 "Authorization": `Token ${localStorage.getItem("days_since_token")}`
             },
         })
-        
     }
 
     return (
         <ArticleContext.Provider value={{
-            articleData,getArticleDataById, createArticleData, getArticleData, deleteArticleData
+            articleData, getArticleDataById, createArticleData, getArticleData, deleteArticleData
         }} >
             { props.children}
         </ArticleContext.Provider>

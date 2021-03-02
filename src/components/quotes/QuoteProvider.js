@@ -1,28 +1,27 @@
 import React, { useState, createContext } from "react"
 
-
 export const QuoteContext = createContext()
 
 export const QuoteProvider = (props) => {
-    const [quoteData, setQuoteData] = useState([])
-    console.log(quoteData)
+  const [quoteData, setQuoteData] = useState([])
+  console.log(quoteData)
 
-const getQuoteData = async () => {
+  const getQuoteData = async () => {
     fetch("https://type.fit/api/quotes")
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(data) {
-      setQuoteData(data);
-    });
-}    
-return (
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        setQuoteData(data);
+      });
+  }
+  return (
     <QuoteContext.Provider value={{
-        getQuoteData, quoteData
-  
-       
+      getQuoteData, quoteData
+
+
     }} >
-        { props.children}
+      { props.children}
     </QuoteContext.Provider>
-)
+  )
 }

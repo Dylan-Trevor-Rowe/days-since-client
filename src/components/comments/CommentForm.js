@@ -10,46 +10,50 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: theme.spacing(1),
       width: '25ch',
-
     },
   },
 }));
 
 
-export  function CommentForm(props) {
+export function CommentForm(props) {
 
-    const {  createCommentData, getCommentsByArticleId } = useContext(CommentContext)
-    const [localState, setLocalState] = useState({})
-    // const [newLocal, setNewLocal] = useState([])
+  const { createCommentData, getCommentsByArticleId } = useContext(CommentContext)
 
-    const classes = useStyles();
+  const [localState, setLocalState] = useState({})
+
+  const classes = useStyles();
 
   const handleControlledInputChange = (e) => {
-        const newCommentObject = Object.assign({}, localState)
-        newCommentObject[e.target.name] = e.target.value
-        setLocalState(newCommentObject)
-    }
+    const newCommentObject = Object.assign({}, localState)
+    newCommentObject[e.target.name] = e.target.value
+    setLocalState(newCommentObject)
+  }
 
-    const constructANewComment = () => {
+  const constructANewComment = () => {
     const articleProps = parseInt(props.match.params.articleId)
     const newComment = {
-            user: parseInt(localStorage.getItem("user_id")),
-            comment: localState.comment,
-            article: articleProps
-      }
-
-
-        createCommentData(newComment).then(() => {
-          getCommentsByArticleId(parseInt(props.match.params.articleId))
-        })
+      user: parseInt(localStorage.getItem("user_id")),
+      comment: localState.comment,
+      article: articleProps
     }
-
+    createCommentData(newComment).then(() => {
+      getCommentsByArticleId(parseInt(props.match.params.articleId))
+    })
+  }
   return (
     <div className="comment_form_container">
-    <form className={classes.root} noValidate autoComplete="off">
-    <TextField id="outlined-basic" label="comment" variant="outlined" name='comment' style={{backgroundColor: 'white'}}  onChange={handleControlledInputChange} />
-    <Button onClick={constructANewComment}>add comment</Button>
-    </form>
+      <form className={classes.root} noValidate autoComplete="off">
+        <TextField
+          id="outlined-basic"
+          label="comment"
+          variant="outlined"
+          name='comment'
+          style={{ backgroundColor: 'white' }}
+          onChange={handleControlledInputChange} />
+        <Button onClick={constructANewComment}>
+          add comment
+        </Button>
+      </form>
     </div>
   );
 }
